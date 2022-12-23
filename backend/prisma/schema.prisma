@@ -9,3 +9,53 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            Int        @id @default(autoincrement())
+  firstName     String     @db.VarChar(255)
+  lastName      String     @db.VarChar(255)
+  email         String     @db.VarChar(255)
+  password      String     @db.VarChar(255)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+enum Status {
+  DRAFT
+  ACTIVE
+}
+
+enum ActivityType {
+  ERROR
+  FEEDBACK
+}
+
+model Email {
+  id              Int       @id @default(autoincrement())
+  title           String    @db.VarChar(255)
+  description     String    @db.VarChar(255)
+  status          Status    @default(ACTIVE)
+  html            String    @db.LongText
+  css             String    @db.LongText
+  userId          Int       @unique
+}
+
+model Website {
+  id              Int       @id @default(autoincrement())
+  title           String    @db.VarChar(255)
+  description     String    @db.VarChar(255)
+  status          Status    @default(ACTIVE)
+  html            String    @db.LongText
+  css             String    @db.LongText
+  userId          Int       @unique
+}
+
+model VisitorActivity {
+  id                Int             @id @default(autoincrement())
+  activityType      ActivityType    @default(FEEDBACK)
+  recordedOn        DateTime        
+  status            Status          @default(ACTIVE)
+  html              String          @db.LongText
+  css               String          @db.LongText
+  userId            Int             @unique
+}
