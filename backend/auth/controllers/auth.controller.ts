@@ -2,6 +2,7 @@ import express from 'express';
 import debug from 'debug';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import authService from '../services/auth.service';
 
 const log: debug.IDebugger = debug('app:auth-controller');
 
@@ -16,6 +17,17 @@ const jwtSecret: string = process.env.JWT_SECRET;
 const tokenExpirationInSeconds = 36000;
 
 class AuthController {
+
+    async registerUser(req: express.Request, res: express.Response) {
+      try {
+          log(await authService.createUser(req.body));
+          res.status(200).send();
+      } catch (err) {
+          log('createJWT error: %O', err);
+          return res.status(500).send();
+      }
+    }
+
     async createJWT(req: express.Request, res: express.Response) {
         try {
             log('jwtSecret:', jwtSecret);
