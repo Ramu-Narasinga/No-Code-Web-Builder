@@ -11,13 +11,16 @@ datasource db {
 }
 
 model User {
-  id            Int        @id @default(autoincrement())
-  firstName     String     @db.VarChar(255)
-  lastName      String     @db.VarChar(255)
-  email         String     @db.VarChar(255)
-  password      String     @db.VarChar(255)
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  id                 Int        @id @default(autoincrement())
+  firstName          String     @db.VarChar(255)
+  lastName           String     @db.VarChar(255)
+  email              String     @db.VarChar(255)
+  password           String     @db.VarChar(255)
+  emails             Email[]
+  websites           Website[]
+  visitorActivities  VisitorActivity[]
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
 }
 
 enum Status {
@@ -31,23 +34,30 @@ enum ActivityType {
 }
 
 model Email {
-  id              Int       @id @default(autoincrement())
-  title           String    @db.VarChar(255)
-  description     String    @db.VarChar(255)
-  status          Status    @default(ACTIVE)
-  html            String    @db.LongText
-  css             String    @db.LongText
-  userId          Int       @unique
+  id              Int        @id @default(autoincrement())
+  title           String     @db.VarChar(255)
+  description     String     @db.VarChar(255)
+  status          Status     @default(ACTIVE)
+  html            String     @db.LongText
+  css             String     @db.LongText
+  user            User?      @relation(fields: [userId], references: [id])
+  userId          Int?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
 }
 
 model Website {
-  id              Int       @id @default(autoincrement())
-  title           String    @db.VarChar(255)
-  description     String    @db.VarChar(255)
-  status          Status    @default(ACTIVE)
-  html            String    @db.LongText
-  css             String    @db.LongText
-  userId          Int       @unique
+  id                 Int        @id @default(autoincrement())
+  title              String     @db.VarChar(255)
+  description        String     @db.VarChar(255)
+  status             Status     @default(ACTIVE)
+  html               String     @db.LongText
+  css                String     @db.LongText
+  user               User?      @relation(fields: [userId], references: [id])
+  userId             Int?
+  visitorActivities  VisitorActivity[]
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
 }
 
 model VisitorActivity {
@@ -57,5 +67,10 @@ model VisitorActivity {
   status            Status          @default(ACTIVE)
   html              String          @db.LongText
   css               String          @db.LongText
-  userId            Int             @unique
+  user              User?           @relation(fields: [userId], references: [id])
+  userId            Int?
+  website           Website?        @relation(fields: [websiteId], references: [id])
+  websiteId         Int?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
 }

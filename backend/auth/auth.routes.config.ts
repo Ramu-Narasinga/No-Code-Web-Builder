@@ -12,6 +12,18 @@ export class AuthRoutes extends CommonRoutesConfig {
     }
 
     configureRoutes(): express.Application {
+
+        this.app.post(`/auth/register`, [
+            // TODO: move this to a middleware handler, if possible 
+            body('email').isEmail(),
+            body('password').isString(),
+            body('firstName').isString(),
+            body('lastName').isString(),
+            BodyValidationMiddleware.verifyBodyFieldsErrors,
+            authMiddleware.hashPassword,
+            authController.registerUser,
+        ]);
+
         this.app.post(`/auth`, [
             body('email').isEmail(),
             body('password').isString(),
