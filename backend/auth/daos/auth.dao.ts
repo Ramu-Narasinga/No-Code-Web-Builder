@@ -14,15 +14,6 @@ class AuthDao {
         log('Created new instance of UsersDao');
     }
 
-    // Todo: move the prisma create to users module
-    async createUser(userFields: CreateUserDto) {
-
-        await this.prisma.user.create({
-          data: {
-            ...userFields
-          },
-        })
-    }
 }
 
 export default new AuthDao();
