@@ -23,7 +23,7 @@ class UsersDao {
 
   async createUser(userFields: CreateUserDto) {
 
-    await this.prisma.user.create({
+    return await this.prisma.user.create({
       data: {
         ...userFields
       },
