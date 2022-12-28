@@ -24,7 +24,7 @@ export class AuthRoutes extends CommonRoutesConfig {
             authController.registerUser,
         ]);
 
-        this.app.post(`/auth`, [
+        this.app.post(`/auth/login`, [
             body('email').isEmail(),
             body('password').isString(),
             BodyValidationMiddleware.verifyBodyFieldsErrors,

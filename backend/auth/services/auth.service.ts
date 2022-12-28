@@ -1,39 +1,34 @@
-import AuthDao from '../daos/auth.dao';
-import { CreateUserDto } from '../dto/create.user.dto';
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
+import { LoginUserDto } from "../dto/login.user.dto";
 
+const tokenExpirationInSeconds = 36000;
 class AuthService {
-    async createUser(resource: CreateUserDto) {
-        return AuthDao.createUser(resource);
-    }
+  salt: crypto.KeyObject = {} as crypto.KeyObject;
 
-    // async deleteById(id: string) {
-    //     return UsersDao.removeUserById(id);
-    // }
+  generateAndGetHash(refreshId: string) {
+    let hash = crypto
+      .createHmac("sha512", this.generateAndGetSalt())
+      .update(refreshId)
+      .digest("base64");
 
-    // async list(limit: number, page: number) {
-    //     return UsersDao.getUsers(limit, page);
-    // }
+    return hash;
+  }
 
-    // async patchById(id: string, resource: PatchUserDto) {
-    //     return UsersDao.updateUserById(id, resource);
-    // }
+  generateAndGetSalt() {
+    this.salt = crypto.createSecretKey(crypto.randomBytes(16));
+    return this.salt;
+  }
 
-    // async readById(id: string) {
-    //     return UsersDao.getUserById(id);
-    // }
+  generateAndGetRefreshKey() {
+    return this.salt.export();
+  }
 
-    // async putById(id: string, resource: PutUserDto) {
-    //     return UsersDao.updateUserById(id, resource);
-    // }
-
-    // async getUserByEmail(email: string) {
-    //     return UsersDao.getUserByEmail(email);
-    // }
-
-    // async getUserByEmailWithPassword(email: string) {
-    //     return UsersDao.getUserByEmailWithPassword(email);
-    // }
-
+  generateAndGetJwtToken(requestBody: LoginUserDto, jwtSecret: string) {
+    return jwt.sign(requestBody, jwtSecret, {
+      expiresIn: tokenExpirationInSeconds,
+    });
+  }
 }
 
 export default new AuthService();

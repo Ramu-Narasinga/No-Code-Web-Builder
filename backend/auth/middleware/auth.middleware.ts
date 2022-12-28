@@ -1,5 +1,5 @@
 import express from "express";
-// import usersService from "../../users/services/users.service";
+import usersService from "../../users/services/users.service";
 import * as argon2 from "argon2";
 import { body } from 'express-validator';
 
@@ -9,17 +9,16 @@ class AuthMiddleware {
     res: express.Response,
     next: express.NextFunction
   ) {
-    const user: any = {}
-    // await usersService.getUserByEmailWithPassword(
-    //   req.body.email
-    // );
+    const user: any = await usersService.getUserByEmailWithPassword(
+      req.body.email
+    );
+    console.log("user found", user);
     if (user) {
       const passwordHash = user.password;
       if (await argon2.verify(passwordHash, req.body.password)) {
         req.body = {
-          userId: user._id,
-          email: user.email,
-          permissionFlags: user.permissionFlags,
+          userId: user.id,
+          email: user.email
         };
         return next();
       }
