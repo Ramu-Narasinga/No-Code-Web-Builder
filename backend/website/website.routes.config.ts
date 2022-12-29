@@ -11,6 +11,7 @@ export class WebsiteRoutes extends CommonRoutesConfig {
   }
 
   configureRoutes(): express.Application {
+    
     this.app.post(`/website`, [
       jwtMiddleware.validJWTNeeded,
       body("title").isString(),
@@ -21,6 +22,19 @@ export class WebsiteRoutes extends CommonRoutesConfig {
       body("userId").isInt(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       websiteController.createWebsite,
+    ]);
+
+    this.app.put(`/website`, [
+      jwtMiddleware.validJWTNeeded,
+      body("id").isNumeric(),
+      body("title").exists().isString(),
+      body("description").exists().isString(),
+      body("status").exists().isString(),
+      body("html").exists().isString(),
+      body("css").exists().isString(),
+      body("userId").exists().isInt(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      websiteController.updateWebsite,
     ]);
 
     return this.app;

@@ -11,3 +11,13 @@ export interface CreateWebsiteDto {
   css: string;
   userId: number;
 }
+
+export interface UpdateWebsiteDto {
+  id: number;
+  title?: string;
+  description?: string;
+  status?: Status;
+  html?: string;
+  css?: string;
+  userId?: number;
+}
