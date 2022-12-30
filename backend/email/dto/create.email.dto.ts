@@ -3,7 +3,7 @@ enum Status {
   ACTIVE = 'ACTIVE'
 }
 
-export interface CreateWebsiteDto {
+export interface CreateEmailDto {
   title: string;
   description: string;
   status: Status;
@@ -12,7 +12,7 @@ export interface CreateWebsiteDto {
   userId: number;
 }
 
-export interface UpdateWebsiteDto {
+export interface UpdateEmailDto {
   id: number;
   title?: string;
   description?: string;

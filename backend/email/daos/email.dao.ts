@@ -1,36 +1,36 @@
 import prismaService from "../../common/services/prisma.service";
 import debug from "debug";
 import { PrismaClient } from "@prisma/client";
-import { CreateWebsiteDto, UpdateWebsiteDto } from "../dto/create.website.dto";
+import { CreateEmailDto, UpdateEmailDto } from "../dto/create.email.dto";
 
 const log: debug.IDebugger = debug("app:in-memory-dao");
 
-class WebsiteDao {
+class EmailDao {
   prisma: PrismaClient;
 
   constructor() {
-    log("Created new instance of WebsiteDao");
+    log("Created new instance of EmailDao");
     this.prisma = prismaService.getPrismaClient();
   }
 
-  async createWebsite(website: CreateWebsiteDto) {
+  async createEmail(email: CreateEmailDto) {
     return await this.prisma.website.create({
       data: {
-        ...website
+        ...email
       },
     })
   }
 
-  async updateWebsite(website: UpdateWebsiteDto) {
+  async updateEmail(email: UpdateEmailDto) {
     return await this.prisma.website.update({
       where: {
-        id: website.id
+        id: email.id
       },
       data: {
-        ...website
+        ...email
       },
     })
   }
 }
 
-export default new WebsiteDao();
+export default new EmailDao();

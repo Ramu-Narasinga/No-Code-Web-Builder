@@ -3,7 +3,7 @@ import express from "express";
 import BodyValidationMiddleware from "../common/middleware/body.validation.middleware";
 import { body } from "express-validator";
 import jwtMiddleware from "../auth/middleware/jwt.middleware";
-import websiteController from "./controllers/website.controller";
+import emailController from "./controllers/email.controller";
 
 export class EmailRoutes extends CommonRoutesConfig {
   constructor(app: express.Application) {
@@ -21,7 +21,7 @@ export class EmailRoutes extends CommonRoutesConfig {
       body("css").isString(),
       body("userId").isInt(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
-      websiteController.createWebsite,
+      emailController.createEmail,
     ]);
 
     this.app.put(`/email`, [
@@ -34,7 +34,7 @@ export class EmailRoutes extends CommonRoutesConfig {
       body("css").exists().isString(),
       body("userId").exists().isInt(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
-      websiteController.updateWebsite,
+      emailController.updateEmail,
     ]);
 
     return this.app;
