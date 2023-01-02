@@ -41,21 +41,27 @@ model Email {
   html            String     @db.LongText
   css             String     @db.LongText
   user            User?      @relation(fields: [userId], references: [id])
-  userId          Int?       
-  subject         String     @db.LongText
-  fromName        String     @db.Text
-  recipients      Recipient[]
+  userId          Int?
+  emailMeta       EmailMeta?
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 }
 
-model Recipient {
-  id                 Int           @id @default(autoincrement())
-  email              Email?        @relation(fields: [emailId], references: [id])
-  emailId            Int?
-  recipientEmail     String        @unique
+model EmailMeta {
+  id              Int         @id @default(autoincrement())
+  subject         String      @db.LongText
+  fromName        String      @db.Text
+  recipients      Recipient[]
+  email           Email       @relation(fields: [emailId], references: [id])
+  emailId         Int         @unique
 }
 
+model Recipient {
+  id                 Int           @id @default(autoincrement())
+  emailMeta          EmailMeta?    @relation(fields: [emailMetaId], references: [id])
+  emailMetaId        Int?
+  recipientEmail     String        @unique
+}
 model Website {
   id                 Int        @id @default(autoincrement())
   title              String     @db.VarChar(255)

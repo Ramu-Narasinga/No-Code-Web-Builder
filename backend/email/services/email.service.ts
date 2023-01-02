@@ -1,13 +1,12 @@
 import EmailDao from "../daos/email.dao";
-import { CreateEmailDto, UpdateEmailDto } from "../dto/create.email.dto";
-
-
+import { CreateEmail } from "../dto/create.email.dto";
+import { UpdateEmail } from "../dto/update.email.dto";
 class EmailService {
-  async createEmail(resource: CreateEmailDto) {
+  async createEmail(resource: CreateEmail) {
     return EmailDao.createEmail(resource);
   }
 
-  async updateEmail(resource: UpdateEmailDto) {
+  async updateEmail(resource: UpdateEmail) {
     return EmailDao.updateEmail(resource);
   }
 }
