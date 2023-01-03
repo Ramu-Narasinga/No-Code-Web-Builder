@@ -78,15 +78,31 @@ model Website {
 
 model VisitorActivity {
   id                Int             @id @default(autoincrement())
-  activityType      ActivityType    @default(FEEDBACK)
-  recordedOn        DateTime        
-  status            Status          @default(ACTIVE)
-  html              String          @db.LongText
-  css               String          @db.LongText
+  activityType      ActivityType    
+  errorActivity     ErrorActivity?
+  feedbackActivity  FeedbackActivity?
+  city              String
+  region            String
+  country           String
   user              User?           @relation(fields: [userId], references: [id])
   userId            Int?
   website           Website?        @relation(fields: [websiteId], references: [id])
   websiteId         Int?
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
+}
+
+model ErrorActivity {
+  id                    Int               @id @default(autoincrement())
+  endpoint              String
+  visitorActivity       VisitorActivity   @relation(fields: [visitorActivityId], references: [id])
+  visitorActivityId     Int               @unique
+}
+
+model FeedbackActivity {
+  id                    Int               @id @default(autoincrement())
+  rating                String
+  comment               String
+  visitorActivity       VisitorActivity   @relation(fields: [visitorActivityId], references: [id])
+  visitorActivityId     Int               @unique
 }
