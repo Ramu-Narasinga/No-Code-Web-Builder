@@ -8,10 +8,10 @@ class VisitorActivityController {
  
   async createFeedbackActivity(req: express.Request, res: express.Response) {
     try {
-      log(await visitorActivityService.createWebsite(req.body));
+      log(await visitorActivityService.createFeedbackActivity(req.body));
       res.status(200).send();
     } catch (err) {
-      log("create website error: %O", err);
+      log("Create Feedback Activity Error %0:", err);
       return res.status(500).send();
     }
   }
