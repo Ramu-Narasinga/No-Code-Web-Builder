@@ -20,7 +20,7 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
       body("country").isString(),
       body("userId").isInt(),
       body("websiteId").isInt(),
-      body("activityEvents").isString(),
+      body("activityEvents").isArray(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       visitorActivityController.uploadActivityEvents,
       visitorActivityController.createFeedbackActivity,

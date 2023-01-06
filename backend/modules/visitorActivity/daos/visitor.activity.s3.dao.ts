@@ -12,11 +12,11 @@ class VisitorActivityS3Dao {
   });
 
   constructor() {
-    log("Created new instance of VisitorActivityS3Dao");
+    log("Created new instance of VisitorActivityS3Dao", process.env.AWS_BUCKET_NAME);
     config();
   }
 
-  async uploadActivityEvents(events: string) {
+  async uploadActivityEvents(events: any[]) {
     try {
       const filename = Date.now();
 

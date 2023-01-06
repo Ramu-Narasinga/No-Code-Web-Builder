@@ -23,7 +23,7 @@ class VisitorActivityController {
 
   async uploadActivityEvents(req: express.Request, res: express.Response, next: NextFunction) {
     try {
-      let activityEventsRes = await visitorActivityService.uploadActivityEvents(req.body);
+      let activityEventsRes = await visitorActivityService.uploadActivityEvents(req.body.activityEvents);
       console.log("activityEventsRes:", activityEventsRes);
       res.locals.activityEventsRes = activityEventsRes;
       next();
