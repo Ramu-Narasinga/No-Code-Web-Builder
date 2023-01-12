@@ -5,10 +5,12 @@ enum ActivityType {
 
 export interface CreateFeedbackActivity {
   activityType: ActivityType;
+  ip: string;
   city: string;
   region: string;
   country: string;
   userId: number;
   websiteId: number;
-  activityEvents: string;
+  activityEvents?: any[];
+  activityEventsUrl: string;
 }

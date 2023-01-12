@@ -15,14 +15,10 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
     this.app.post(`/feedback-activity`, [
       jwtMiddleware.validJWTNeeded,
       body("activityType").isString(),
-      body("city").isString(),
-      body("region").isString(),
-      body("country").isString(),
       body("userId").isInt(),
       body("websiteId").isInt(),
       body("activityEvents").isArray(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
-      visitorActivityController.uploadActivityEvents,
       visitorActivityController.createFeedbackActivity,
     ]);
 

@@ -81,6 +81,7 @@ model VisitorActivity {
   activityType      ActivityType    
   errorActivity     ErrorActivity?
   feedbackActivity  FeedbackActivity?
+  ip                String
   city              String
   region            String
   country           String
@@ -88,7 +89,7 @@ model VisitorActivity {
   userId            Int?
   website           Website?        @relation(fields: [websiteId], references: [id])
   websiteId         Int?
-  activityEvents    String
+  activityEventsUrl    String
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }

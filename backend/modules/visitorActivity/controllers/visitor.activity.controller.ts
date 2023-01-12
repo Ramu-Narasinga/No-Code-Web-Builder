@@ -9,26 +9,10 @@ class VisitorActivityController {
   async createFeedbackActivity(req: express.Request, res: express.Response) {
     try {
 
-      let activityEvents = res.locals.activityEventsRes.Location;
-
-      let payload = {...req.body, activityEvents};
-
-      log(await visitorActivityService.createFeedbackActivity(payload));
+      log(await visitorActivityService.createFeedbackActivity(req.body));
       res.status(200).send();
     } catch (err) {
       log("Create Feedback Activity Error %0:", err);
-      return res.status(500).send();
-    }
-  }
-
-  async uploadActivityEvents(req: express.Request, res: express.Response, next: NextFunction) {
-    try {
-      let activityEventsRes = await visitorActivityService.uploadActivityEvents(req.body.activityEvents);
-      console.log("activityEventsRes:", activityEventsRes);
-      res.locals.activityEventsRes = activityEventsRes;
-      next();
-    } catch (err) {
-      log("Upload Activity Events Error in controller %0:", err);
       return res.status(500).send();
     }
   }
