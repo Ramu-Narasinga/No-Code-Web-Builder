@@ -1,0 +1,15 @@
+.auth-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .left-pane {
+    flex: 50%;
+    background: #005AAD;
+    color: white;
+  }
+
+  .right-pane {
+    flex: 50%;
+  }
+}
