@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: 'email',
     loadChildren: () =>
       import('./email/email.module').then((m) => m.EmailModule),
@@ -19,6 +23,11 @@ const routes: Routes = [
         (m) => m.VisitorActivityModule
       ),
   },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'auth',
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
