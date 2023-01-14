@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 enum AuthType {
   LOGIN = 'LOGIN',
@@ -10,15 +11,18 @@ enum AuthType {
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent {
-  authType: AuthType = AuthType.LOGIN;
+export class LayoutComponent implements OnInit {
+  authType: string = AuthType.LOGIN;
 
-  constructor() {
-
-  }
+  constructor(private route: ActivatedRoute) {}
 
   public get AuthType(): typeof AuthType {
     return AuthType
   }
 
+  ngOnInit() {
+    console.log("what are you", this.route.snapshot.url[0].path);
+    this.authType = this.route.snapshot.url[0].path.toUpperCase();
+    console.log("this.authType:", this.authType);
+  }
 }

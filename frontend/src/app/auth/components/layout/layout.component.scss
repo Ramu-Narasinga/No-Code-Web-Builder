@@ -7,6 +7,19 @@
     flex: 50%;
     background: #005AAD;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 2%;
+
+    .ncwb-title {
+      font-size: 2.5rem;
+    }
+
+    .ncwb-caption {
+      font-size: 1.5rem;
+      margin-top: 4%;
+    }
   }
 
   .right-pane {
