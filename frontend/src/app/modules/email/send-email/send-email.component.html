@@ -1,0 +1,27 @@
+<div class="send-email-wrapper">
+  <div class="se-fel">
+    <div class="se-fel-label">Subject:</div>
+    <div class="se-fel-value">
+      <input type="text" placeholder="Enter subject" />
+    </div>
+  </div>
+
+  <div class="se-fel">
+    <div class="se-fel-label">From Email:</div>
+    <div class="se-fel-value">
+      <input type="text"  placeholder="Enter from email" />
+    </div>
+  </div>
+
+  <div class="se-fel">
+    <div class="se-fel-label">Add Recipients:</div>
+    <div class="se-fel-value"><tag-input
+        [(ngModel)]='recipients'
+        [placeholder]="'Enter recipients'"
+      ></tag-input></div>
+  </div>
+
+  <div class="se-fel">
+   <button class="se-btn">Send Email</button>
+  </div>
+</div>
