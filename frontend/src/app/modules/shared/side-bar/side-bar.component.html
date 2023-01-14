@@ -1,18 +1,18 @@
 <div class="sidebar-container">
-  <div class="sidebar-icon-container" [routerLink]="'website'">
-    <div class="sb-ic-wrapper">
+  <div class="sidebar-icon-container" [routerLink]="'website'" (click)="setActiveModule(DashBoardModules.Website)">
+    <div class="sb-ic-wrapper" [ngClass]="{'sbim-active': activeModule == DashBoardModules.Website}">
       <div><img class="sb-icon" src="assets/side-bar/website-builder.svg" /></div>
       <div class="sb-icon-title">Website</div>
     </div>
   </div>
-  <div class="sidebar-icon-container" [routerLink]="'email'">
-    <div class="sb-ic-wrapper">
+  <div class="sidebar-icon-container" [routerLink]="'email'" (click)="setActiveModule(DashBoardModules.Email)">
+    <div class="sb-ic-wrapper" [ngClass]="{'sbim-active': activeModule == DashBoardModules.Email}">
       <div><img class="sb-icon" src="assets/side-bar/email-builder.svg" /></div>
       <div class="sb-icon-title">Email</div>
     </div>
   </div>
-  <div class="sidebar-icon-container" [routerLink]="'visitor-activity'">
-    <div class="sb-ic-wrapper">
+  <div class="sidebar-icon-container" [routerLink]="'visitor-activity'" (click)="setActiveModule(DashBoardModules.VisitorActivity)">
+    <div class="sb-ic-wrapper" [ngClass]="{'sbim-active': activeModule == DashBoardModules.VisitorActivity}">
       <div><img class="sb-icon" src="assets/side-bar/visitor-activity.svg" /></div>
       <div class="sb-icon-title">Visitor Activity</div>
     </div>
