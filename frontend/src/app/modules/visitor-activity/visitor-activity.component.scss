@@ -7,4 +7,59 @@
     margin: 0 auto;
     width: 94%;
   }
+  .va-list {
+    height: 100%;
+    overflow-y: scroll;
+    .va-item {
+      background: white;
+      width: 90%;
+      margin: 2% auto;
+      padding: 2%;
+      border-radius: 5px; // TODO: move this scss variable
+      display: flex;
+      flex-direction: row;
+      gap: 3%;
+
+      .va-event-player {
+        background: black;
+        min-height: 250px;
+        min-width: 550px;
+        border-radius: 5px;
+      }
+
+      .va-info {
+        flex: 65%;
+        position: relative;
+
+        .va-type {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 0.9rem;
+        }
+
+        .va-type-error {
+          border: 1px solid #ff0000;
+          color: #ff0000;
+        }
+
+        .va-type-feedback {
+          border: 1px solid #005aad;
+          color: #005aad;
+        }
+
+        .va-info-lc {
+          margin: 4%;
+          .va-info-label {
+            color: #99a3ad;
+          }
+          .va-info-lv {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
 }
