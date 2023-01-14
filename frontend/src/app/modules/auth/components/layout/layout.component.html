@@ -4,7 +4,8 @@
     <div class="ncwb-caption">Build awesome websites, emails with advanced analytics</div>
   </div>
   <div class="right-pane">
-    <app-login *ngIf="authType == AuthType.LOGIN"></app-login>
-    <app-signup *ngIf="authType == AuthType.SIGNUP"></app-signup>
+    <!-- <app-login *ngIf="authType == AuthType.LOGIN"></app-login>
+    <app-signup *ngIf="authType == AuthType.SIGNUP"></app-signup> -->
+    <router-outlet></router-outlet>
   </div>
 </div>

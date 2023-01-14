@@ -1,0 +1,15 @@
+.ncwb-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .ncwb-sb {
+    flex: 20%;
+    background-color: white;
+    padding-top: 8%;
+  }
+
+  .ncwb-ro {
+    flex: 80%;
+  }
+}
