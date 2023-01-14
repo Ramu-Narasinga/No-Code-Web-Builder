@@ -1,1 +1,37 @@
-<p>visitor-activity works!</p>
+<div class="va-container">
+  <div class="va-title">Website Visitor Activity</div>
+  <div class="va-list">
+    <div class="va-item" *ngFor="let visitorActivity of visitorActivities">
+      <div class="va-event-player">
+
+      </div>
+      <div class="va-info">
+        <div class="va-city">
+          <span>City:</span>
+          <span>{{visitorActivity.city}}</span>
+        </div>
+        <div class="va-region">
+          <span>Region:</span>
+          <span>{{visitorActivity.region}}</span>
+        </div>
+        <div class="va-country">
+          <span>Country:</span>
+          <span>{{visitorActivity.country}}</span>
+        </div>
+        <div *ngIf="visitorActivity.activityType == Activitytype.FEEDBACK">
+          <span>Rating</span>
+          <span>{{visitorActivity.rating}}</span>
+        </div>
+        <div *ngIf="visitorActivity.activityType == Activitytype.FEEDBACK">
+          <span>Comment</span>
+          <span>{{visitorActivity.comment}}</span>
+        </div>
+        <div *ngIf="visitorActivity.activityType == Activitytype.ERROR">
+          <span>Error found at</span>
+          <span>{{visitorActivity.endpoint}}</span>
+        </div>
+      </div>
+      <div class="va-type">Error</div>
+    </div>
+  </div>
+</div>

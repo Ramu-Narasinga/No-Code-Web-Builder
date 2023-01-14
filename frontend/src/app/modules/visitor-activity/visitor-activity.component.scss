@@ -1,0 +1,10 @@
+.va-container {
+  padding-top: 5%;
+
+  .va-title {
+    color: #005aad; // TODO: replace this color with a variable using scss variable feature
+    font-size: 2rem;
+    margin: 0 auto;
+    width: 94%;
+  }
+}
