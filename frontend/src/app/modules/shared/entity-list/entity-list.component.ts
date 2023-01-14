@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 
 export enum Status {
   PUBLISHED = "PUBLISHED",
@@ -24,5 +24,13 @@ export class EntityListComponent {
 
   public get Status(): typeof Status {
     return Status;
+  }
+
+  handleEntityStatus(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
+  handleEntityDelete(event: MouseEvent) {
+    event.stopPropagation();
   }
 }

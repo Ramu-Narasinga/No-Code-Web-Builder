@@ -1,1 +1,16 @@
-<app-enitity-editor></app-enitity-editor>
+<div class="website-edit-container">
+
+  <div class="website-edit-header">
+    <div class="we-back-btn-container">
+      <button class="we-back-btn" [routerLink]="['/dashboard/website']">
+        <img src="assets/entity-edit/back-arrow.png" />
+        <span></span>Back
+      </button>
+    </div>
+    <div class="website-edit-title">{{website.title}}</div>
+    <div></div>
+  </div>
+  <app-enitity-editor
+
+  ></app-enitity-editor>
+</div>

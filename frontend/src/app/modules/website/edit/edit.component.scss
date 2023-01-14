@@ -1,0 +1,28 @@
+.website-edit-header {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
+  align-items: center;
+
+  .we-back-btn {
+    background: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6%;
+    cursor: pointer;
+
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  .website-edit-title {
+    font-size: 1.5rem;
+    color: #005AAD;
+    text-decoration: underline;
+  }
+}
