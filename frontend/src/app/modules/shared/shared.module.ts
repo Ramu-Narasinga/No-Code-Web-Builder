@@ -4,11 +4,13 @@ import { EntityListComponent } from './entity-list/entity-list.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 
 import { RouterModule } from '@angular/router';
+import { EnitityEditorComponent } from './enitity-editor/enitity-editor.component';
 
 @NgModule({
   declarations: [
     EntityListComponent,
-    SideBarComponent
+    SideBarComponent,
+    EnitityEditorComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     EntityListComponent,
-    SideBarComponent
+    SideBarComponent,
+    EnitityEditorComponent
   ]
 })
 export class SharedModule { }

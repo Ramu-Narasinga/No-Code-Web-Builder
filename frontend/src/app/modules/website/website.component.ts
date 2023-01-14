@@ -7,16 +7,22 @@ import { Entity, Status } from '../shared/entity-list/entity-list.component';
   styleUrls: ['./website.component.scss']
 })
 export class WebsiteComponent {
+
+  baseEditUrl = '/dashboard/website/edit';
+
   // TODO: to be fetched by api that only lists - status, title, description, pull whats needed
   websites: Entity[] = [{
+    id: 1,
     title: "Website One",
     description: "Sample description one",
     status: Status.DRAFT
   }, {
+    id: 2,
     title: "Website two",
     description: "Sample description two",
     status: Status.DRAFT
   }, {
+    id: 3,
     title: "Website three",
     description: "Sample description three",
     status: Status.DRAFT
