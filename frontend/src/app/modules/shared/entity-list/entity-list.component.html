@@ -1,7 +1,7 @@
 <div class="enitity-list-container">
   <div class="enitity-list-wrapper" *ngFor="let enitity of entities">
     <div class="enitity-list-item">
-      <div class="eli-el">
+      <div class="eli-el" [routerLink]="[baseEditUrl, enitity.id]">
         <div class="eli-el-title">{{ enitity.title }}</div>
         <div class="eli-el-description">{{ enitity.description }}</div>
       </div>

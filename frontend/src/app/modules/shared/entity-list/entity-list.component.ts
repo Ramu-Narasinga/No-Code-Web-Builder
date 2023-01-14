@@ -6,6 +6,7 @@ export enum Status {
 }
 
 export type Entity = {
+  id: number;
   title: string;
   description: string;
   status: Status
@@ -19,6 +20,7 @@ export type Entity = {
 export class EntityListComponent {
 
   @Input() entities: Entity[] = [];
+  @Input() baseEditUrl: string = '';
 
   public get Status(): typeof Status {
     return Status;
