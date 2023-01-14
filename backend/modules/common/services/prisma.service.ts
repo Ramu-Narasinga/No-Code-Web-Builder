@@ -2,8 +2,14 @@ import { PrismaClient } from '@prisma/client';
 
 class PrismaService {
 
+  prisma: PrismaClient;
+
+  constructor() {
+    this.prisma = new PrismaClient();
+  }
+
   getPrismaClient() {
-    return new PrismaClient();
+    return this.prisma;
   }
 
 }

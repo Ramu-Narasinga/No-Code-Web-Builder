@@ -12,14 +12,15 @@ import * as http from 'http';
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import cors from 'cors';
-import {CommonRoutesConfig} from './common/common.routes.config';
+import {CommonRoutesConfig} from './modules/common/common.routes.config';
 // import {UsersRoutes} from './users/users.routes.config';
-import { AuthRoutes } from './auth/auth.routes.config';
+import { AuthRoutes } from './modules/auth/auth.routes.config';
 import helmet from 'helmet';
-import { WebsiteRoutes } from './website/website.routes.config';
-import { EmailRoutes } from './email/email.routes.config';
-import { EmailMetaRoutes } from './email/subModules/emailMeta/email.meta.routes.config';
-import { EmailMetaRecipientsRoutes } from './email/subModules/recipient/recipients.routes.config';
+import { WebsiteRoutes } from './modules/website/website.routes.config';
+import { EmailRoutes } from './modules/email/email.routes.config';
+import { EmailMetaRoutes } from './modules/email/subModules/emailMeta/email.meta.routes.config';
+import { EmailMetaRecipientsRoutes } from './modules/email/subModules/recipient/recipients.routes.config';
+import { VisitorActivityRoutes } from './modules/visitorActivity/visitor.activity.routes.config';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -64,6 +65,7 @@ routes.push(new WebsiteRoutes(app));
 routes.push(new EmailRoutes(app));
 routes.push(new EmailMetaRoutes(app));
 routes.push(new EmailMetaRecipientsRoutes(app));
+routes.push(new VisitorActivityRoutes(app));
 
 // this is a simple route to make sure everything is working properly
 const runningMessage = `Server running at http://localhost:${port}`;
