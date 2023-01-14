@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { WebsiteRoutingModule } from './website-routing.module';
 import { WebsiteComponent } from './website.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    WebsiteComponent
+    WebsiteComponent,
   ],
   imports: [
     CommonModule,
-    WebsiteRoutingModule
+    WebsiteRoutingModule,
+    SharedModule
   ]
 })
 export class WebsiteModule { }

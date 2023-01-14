@@ -4,22 +4,22 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'email',
     loadChildren: () =>
-      import('./email/email.module').then((m) => m.EmailModule),
+      import('./modules/email/email.module').then((m) => m.EmailModule),
   },
   {
     path: 'website',
     loadChildren: () =>
-      import('./website/website.module').then((m) => m.WebsiteModule),
+      import('./modules/website/website.module').then((m) => m.WebsiteModule),
   },
   {
     path: 'visitor-activity',
     loadChildren: () =>
-      import('./visitor-activity/visitor-activity.module').then(
+      import('./modules/visitor-activity/visitor-activity.module').then(
         (m) => m.VisitorActivityModule
       ),
   },
