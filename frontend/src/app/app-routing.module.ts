@@ -6,28 +6,7 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
-  {
-    path: 'email',
-    loadChildren: () =>
-      import('./modules/email/email.module').then((m) => m.EmailModule),
-  },
-  {
-    path: 'website',
-    loadChildren: () =>
-      import('./modules/website/website.module').then((m) => m.WebsiteModule),
-  },
-  {
-    path: 'visitor-activity',
-    loadChildren: () =>
-      import('./modules/visitor-activity/visitor-activity.module').then(
-        (m) => m.VisitorActivityModule
-      ),
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'auth',
-  }
+  { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
