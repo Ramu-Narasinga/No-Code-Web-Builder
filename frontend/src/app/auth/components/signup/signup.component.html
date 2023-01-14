@@ -1,1 +1,36 @@
-<p>signup works!</p>
+<div class="signup-form-container">
+
+  <div class="signup-title-container">
+    <div class="signup-title">Sign up</div>
+  </div>
+
+  <div class="form-input-container">
+    <input type="text" [(ngModel)]="name" placeholder="Name" />
+  </div>
+
+  <div class="form-input-container">
+    <input type="email" [(ngModel)]="email" placeholder="Email" />
+  </div>
+
+  <div class="form-input-container">
+    <input type="password" [(ngModel)]="password" placeholder="Password" />
+  </div>
+
+  <div class="form-input-container">
+    <input
+      type="password"
+      [(ngModel)]="confirmPassword"
+      placeholder="Confirm Password"
+    />
+  </div>
+
+  <div class="button-container">
+    <button class="register-btn">Register</button>
+  </div>
+
+  <div class="signup-caption-container">
+    <div class="signup-caption">
+      Already have an account? <a href="/auth/login">Login</a>
+    </div>
+  </div>
+</div>
