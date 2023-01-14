@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Entity, Status } from '../../shared/entity-list/entity-list.component';
 
 @Component({
   selector: 'app-edit',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent {
-
+  website: Entity = {
+    id: 1,
+    title: 'Website One',
+    description: 'Sample Description',
+    status: Status.DRAFT
+  }
 }

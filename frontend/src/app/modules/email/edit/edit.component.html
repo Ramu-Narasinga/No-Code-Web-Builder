@@ -1,1 +1,16 @@
-<app-enitity-editor></app-enitity-editor>
+<div class="email-edit-container">
+
+  <div class="email-edit-header">
+    <div class="ee-back-btn-container">
+      <button class="ee-back-btn" [routerLink]="['/dashboard/email']">
+        <img src="assets/entity-edit/back-arrow.png" />
+        <span></span>Back
+      </button>
+    </div>
+    <div class="email-edit-title">{{email.title}}</div>
+    <div></div>
+  </div>
+  <app-enitity-editor
+
+  ></app-enitity-editor>
+</div>
