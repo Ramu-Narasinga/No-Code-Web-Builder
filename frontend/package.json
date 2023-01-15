@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^15.1.0",
     "@angular/platform-browser-dynamic": "^15.1.0",
     "@angular/router": "^15.1.0",
+    "firebase-tools": "^11.20.0",
     "grapesjs": "^0.20.3",
     "grapesjs-preset-webpage": "^1.0.2",
     "ngx-chips": "^3.0.0",
