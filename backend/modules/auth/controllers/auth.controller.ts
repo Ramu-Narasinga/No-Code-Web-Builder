@@ -21,10 +21,12 @@ class AuthController {
 
   async registerUser(req: express.Request, res: express.Response) {
     try {
+      console.log("inside auth controller");
       log(await usersService.createUser(req.body));
       res.status(200).send();
     } catch (err) {
       log("createJWT error: %O", err);
+      console.log("inside controller error", err);
       return res.status(500).send();
     }
   }

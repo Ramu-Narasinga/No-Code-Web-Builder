@@ -1,8 +1,9 @@
 import { config } from "dotenv";
-import fetch from "node-fetch";
+import { RequestInfo, RequestInit } from "node-fetch";
+
 import VisitorActivityDao from "../daos/visitor.activity.dao";
 import VisitorActivityS3Dao from "../daos/visitor.activity.s3.dao";
-import { CreateFeedbackActivity } from "../dto/create.activity.dto";
+import { CreateFeedbackVisitorActivity, CreateVisitorActivity } from "../dto/create.activity.dto";
 
 class VisitorActivityService {
 
@@ -10,7 +11,9 @@ class VisitorActivityService {
     config();
   }
 
-  async createFeedbackActivity(resource: CreateFeedbackActivity) {
+  fetch = (url: RequestInfo, init?: RequestInit) =>  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
+
+  async createFeedbackActivity(resource: CreateFeedbackVisitorActivity) {
     try {
 
       resource = await this._getUpdatedActivityResource(resource);
@@ -22,21 +25,21 @@ class VisitorActivityService {
     }
   }
 
-  async _getUpdatedActivityResource(resource: CreateFeedbackActivity) {
-    resource = await this._getUpdatedActivityEventsUrlResource(resource);
+  async _getUpdatedActivityResource(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
+    resource = await this.uploadEventsToS3AndReturnEventsUrl(resource);
     resource = await this._getUpdatedVisitorInfoResource(resource);
     return resource;
   }
 
-  async _getUpdatedActivityEventsUrlResource(resource: CreateFeedbackActivity) {
+  async uploadEventsToS3AndReturnEventsUrl(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
     let activityEventsUrl = await VisitorActivityS3Dao.uploadActivityEvents(resource.activityEvents ?? []);
     resource.activityEventsUrl = activityEventsUrl;
     delete resource.activityEvents;
     return resource;
   }
 
-  async _getUpdatedVisitorInfoResource(resource: CreateFeedbackActivity) {
-    const request = await fetch(`${process.env.IPINFO}`);
+  async _getUpdatedVisitorInfoResource(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
+    const request = await this.fetch(`${process.env.IPINFO}`);
     const jsonResponse: any = await request.json();
 
     console.log(jsonResponse.ip, jsonResponse.country);

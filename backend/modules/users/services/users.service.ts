@@ -4,11 +4,12 @@ import { CreateUserDto } from '../dto/create.user.dto';
 class UserService {
     
     async createUser(resource: CreateUserDto) {
-      return UsersDao.createUser(resource);
+      console.log("resource ini yserservice", resource);
+      return await UsersDao.createUser(resource);
     }
 
     async getUserByEmailWithPassword(email: string) {
-      return UsersDao.getUserByEmailWithPassword(email);
+      return await UsersDao.getUserByEmailWithPassword(email);
     }
 
 }

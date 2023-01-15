@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Entity, Status } from '../shared/entity-list/entity-list.component';
+import { Entity, Status } from '../shared/components/entity-list/entity-list.component';
 
 @Component({
   selector: 'app-email',

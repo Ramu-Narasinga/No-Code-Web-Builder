@@ -3,7 +3,7 @@ enum ActivityType {
   ERROR = 'ERROR'
 }
 
-export interface CreateFeedbackActivity {
+export interface CreateVisitorActivity {
   activityType: ActivityType;
   ip: string;
   city: string;
@@ -14,3 +14,10 @@ export interface CreateFeedbackActivity {
   activityEvents?: any[];
   activityEventsUrl: string;
 }
+
+export interface CreateFeedback {
+  rating: number;
+  comment: string;
+}
+
+export interface CreateFeedbackVisitorActivity extends CreateVisitorActivity, CreateFeedback {}
