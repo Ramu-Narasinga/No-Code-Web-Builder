@@ -6,9 +6,6 @@ enum Status {
 export interface CreateWebsiteDto {
   title: string;
   description: string;
-  status: Status;
-  html: string;
-  css: string;
   userId: number;
 }
 

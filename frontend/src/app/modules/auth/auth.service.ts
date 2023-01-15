@@ -23,6 +23,10 @@ export class AuthService {
     return localStorage.getItem('authToken');
   }
 
+  getUserId() {
+    return localStorage.getItem('userId');
+  }
+
 
   authSignupUrl = `${environment.serverUrl}/auth/register`;
 
@@ -49,6 +53,10 @@ export class AuthService {
 
   setRefreshTokenToLocalStorage(refreshToken) {
     localStorage.setItem("refreshToken", refreshToken);
+  }
+
+  setUserId(userId) {
+    localStorage.setItem('userId', userId);
   }
 
 

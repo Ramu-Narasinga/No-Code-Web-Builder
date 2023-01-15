@@ -32,6 +32,7 @@ export class LoginComponent {
     .subscribe((res: LoginResponse) => {
       this.authService.setAuthTokenToLocalStorage(res.accessToken);
       this.authService.setRefreshTokenToLocalStorage(res.refreshToken);
+      this.authService.setUserId(res.userId);
       this.authService.redirectToDashboard();
     });
   }
