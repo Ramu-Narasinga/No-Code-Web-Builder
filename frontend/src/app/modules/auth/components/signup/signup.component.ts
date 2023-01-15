@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -6,8 +7,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  name = '';
+  firstName = '';
+  lastName = '';
   email = '';
   password = '';
   confirmPassword = '';
+
+  constructor(
+    private authService: AuthService
+  ) {}
+
+  private _getSignUpPayload() {
+    return {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      password: this.password,
+    }
+  }
+
+  signup() {
+
+    let signupPayload = this._getSignUpPayload();
+
+    this.authService
+    .signup(signupPayload)
+    .subscribe(res => {
+      console.log("response after signup!!", res);
+    });
+  }
 }

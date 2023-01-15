@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EntityListComponent } from './entity-list/entity-list.component';
-import { SideBarComponent } from './side-bar/side-bar.component';
+import { EntityListComponent } from './components/entity-list/entity-list.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 import { RouterModule } from '@angular/router';
-import { EnitityEditorComponent } from './enitity-editor/enitity-editor.component';
+import { EnitityEditorComponent } from './components/enitity-editor/enitity-editor.component';
 
 @NgModule({
   declarations: [

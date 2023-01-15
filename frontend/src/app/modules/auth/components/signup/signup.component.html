@@ -5,7 +5,11 @@
   </div>
 
   <div class="form-input-container">
-    <input type="text" [(ngModel)]="name" placeholder="Name" />
+    <input type="text" [(ngModel)]="firstName" placeholder="First Name" />
+  </div>
+
+  <div class="form-input-container">
+    <input type="text" [(ngModel)]="lastName" placeholder="Last Name" />
   </div>
 
   <div class="form-input-container">
@@ -25,7 +29,7 @@
   </div>
 
   <div class="button-container">
-    <button class="register-btn">Register</button>
+    <button class="register-btn" (click)="signup()">Register</button>
   </div>
 
   <div class="signup-caption-container">

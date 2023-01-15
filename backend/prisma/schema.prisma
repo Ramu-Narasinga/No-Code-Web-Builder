@@ -103,7 +103,7 @@ model ErrorActivity {
 
 model FeedbackActivity {
   id                    Int               @id @default(autoincrement())
-  rating                String
+  rating                Int
   comment               String
   visitorActivity       VisitorActivity   @relation(fields: [visitorActivityId], references: [id])
   visitorActivityId     Int               @unique
