@@ -11,7 +11,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+<<<<<<< HEAD
       - run: npm run deploy
+=======
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Initializing dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run:  |
+          cd ./frontend
+          npm install
+
+      - name: Creating & Initializing env variables for Admin Package
+        run: |
+          cd ./frontend
+          pwd
+          echo "About to deploy usingg npm run deploy"
+          npm run deploy
+>>>>>>> 9c920cbb6212656e01baec841c0966fd937d14a0
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
