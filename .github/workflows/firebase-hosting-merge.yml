@@ -28,7 +28,7 @@ jobs:
           cd ./frontend
           pwd
           echo "About to deploy usingg npm run deploy"
-          npm run deploy
+          npm run prod-build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
