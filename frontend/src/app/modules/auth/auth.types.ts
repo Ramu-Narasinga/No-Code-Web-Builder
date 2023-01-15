@@ -12,6 +12,7 @@ export type LoginPayload = {
 }
 
 export type LoginResponse = {
-  authToken: string;
+  accessToken: string;
   refreshToken: string;
+  userId: number;
 }

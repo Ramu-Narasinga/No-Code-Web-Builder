@@ -1,8 +1,18 @@
 <div class="website-container">
-  <div class="website-title">Websites</div>
+  <div class="website-title">
+    <div>Websites</div>
+    <div><button (click)="toggleCreateModal(true)">+ Create</button></div>
+  </div>
 
   <app-entity-list
     [entities]="websites"
     [baseEditUrl]="baseEditUrl"
   ></app-entity-list>
+
+  <app-entity-create-modal
+    [showCreateModal]="showCreateModal"
+    [modalTitle]="modalTitle"
+    (closeModal)="toggleCreateModal(false)"
+    (createEntity)="createWebsite($event)"
+  ></app-entity-create-modal>
 </div>

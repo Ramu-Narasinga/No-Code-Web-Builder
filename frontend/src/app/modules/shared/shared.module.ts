@@ -5,21 +5,26 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 import { RouterModule } from '@angular/router';
 import { EnitityEditorComponent } from './components/enitity-editor/enitity-editor.component';
+import { EntityCreateModalComponent } from './components/entity-create-modal/entity-create-modal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     EntityListComponent,
     SideBarComponent,
-    EnitityEditorComponent
+    EnitityEditorComponent,
+    EntityCreateModalComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     EntityListComponent,
     SideBarComponent,
-    EnitityEditorComponent
+    EnitityEditorComponent,
+    EntityCreateModalComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,89 @@
+/* The Modal (background) */
+.entity-modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+
+    .em-mt {
+      font-size: 1.45rem;
+      text-align: center;
+    }
+
+    .em-fields {
+      display: flex;
+      flex-direction: column;
+
+      .em-ft {
+        display: flex;
+        gap: 11.4%;
+        align-items: center;
+        font-size: 1.25rem;
+
+        input {
+          width: 100%;
+          height: 2rem;
+        }
+      }
+
+      .em-fd {
+        display: flex;
+        gap: 3.6%;
+        margin-top: 4%;
+        align-items: center;
+        font-size: 1.25rem;
+
+        textarea {
+          width: 100%;
+          height: 4rem;
+        }
+      }
+    }
+
+    .em-cb-container {
+      text-align: center;
+      margin-top: 4%;
+
+      .em-c-btn {
+        width: 8rem;
+        height: 2.5rem;
+        background: #1e5ba8;
+        border: 1px solid;
+        border-radius: 5px;
+        color: white;
+        font-size: 1.15rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
