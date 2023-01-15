@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SharedService } from '../shared/services/shared.service';
 import { LoginPayload, LoginResponse, SignupPayload } from './auth.types';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private router: Router
   ) { }
 
 
@@ -47,5 +49,10 @@ export class AuthService {
 
   setRefreshTokenToLocalStorage(refreshToken) {
     localStorage.setItem("refreshToken", refreshToken);
+  }
+
+
+  redirectToDashboard() {
+    this.router.navigate(['/dashboard/website']);
   }
 }
