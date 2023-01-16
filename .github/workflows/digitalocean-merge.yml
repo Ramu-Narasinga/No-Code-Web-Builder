@@ -25,6 +25,7 @@ jobs:
             pwd 
             ls
             cd ./No-Code-Web-Builder/backend
+            git pull ${{secrets.REPO_ORIGIN}} develop
             npm install
             pm2 start ./No-Code-Web-Builder/backend/dist/app.js
             pm2 save
