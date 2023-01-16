@@ -16,7 +16,13 @@ const website_dao_1 = __importDefault(require("../daos/website.dao"));
 class WebsiteService {
     createWebsite(resource) {
         return __awaiter(this, void 0, void 0, function* () {
-            return website_dao_1.default.createWebsite(resource);
+            try {
+                return website_dao_1.default.createWebsite(resource);
+            }
+            catch (err) {
+                console.log("Error in create website service", err);
+                throw new Error('Errro encountered in creating website');
+            }
         });
     }
     updateWebsite(resource) {
@@ -26,4 +32,4 @@ class WebsiteService {
     }
 }
 exports.default = new WebsiteService();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoid2Vic2l0ZS5zZXJ2aWNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vbW9kdWxlcy93ZWJzaXRlL3NlcnZpY2VzL3dlYnNpdGUuc2VydmljZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBLHNFQUE2QztBQUk3QyxNQUFNLGNBQWM7SUFDWixhQUFhLENBQUMsUUFBMEI7O1lBQzVDLE9BQU8scUJBQVUsQ0FBQyxhQUFhLENBQUMsUUFBUSxDQUFDLENBQUM7UUFDNUMsQ0FBQztLQUFBO0lBRUssYUFBYSxDQUFDLFFBQTBCOztZQUM1QyxPQUFPLHFCQUFVLENBQUMsYUFBYSxDQUFDLFFBQVEsQ0FBQyxDQUFDO1FBQzVDLENBQUM7S0FBQTtDQUNGO0FBRUQsa0JBQWUsSUFBSSxjQUFjLEVBQUUsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoid2Vic2l0ZS5zZXJ2aWNlLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vbW9kdWxlcy93ZWJzaXRlL3NlcnZpY2VzL3dlYnNpdGUuc2VydmljZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBLHNFQUE2QztBQUk3QyxNQUFNLGNBQWM7SUFDWixhQUFhLENBQUMsUUFBMEI7O1lBQzVDLElBQUk7Z0JBQ0YsT0FBTyxxQkFBVSxDQUFDLGFBQWEsQ0FBQyxRQUFRLENBQUMsQ0FBQzthQUMzQztZQUFDLE9BQU0sR0FBRyxFQUFFO2dCQUNYLE9BQU8sQ0FBQyxHQUFHLENBQUMsaUNBQWlDLEVBQUUsR0FBRyxDQUFDLENBQUM7Z0JBQ3BELE1BQU0sSUFBSSxLQUFLLENBQUMsdUNBQXVDLENBQUMsQ0FBQzthQUMxRDtRQUNILENBQUM7S0FBQTtJQUVLLGFBQWEsQ0FBQyxRQUEwQjs7WUFDNUMsT0FBTyxxQkFBVSxDQUFDLGFBQWEsQ0FBQyxRQUFRLENBQUMsQ0FBQztRQUM1QyxDQUFDO0tBQUE7Q0FDRjtBQUVELGtCQUFlLElBQUksY0FBYyxFQUFFLENBQUMifQ==

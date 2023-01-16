@@ -8,7 +8,13 @@ class WebsiteController {
  
   async createWebsite(req: express.Request, res: express.Response) {
     try {
-      log(await websiteService.createWebsite(req.body));
+      console.log("res.locals.jwt:", res.locals.jwt);
+      let userId = res.locals.jwt.userId;
+      let createWebsitePayload = {
+        ...req.body,
+        userId
+      }
+      log(await websiteService.createWebsite(createWebsitePayload));
       res.status(200).send();
     } catch (err) {
       log("create website error: %O", err);

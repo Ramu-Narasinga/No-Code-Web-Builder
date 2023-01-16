@@ -16,15 +16,22 @@ class WebsiteDao {
     config();
   }
 
-  async createWebsite(website: CreateWebsiteDto) {
-    return await this.prisma.website.create({
-      data: {
+  async createWebsite(website: CreateWebsiteDto) {    
+    try {
+      let data = {
         ...website,
         status: Status.DRAFT,
         html: process.env.websiteDefaultTemplateHtml ?? '',
         css: process.env.websiteDefaultTemplateCss ?? ''
-      },
-    })
+      }
+      console.log("data before create command");
+      return await this.prisma.website.create({
+        data
+      })
+    } catch(err) {
+      console.log("found err:", err);
+      throw new Error('Errro encountered in creating website');
+    }
   }
 
   async updateWebsite(website: UpdateWebsiteDto) {
