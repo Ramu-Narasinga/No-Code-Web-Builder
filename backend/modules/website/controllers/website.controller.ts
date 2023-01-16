@@ -6,6 +6,20 @@ const log: debug.IDebugger = debug("app:website-controller");
 
 class WebsiteController {
  
+  async getWebsites(req: express.Request, res: express.Response) {
+    try {
+      let userId = res.locals.jwt.userId;
+      let getWebsitesPayload = {
+        userId
+      }
+      log(await websiteService.getWebsites(getWebsitesPayload));
+      res.status(200).send();
+    } catch (err) {
+      log("create website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
   async createWebsite(req: express.Request, res: express.Response) {
     try {
       console.log("res.locals.jwt:", res.locals.jwt);

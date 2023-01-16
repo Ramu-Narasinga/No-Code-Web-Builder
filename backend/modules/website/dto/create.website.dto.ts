@@ -18,3 +18,7 @@ export interface UpdateWebsiteDto {
   css?: string;
   userId?: number;
 }
+
+export interface GetWebsitesDto {
+  userId: number;
+}
