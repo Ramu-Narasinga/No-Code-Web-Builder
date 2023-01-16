@@ -23,10 +23,11 @@ jobs:
           passphrase: ${{secrets.PASSPHRASE}}
           script: |
             pwd 
+            ls
             cd ./No-Code-Web-Builder/backend
             npm install
             tsc
-            pm2 start ./No-Code-Web-Builder/backend
+            pm2 start ./No-Code-Web-Builder/backend/dist/app.js
             pm2 save
             pm2 startup
             
