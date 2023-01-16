@@ -16,7 +16,6 @@ export class WebsiteRoutes extends CommonRoutesConfig {
       jwtMiddleware.validJWTNeeded,
       body("title").isString(),
       body("description").isString(),
-      body("userId").isInt(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       websiteController.createWebsite,
     ]);
