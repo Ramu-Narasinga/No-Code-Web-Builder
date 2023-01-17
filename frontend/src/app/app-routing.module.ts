@@ -12,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
+    redirectTo: '/auth/login',
+    pathMatch: 'full'
   },
 ];
 @NgModule({

@@ -23,11 +23,6 @@ export class AuthService {
     return localStorage.getItem('authToken');
   }
 
-  getUserId() {
-    return localStorage.getItem('userId');
-  }
-
-
   authSignupUrl = `${environment.serverUrl}/auth/register`;
 
   signup(signupPayload: SignupPayload): Observable<SignupPayload> {

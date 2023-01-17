@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CreateEntityModalData } from 'src/app/modules/website/website.types';
+import { CreateEntityModalData } from './entity-create.types';
 
 @Component({
   selector: 'app-entity-create-modal',

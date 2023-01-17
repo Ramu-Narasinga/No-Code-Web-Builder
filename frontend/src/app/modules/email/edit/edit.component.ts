@@ -8,12 +8,7 @@ import { Entity, Status } from '../../shared/components/entity-list/entity-list.
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  email: Entity = {
-    id: 1,
-    title: 'Email One',
-    description: 'Sample Description',
-    status: Status.DRAFT
-  }
+  email: Entity = {} as Entity;
 
   isEditorMode = false;
 
