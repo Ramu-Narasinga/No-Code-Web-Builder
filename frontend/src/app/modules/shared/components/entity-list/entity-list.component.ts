@@ -11,6 +11,11 @@ export type Entity = {
   title: string;
   description: string;
   status: Status
+  createdAt: string;
+  css: string;
+  html: string;
+  updatedAt: string;
+  userId: number;
 }
 
 @Component({

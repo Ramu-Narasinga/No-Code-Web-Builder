@@ -9,11 +9,12 @@ class WebsiteController {
   async getWebsites(req: express.Request, res: express.Response) {
     try {
       let userId = res.locals.jwt.userId;
+      console.log("userId:", userId);
       let getWebsitesPayload = {
         userId
       }
-      log(await websiteService.getWebsites(getWebsitesPayload));
-      res.status(200).send();
+      let websites = await websiteService.getWebsites(getWebsitesPayload);
+      res.status(200).send(websites);
     } catch (err) {
       log("create website error: %O", err);
       return res.status(500).send();

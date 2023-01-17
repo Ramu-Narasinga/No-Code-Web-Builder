@@ -1,5 +1,6 @@
 import WebsiteDao from "../daos/website.dao";
-import { CreateWebsiteDto, UpdateWebsiteDto ,GetWebsitesDto } from "../dto/create.website.dto";
+import { CreateWebsiteDto, UpdateWebsiteDto } from "../dto/create.website.dto";
+import { GetWebsitesDto } from "../dto/get.websites.dto";
 
 
 class WebsiteService {
@@ -15,7 +16,7 @@ class WebsiteService {
 
   async createWebsite(createWebsitePayload: CreateWebsiteDto) {
     try {
-      return WebsiteDao.createWebsite(createWebsitePayload);
+      return await WebsiteDao.createWebsite(createWebsitePayload);
     } catch(err) {
       console.log("Error in create website service", err);
       throw new Error('Errro encountered in creating website');

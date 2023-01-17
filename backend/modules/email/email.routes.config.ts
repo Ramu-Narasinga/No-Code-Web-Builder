@@ -11,15 +11,16 @@ export class EmailRoutes extends CommonRoutesConfig {
   }
 
   configureRoutes(): express.Application {
+
+    this.app.get('/email', [
+      jwtMiddleware.validJWTNeeded,
+      emailController.getEmails,
+    ]);
     
     this.app.post(`/email`, [
       jwtMiddleware.validJWTNeeded,
       body("title").isString(),
       body("description").isString(),
-      body("status").isString(),
-      body("html").isString(),
-      body("css").isString(),
-      body("userId").isInt(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       emailController.createEmail,
     ]);

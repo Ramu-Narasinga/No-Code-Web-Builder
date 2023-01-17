@@ -1,12 +1,12 @@
 import prismaService from "../../common/services/prisma.service";
 import debug from "debug";
-import { PrismaClient } from "@prisma/client";
-import { CreateWebsiteDto, GetWebsitesDto, UpdateWebsiteDto } from "../dto/create.website.dto";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { CreateWebsiteDto, UpdateWebsiteDto } from "../dto/create.website.dto";
+import { GetWebsitesDto } from "../dto/get.websites.dto";
 import { Status } from "../../email/dto/create.email.dto";
 import { config } from "dotenv";
 
 const log: debug.IDebugger = debug("app:in-memory-dao");
-
 class WebsiteDao {
   prisma: PrismaClient;
 
@@ -26,7 +26,9 @@ class WebsiteDao {
 
       return await this.prisma.website.findMany({
         where: {
-          userId
+          userId:  {
+            equals: userId
+          }
         }
       })
     } catch(err) {

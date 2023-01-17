@@ -14,22 +14,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const prisma_service_1 = __importDefault(require("../../common/services/prisma.service"));
 const debug_1 = __importDefault(require("debug"));
+const client_1 = require("@prisma/client");
 const log = (0, debug_1.default)("app:in-memory-dao");
 class EmailDao {
     constructor() {
         log("Created new instance of EmailDao");
         this.prisma = prisma_service_1.default.getPrismaClient();
     }
-    createEmail(email) {
+    getEmails(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                let { userId } = payload;
+                console.log("payload before getwebsites command", payload);
+                return yield this.prisma.email.findMany({
+                    where: {
+                        userId: {
+                            equals: userId
+                        }
+                    }
+                });
+            }
+            catch (err) {
+                console.log("found err:", err);
+                throw new Error('Errro encountered in fetching websites');
+            }
+        });
+    }
+    createEmail(email) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let data = Object.assign(Object.assign({}, email), { status: client_1.Status.DRAFT, html: (_a = process.env.emailDefaultTemplateHtml) !== null && _a !== void 0 ? _a : '', css: (_b = process.env.emailDefaultTemplateCss) !== null && _b !== void 0 ? _b : '' });
+                console.log("data before create command");
                 return yield this.prisma.email.create({
-                    data: Object.assign(Object.assign({}, email), { emailMeta: {
-                            create: {
-                                fromName: "",
-                                subject: ""
-                            }
-                        } }),
+                    data
                 });
             }
             catch (err) {
@@ -49,4 +67,4 @@ class EmailDao {
     }
 }
 exports.default = new EmailDao();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW1haWwuZGFvLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vbW9kdWxlcy9lbWFpbC9kYW9zL2VtYWlsLmRhby50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBLDBGQUFpRTtBQUNqRSxrREFBMEI7QUFLMUIsTUFBTSxHQUFHLEdBQW9CLElBQUEsZUFBSyxFQUFDLG1CQUFtQixDQUFDLENBQUM7QUFFeEQsTUFBTSxRQUFRO0lBR1o7UUFDRSxHQUFHLENBQUMsa0NBQWtDLENBQUMsQ0FBQztRQUN4QyxJQUFJLENBQUMsTUFBTSxHQUFHLHdCQUFhLENBQUMsZUFBZSxFQUFFLENBQUM7SUFDaEQsQ0FBQztJQUlLLFdBQVcsQ0FBQyxLQUFrQjs7WUFDbEMsSUFBSTtnQkFDRixPQUFPLE1BQU0sSUFBSSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsTUFBTSxDQUFDO29CQUNwQyxJQUFJLGtDQUNDLEtBQUssS0FDUixTQUFTLEVBQUU7NEJBQ1QsTUFBTSxFQUFFO2dDQUNOLFFBQVEsRUFBRSxFQUFFO2dDQUNaLE9BQU8sRUFBRSxFQUFFOzZCQUNaO3lCQUNGLEdBQ0Y7aUJBQ0YsQ0FBQyxDQUFDO2FBQ0o7WUFBQyxPQUFNLEdBQUcsRUFBRTtnQkFDWCxPQUFPLENBQUMsS0FBSyxDQUFDLDRCQUE0QixFQUFFLEdBQUcsQ0FBQyxDQUFDO2FBQ2xEO1FBRUgsQ0FBQztLQUFBO0lBRUssV0FBVyxDQUFDLEtBQWtCOztZQUNsQyxPQUFPLE1BQU0sSUFBSSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsTUFBTSxDQUFDO2dCQUNwQyxLQUFLLEVBQUU7b0JBQ0wsRUFBRSxFQUFFLEtBQUssQ0FBQyxFQUFFO2lCQUNiO2dCQUNELElBQUksb0JBQ0MsS0FBSyxDQUNUO2FBQ0YsQ0FBQyxDQUFBO1FBQ0osQ0FBQztLQUFBO0NBQ0Y7QUFFRCxrQkFBZSxJQUFJLFFBQVEsRUFBRSxDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZW1haWwuZGFvLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vbW9kdWxlcy9lbWFpbC9kYW9zL2VtYWlsLmRhby50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7OztBQUFBLDBGQUFpRTtBQUNqRSxrREFBMEI7QUFDMUIsMkNBQXNEO0FBS3RELE1BQU0sR0FBRyxHQUFvQixJQUFBLGVBQUssRUFBQyxtQkFBbUIsQ0FBQyxDQUFDO0FBRXhELE1BQU0sUUFBUTtJQUdaO1FBQ0UsR0FBRyxDQUFDLGtDQUFrQyxDQUFDLENBQUM7UUFDeEMsSUFBSSxDQUFDLE1BQU0sR0FBRyx3QkFBYSxDQUFDLGVBQWUsRUFBRSxDQUFDO0lBQ2hELENBQUM7SUFFSyxTQUFTLENBQUMsT0FBcUI7O1lBQ25DLElBQUk7Z0JBQ0YsSUFBSSxFQUNGLE1BQU0sRUFDUCxHQUFHLE9BQU8sQ0FBQztnQkFFWixPQUFPLENBQUMsR0FBRyxDQUFDLG9DQUFvQyxFQUFFLE9BQU8sQ0FBQyxDQUFDO2dCQUUzRCxPQUFPLE1BQU0sSUFBSSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsUUFBUSxDQUFDO29CQUN0QyxLQUFLLEVBQUU7d0JBQ0wsTUFBTSxFQUFHOzRCQUNQLE1BQU0sRUFBRSxNQUFNO3lCQUNmO3FCQUNGO2lCQUNGLENBQUMsQ0FBQTthQUNIO1lBQUMsT0FBTSxHQUFHLEVBQUU7Z0JBQ1gsT0FBTyxDQUFDLEdBQUcsQ0FBQyxZQUFZLEVBQUUsR0FBRyxDQUFDLENBQUM7Z0JBQy9CLE1BQU0sSUFBSSxLQUFLLENBQUMsd0NBQXdDLENBQUMsQ0FBQzthQUMzRDtRQUNILENBQUM7S0FBQTtJQUVLLFdBQVcsQ0FBQyxLQUFrQjs7O1lBQ2xDLElBQUk7Z0JBRUYsSUFBSSxJQUFJLG1DQUNILEtBQUssS0FDUixNQUFNLEVBQUUsZUFBTSxDQUFDLEtBQUssRUFDcEIsSUFBSSxFQUFFLE1BQUEsT0FBTyxDQUFDLEdBQUcsQ0FBQyx3QkFBd0IsbUNBQUksRUFBRSxFQUNoRCxHQUFHLEVBQUUsTUFBQSxPQUFPLENBQUMsR0FBRyxDQUFDLHVCQUF1QixtQ0FBSSxFQUFFLEdBQy9DLENBQUE7Z0JBQ0QsT0FBTyxDQUFDLEdBQUcsQ0FBQyw0QkFBNEIsQ0FBQyxDQUFDO2dCQUUxQyxPQUFPLE1BQU0sSUFBSSxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsTUFBTSxDQUFDO29CQUNwQyxJQUFJO2lCQUNMLENBQUMsQ0FBQzthQUNKO1lBQUMsT0FBTSxHQUFHLEVBQUU7Z0JBQ1gsT0FBTyxDQUFDLEtBQUssQ0FBQyw0QkFBNEIsRUFBRSxHQUFHLENBQUMsQ0FBQzthQUNsRDs7S0FFRjtJQUVLLFdBQVcsQ0FBQyxLQUFrQjs7WUFDbEMsT0FBTyxNQUFNLElBQUksQ0FBQyxNQUFNLENBQUMsS0FBSyxDQUFDLE1BQU0sQ0FBQztnQkFDcEMsS0FBSyxFQUFFO29CQUNMLEVBQUUsRUFBRSxLQUFLLENBQUMsRUFBRTtpQkFDYjtnQkFDRCxJQUFJLG9CQUNDLEtBQUssQ0FDVDthQUNGLENBQUMsQ0FBQTtRQUNKLENBQUM7S0FBQTtDQUNGO0FBRUQsa0JBQWUsSUFBSSxRQUFRLEVBQUUsQ0FBQyJ9

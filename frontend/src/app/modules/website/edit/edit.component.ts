@@ -7,10 +7,5 @@ import { Entity, Status } from '../../shared/components/entity-list/entity-list.
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent {
-  website: Entity = {
-    id: 1,
-    title: 'Website One',
-    description: 'Sample Description',
-    status: Status.DRAFT
-  }
+  website: Entity = {} as Entity;
 }
