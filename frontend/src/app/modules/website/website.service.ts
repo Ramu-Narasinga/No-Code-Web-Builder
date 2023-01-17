@@ -20,28 +20,42 @@ export class WebsiteService {
 
   websiteUrl = `${environment.serverUrl}/website`;
 
-  websites: Entity[] = []
 
-  setWebsites(websites) {
-    this.websites = websites;
+  activeWebsite: Entity | null = {} as Entity;
+
+  setActiveWebsite(activeWebsite: Entity | null) {
+    this.activeWebsite = activeWebsite;
   }
 
-  getWebsiteId() {
+  _getWebsiteId() {
     return this.route.snapshot.paramMap.get('id')??-1;
   }
 
   getWebsiteByActiveId() {
-    let websiteId = +this.getWebsiteId();
+    let websiteId = +this._getWebsiteId();
     let foundWebsite = this.websites.filter(website => website.id == websiteId);
     return foundWebsite ? foundWebsite[0] : null;
   }
 
-  getWebsites(): Observable<null> {
+  fetchWebsiteByActiveId() {
+    return this.http.get<null>(`${this.websiteUrl}/${this._getWebsiteId()}`)
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
 
+
+  websites: Entity[] = []
+
+  getWebsites(): Observable<null> {
     return this.http.get<null>(this.websiteUrl)
     .pipe(
       catchError(this.sharedService.handleError)
     );
+  }
+
+  setWebsites(websites) {
+    this.websites = websites;
   }
 
 

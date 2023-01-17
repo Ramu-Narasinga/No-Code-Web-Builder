@@ -8,15 +8,27 @@ import { WebsiteService } from '../website.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  website: Entity | null = {} as Entity;
+  website: Entity = {} as Entity;
 
   constructor(private websiteService: WebsiteService) {}
 
   ngOnInit() {
-    this.loadWebsite();
+    this.loadWebsiteFromServiceData();
   }
 
-  loadWebsite() {
-    this.website = this.websiteService.getWebsiteByActiveId();
+  loadWebsiteFromServiceData() {
+    this.website = this.websiteService.getWebsiteByActiveId() ?? {} as Entity;
+    if (this.website == null) {
+      this.loadWebsiteFromServer()
+    }
+  }
+
+  loadWebsiteFromServer() {
+    this.websiteService.fetchWebsiteByActiveId()
+      .subscribe(res => {
+        console.log("res in ngoninit", res);
+        this.websiteService.setActiveWebsite(res);
+        this.website = this.websiteService.activeWebsite ?? {} as Entity;
+      })
   }
 }

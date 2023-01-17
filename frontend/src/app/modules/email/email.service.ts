@@ -20,15 +20,30 @@ export class EmailService {
 
   emailUrl = `${environment.serverUrl}/email`;
 
-  getEmailId() {
+
+  activeEmail: Entity | null = {} as Entity;
+
+  setActiveEmail(activeWebsite: Entity | null) {
+    this.activeEmail = activeWebsite;
+  }
+
+  _getEmailId() {
     return this.route.snapshot.paramMap.get('id')??-1;
   }
 
   getEmailByActiveId() {
-    let emailId = +this.getEmailId();
+    let emailId = +this._getEmailId();
     let foundWEmail = this.emails.filter(website => website.id == emailId);
     return foundWEmail ? foundWEmail[0] : null;
   }
+
+  fetchWebsiteByActiveId() {
+    return this.http.get<null>(`${this.emailUrl}/${this._getEmailId()}`)
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
+
 
   emails: Entity[] = []
 
@@ -43,6 +58,7 @@ export class EmailService {
       catchError(this.sharedService.handleError)
     );
   }
+
 
   private _getCreateEmailPayload(createEmailModalData): CreateEntityPayload {
     let createEmailPayload = {

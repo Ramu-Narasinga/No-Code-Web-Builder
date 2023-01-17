@@ -9,7 +9,7 @@ import { EmailService } from '../email.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  email: Entity | null = {} as Entity;
+  email: Entity = {} as Entity;
 
   isEditorMode = false;
 
@@ -21,11 +21,23 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.setEditorMode();
-    this.loadEmail();
+    this.loadEmailFromServiceData();
   }
 
-  loadEmail() {
-    this.email = this.emailService.getEmailByActiveId();
+  loadEmailFromServiceData() {
+    this.email = this.emailService.getEmailByActiveId() ?? {} as Entity;
+    if (this.email == null) {
+      this.loadEmailFromServer()
+    }
+  }
+
+  loadEmailFromServer() {
+    this.emailService.fetchWebsiteByActiveId()
+      .subscribe(res => {
+        console.log("res in ngoninit", res);
+        this.emailService.setActiveEmail(res);
+        this.email = this.emailService.activeEmail ?? {} as Entity;
+      })
   }
 
   setEditorMode() {
@@ -37,6 +49,7 @@ export class EditComponent implements OnInit {
     );
   }
 
+  // TODO: move these to service // stinks (code smell) lol
   handleEmailEditBackNav() {
 
     let emailBackNavToEdit;
