@@ -5,6 +5,19 @@ import websiteService from "../services/website.service";
 const log: debug.IDebugger = debug("app:website-controller");
 
 class WebsiteController {
+
+  async getWebsiteById(req: express.Request, res: express.Response) {
+    try {
+      let getWebsiteByIdPayload = {
+        id: +req.params.id
+      }
+      let website = await websiteService.getWebsiteById(getWebsiteByIdPayload);
+      res.status(200).send(website);
+    } catch (err) {
+      log("create website error: %O", err);
+      return res.status(500).send();
+    }
+  }
  
   async getWebsites(req: express.Request, res: express.Response) {
     try {

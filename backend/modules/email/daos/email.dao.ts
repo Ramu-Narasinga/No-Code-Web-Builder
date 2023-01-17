@@ -3,7 +3,7 @@ import debug from "debug";
 import { PrismaClient, Status } from "@prisma/client";
 import { CreateEmail } from "../dto/create.email.dto";
 import { UpdateEmail } from "../dto/update.email.dto";
-import { GetEmailsDto } from "../dto/get.emails.dto";
+import { GetEmailDto, GetEmailsDto } from "../dto/get.emails.dto";
 
 const log: debug.IDebugger = debug("app:in-memory-dao");
 
@@ -13,6 +13,25 @@ class EmailDao {
   constructor() {
     log("Created new instance of EmailDao");
     this.prisma = prismaService.getPrismaClient();
+  }
+
+  async getEmailById(payload: GetEmailDto) {
+    try {
+      let {
+        id
+      } = payload;
+
+      console.log("payload before getwebsites command", payload);
+
+      return await this.prisma.email.findUnique({
+        where: {
+          id
+        }
+      })
+    } catch(err) {
+      console.log("found err:", err);
+      throw new Error('Errro encountered in fetching email by id');
+    }
   }
 
   async getEmails(payload: GetEmailsDto) {

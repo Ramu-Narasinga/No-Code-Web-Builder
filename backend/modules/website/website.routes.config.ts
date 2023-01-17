@@ -12,6 +12,11 @@ export class WebsiteRoutes extends CommonRoutesConfig {
 
   configureRoutes(): express.Application {
 
+    this.app.get('/website/:id', [
+      jwtMiddleware.validJWTNeeded,
+      websiteController.getWebsiteById,
+    ]);
+
     this.app.get('/website', [
       jwtMiddleware.validJWTNeeded,
       websiteController.getWebsites,

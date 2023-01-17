@@ -6,6 +6,19 @@ const log: debug.IDebugger = debug("app:website-controller");
 
 class EmailController {
 
+  async getEmailById(req: express.Request, res: express.Response) {
+    try {
+      let getEmailByIdPayload = {
+        id: +req.params.id
+      }
+      let email = await emailService.getEmailById(getEmailByIdPayload);
+      res.status(200).send(email);
+    } catch (err) {
+      log("create website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
   async getEmails(req: express.Request, res: express.Response) {
     try {
       let userId = res.locals.jwt.userId;
