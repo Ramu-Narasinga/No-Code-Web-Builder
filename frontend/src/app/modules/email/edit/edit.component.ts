@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Entity, Status } from '../../shared/components/entity-list/entity-list.component';
+import { Entity } from '../../shared/components/entity-list/entity-list.component';
+import { EmailService } from '../email.service';
 
 @Component({
   selector: 'app-edit',
@@ -8,16 +9,26 @@ import { Entity, Status } from '../../shared/components/entity-list/entity-list.
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  email: Entity = {} as Entity;
+  email: Entity | null = {} as Entity;
 
   isEditorMode = false;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private emailService: EmailService
   ) {}
 
   ngOnInit(): void {
+    this.setEditorMode();
+    this.loadEmail();
+  }
+
+  loadEmail() {
+    this.email = this.emailService.getEmailByActiveId();
+  }
+
+  setEditorMode() {
     this.route.queryParams
       .subscribe(params => {
         console.log(params);
@@ -28,8 +39,14 @@ export class EditComponent implements OnInit {
 
   handleEmailEditBackNav() {
 
-    let emailBackNavToEdit = '/dashboard/email/edit/'+this.email.id;
+    let emailBackNavToEdit;
     let emailBackNavToList = '/dashboard/email/';
+
+    if (this.email) {
+      emailBackNavToEdit = '/dashboard/email/edit/'+this.email.id;
+    } else {
+      emailBackNavToEdit = '/dashboard/email/';
+    }
 
     if (this.isEditorMode) {
       this.router.navigate(

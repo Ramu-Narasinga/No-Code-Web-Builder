@@ -27,7 +27,8 @@ export class WebsiteComponent implements OnInit {
     this.websiteService.getWebsites()
       .subscribe(res => {
         console.log("res in ngoninit", res);
-        this.websites = res??[];
+        this.websiteService.setWebsites(res);
+        this.websites = this.websiteService.websites;
     })
   }
 

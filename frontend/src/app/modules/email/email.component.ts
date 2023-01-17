@@ -26,7 +26,8 @@ export class EmailComponent implements OnInit {
     this.emailService.getEmails()
       .subscribe(res => {
         console.log("res in ngoninit", res);
-        this.emails = res ?? [];
+        this.emailService.setEmails(res ?? []);
+        this.emails = this.emailService.emails;
     })
   }
 
