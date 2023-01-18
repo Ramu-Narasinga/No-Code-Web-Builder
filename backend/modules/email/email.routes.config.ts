@@ -12,6 +12,11 @@ export class EmailRoutes extends CommonRoutesConfig {
 
   configureRoutes(): express.Application {
 
+    this.app.get('/email/:id', [
+      jwtMiddleware.validJWTNeeded,
+      emailController.getEmailById,
+    ]);
+
     this.app.get('/email', [
       jwtMiddleware.validJWTNeeded,
       emailController.getEmails,
@@ -31,12 +36,21 @@ export class EmailRoutes extends CommonRoutesConfig {
       body("title").exists().isString(),
       body("description").exists().isString(),
       body("status").exists().isString(),
-      body("html").exists().isString(),
-      body("css").exists().isString(),
-      body("userId").exists().isInt(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       emailController.updateEmail,
     ]);
+
+    this.app.post(`/email/:id/builder`, [
+      body("html").isString(),
+      body("css").isString(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      emailController.updateEmailBuilder,
+    ]);
+
+    this.app.delete(`/email/:id`, [
+      jwtMiddleware.validJWTNeeded,
+      emailController.deleteEmail,
+    ])
 
     return this.app;
   }

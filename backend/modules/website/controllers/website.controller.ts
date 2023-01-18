@@ -5,6 +5,19 @@ import websiteService from "../services/website.service";
 const log: debug.IDebugger = debug("app:website-controller");
 
 class WebsiteController {
+
+  async getWebsiteById(req: express.Request, res: express.Response) {
+    try {
+      let getWebsiteByIdPayload = {
+        id: +req.params.id
+      }
+      let website = await websiteService.getWebsiteById(getWebsiteByIdPayload);
+      res.status(200).send(website);
+    } catch (err) {
+      log("create website error: %O", err);
+      return res.status(500).send();
+    }
+  }
  
   async getWebsites(req: express.Request, res: express.Response) {
     try {
@@ -23,14 +36,13 @@ class WebsiteController {
 
   async createWebsite(req: express.Request, res: express.Response) {
     try {
-      console.log("res.locals.jwt:", res.locals.jwt);
       let userId = res.locals.jwt.userId;
       let createWebsitePayload = {
         ...req.body,
         userId
       }
-      log(await websiteService.createWebsite(createWebsitePayload));
-      res.status(200).send();
+      let createWebsiteRes = await websiteService.createWebsite(createWebsitePayload);
+      res.status(200).send({website: createWebsiteRes});
     } catch (err) {
       log("create website error: %O", err);
       return res.status(500).send();
@@ -39,8 +51,37 @@ class WebsiteController {
 
   async updateWebsite(req: express.Request, res: express.Response) {
     try {
-      log(await websiteService.updateWebsite(req.body));
-      res.status(200).send();
+      let updateWebsiteRes = await websiteService.updateWebsite(req.body);
+      res.status(200).send(updateWebsiteRes);
+    } catch (err) {
+      log("update website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
+  async updateWebsiteBuilder(req: express.Request, res: express.Response) {
+    try {
+
+      let updateWebsiteBuilderPayload = {
+        ...req.body,
+        id: +req.params.id
+      }
+
+      let updateWebsiteRes = await websiteService.updateWebsite(updateWebsiteBuilderPayload);
+      res.status(200).send(updateWebsiteRes);
+    } catch (err) {
+      log("update website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
+  async deleteWebsite(req: express.Request, res: express.Response) {
+    try {
+      let deleteWebsiteByIdPayload = {
+        id: +req.params.id
+      }
+      let deleteWebsiteRes = await websiteService.deleteWebsite(deleteWebsiteByIdPayload);
+      res.status(200).send(deleteWebsiteRes);
     } catch (err) {
       log("update website error: %O", err);
       return res.status(500).send();

@@ -32,7 +32,11 @@
     </div>
 
     <div class="edit-email" *ngIf="isEditorMode">
-      <app-enitity-editor></app-enitity-editor>
+      <app-enitity-editor
+        [html]="email.html"
+        [css]="email.css"
+        [editorSaveEndpoint]="editorSaveEndpoint"
+      ></app-enitity-editor>
     </div>
     <div class="send-email-container" *ngIf="!isEditorMode">
       <app-send-email></app-send-email>

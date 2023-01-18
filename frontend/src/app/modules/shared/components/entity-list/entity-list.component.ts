@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router'
 
 export enum Status {
@@ -28,6 +28,8 @@ export class EntityListComponent implements OnInit {
   @Input() entities: Entity[] = [];
   @Input() baseEditUrl: string = '';
 
+  @Output() deleteEntity = new EventEmitter<{id: number}>();
+
   public get Status(): typeof Status {
     return Status;
   }
@@ -52,7 +54,8 @@ export class EntityListComponent implements OnInit {
     event.stopPropagation();
   }
 
-  handleEntityDelete(event: MouseEvent) {
+  handleEntityDelete(event: MouseEvent, entityId: number) {
     event.stopPropagation();
+    this.deleteEntity.emit({id: entityId});
   }
 }

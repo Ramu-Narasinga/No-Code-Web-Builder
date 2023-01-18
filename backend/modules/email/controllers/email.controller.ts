@@ -6,6 +6,19 @@ const log: debug.IDebugger = debug("app:website-controller");
 
 class EmailController {
 
+  async getEmailById(req: express.Request, res: express.Response) {
+    try {
+      let getEmailByIdPayload = {
+        id: +req.params.id
+      }
+      let email = await emailService.getEmailById(getEmailByIdPayload);
+      res.status(200).send(email);
+    } catch (err) {
+      log("create website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
   async getEmails(req: express.Request, res: express.Response) {
     try {
       let userId = res.locals.jwt.userId;
@@ -29,8 +42,8 @@ class EmailController {
         ...req.body,
         userId
       }
-      log(await emailService.createEmail(createEmailPayload));
-      res.status(200).send();
+      let createEmailRes = await emailService.createEmail(createEmailPayload);
+      res.status(200).send({email: createEmailRes});
     } catch (err) {
       log("create email error: %O", err);
       return res.status(500).send();
@@ -39,10 +52,39 @@ class EmailController {
 
   async updateEmail(req: express.Request, res: express.Response) {
     try {
-      log(await emailService.updateEmail(req.body));
-      res.status(200).send();
+      let updateEmailRes = await emailService.updateEmail(req.body);
+      res.status(200).send(updateEmailRes);
     } catch (err) {
       log("update email error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
+  async updateEmailBuilder(req: express.Request, res: express.Response) {
+    try {
+
+      let updateEmailBuilderPayload = {
+        ...req.body,
+        id: +req.params.id
+      }
+
+      let updateEmailRes = await emailService.updateEmail(updateEmailBuilderPayload);
+      res.status(200).send(updateEmailRes);
+    } catch (err) {
+      log("update website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
+  async deleteEmail(req: express.Request, res: express.Response) {
+    try {
+      let deleteWebsiteByIdPayload = {
+        id: +req.params.id
+      }
+      let deleteEmailRes = await emailService.deleteEmail(deleteWebsiteByIdPayload);
+      res.status(200).send(deleteEmailRes);
+    } catch (err) {
+      log("update website error: %O", err);
       return res.status(500).send();
     }
   }

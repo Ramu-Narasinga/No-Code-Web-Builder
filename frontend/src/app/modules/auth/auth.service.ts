@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { SharedService } from '../shared/services/shared.service';
 import { LoginPayload, LoginResponse, SignupPayload } from './auth.types';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,10 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private sharedService: SharedService,
-    private router: Router
+    private router: Router,
   ) { }
 
+  public jwtHelper: JwtHelperService = new JwtHelperService();
 
   getAuthorizationToken() {
     return localStorage.getItem('authToken');
@@ -58,4 +60,17 @@ export class AuthService {
   redirectToDashboard() {
     this.router.navigate(['/dashboard/website']);
   }
+
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('authToken');
+    // Check whether the token is expired and return
+    // true or false
+
+    if (!token) {
+      return false;
+    }
+
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
 }

@@ -4,10 +4,9 @@ import { CreateEntityModalData } from './entity-create.types';
 @Component({
   selector: 'app-entity-create-modal',
   templateUrl: './entity-create-modal.component.html',
-  styleUrls: ['./entity-create-modal.component.scss']
+  styleUrls: ['./entity-create-modal.component.scss'],
 })
 export class EntityCreateModalComponent implements OnInit {
-
   @Input() showCreateModal: boolean = false;
   @Input() modalTitle: string = '';
 
@@ -24,9 +23,10 @@ export class EntityCreateModalComponent implements OnInit {
   }
 
   onCreate() {
-   this.createEntity.emit({
-    title: this.title,
-    description: this.description
-   })
+    this.onCloseModal();
+    this.createEntity.emit({
+      title: this.title,
+      description: this.description,
+    });
   }
 }

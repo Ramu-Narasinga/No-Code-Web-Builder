@@ -12,6 +12,11 @@ export class WebsiteRoutes extends CommonRoutesConfig {
 
   configureRoutes(): express.Application {
 
+    this.app.get('/website/:id', [
+      jwtMiddleware.validJWTNeeded,
+      websiteController.getWebsiteById,
+    ]);
+
     this.app.get('/website', [
       jwtMiddleware.validJWTNeeded,
       websiteController.getWebsites,
@@ -31,12 +36,21 @@ export class WebsiteRoutes extends CommonRoutesConfig {
       body("title").exists().isString(),
       body("description").exists().isString(),
       body("status").exists().isString(),
-      body("html").exists().isString(),
-      body("css").exists().isString(),
-      body("userId").exists().isInt(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       websiteController.updateWebsite,
     ]);
+
+    this.app.post(`/website/:id/builder`, [
+      body("html").isString(),
+      body("css").isString(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      websiteController.updateWebsiteBuilder,
+    ]);
+
+    this.app.delete(`/website/:id`, [
+      jwtMiddleware.validJWTNeeded,
+      websiteController.deleteWebsite,
+    ])
 
     return this.app;
   }

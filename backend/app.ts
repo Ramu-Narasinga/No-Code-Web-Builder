@@ -34,7 +34,12 @@ app.use(helmet());
 app.use(express.json());
 
 // here we are adding middleware to allow cross-origin requests
-app.use(cors());
+const corsConfig = {
+  credentials: true,
+  origin: true,
+};
+
+app.use(cors(corsConfig));
 
 // here we are preparing the expressWinston logging middleware configuration,
 // which will automatically log all HTTP requests handled by Express.js

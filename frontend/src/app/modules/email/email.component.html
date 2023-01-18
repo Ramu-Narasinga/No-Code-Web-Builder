@@ -7,6 +7,7 @@
   <app-entity-list
     [entities]="emails"
     [baseEditUrl]="baseEditUrl"
+    (deleteEntity)="deleteEmail($event)"
   ></app-entity-list>
 
   <app-entity-create-modal
