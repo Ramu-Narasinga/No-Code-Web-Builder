@@ -27,14 +27,19 @@ export class WebsiteService {
     this.activeWebsite = activeWebsite;
   }
 
+  activeWebsiteId: number = -1;
+  setActiveWebsiteId(activeWebsiteId: number) {
+    this.activeWebsiteId = activeWebsiteId
+  }
+
   _getWebsiteId() {
-    return this.route.snapshot.paramMap.get('id')??-1;
+    return this.activeWebsiteId;
   }
 
   getWebsiteByActiveId() {
     let websiteId = +this._getWebsiteId();
     let foundWebsite = this.websites.filter(website => website.id == websiteId);
-    return foundWebsite ? foundWebsite[0] : null;
+    return foundWebsite.length == 1 ? foundWebsite[0] : null;
   }
 
   fetchWebsiteByActiveId() {

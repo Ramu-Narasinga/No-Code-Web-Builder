@@ -27,8 +27,13 @@ export class EmailService {
     this.activeEmail = activeWebsite;
   }
 
+  activeEmailId: number = -1;
+  setActiveEmailId(activeEmailId: number) {
+    this.activeEmailId = activeEmailId;
+  }
+
   _getEmailId() {
-    return this.route.snapshot.paramMap.get('id')??-1;
+    return this.activeEmailId;
   }
 
   getEmailByActiveId() {

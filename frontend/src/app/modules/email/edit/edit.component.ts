@@ -21,13 +21,18 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.setEditorMode();
+    this.emailService.setActiveEmailId(Number(this.route.snapshot.paramMap.get('id'))??-1);
     this.loadEmailFromServiceData();
+  }
+
+  isEmailEmpty() {
+    return Object.keys(this.email).length == 0;
   }
 
   loadEmailFromServiceData() {
     this.email = this.emailService.getEmailByActiveId() ?? {} as Entity;
-    if (this.email == null) {
-      this.loadEmailFromServer()
+    if (this.isEmailEmpty()) {
+      this.loadEmailFromServer();
     }
   }
 
