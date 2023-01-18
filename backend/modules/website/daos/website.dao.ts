@@ -58,7 +58,7 @@ class WebsiteDao {
 
   async createWebsite(website: CreateWebsiteDto) {    
     try {
-      let data = {
+      let data = { // TODO: move this to service
         ...website,
         status: Status.DRAFT,
         html: process.env.websiteDefaultTemplateHtml ?? '',

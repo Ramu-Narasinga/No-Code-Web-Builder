@@ -51,8 +51,24 @@ class WebsiteController {
 
   async updateWebsite(req: express.Request, res: express.Response) {
     try {
-      log(await websiteService.updateWebsite(req.body));
-      res.status(200).send();
+      let updateWebsiteRes = await websiteService.updateWebsite(req.body);
+      res.status(200).send(updateWebsiteRes);
+    } catch (err) {
+      log("update website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
+  async updateWebsiteBuilder(req: express.Request, res: express.Response) {
+    try {
+
+      let updateWebsiteBuilderPayload = {
+        ...req.body,
+        id: +req.params.id
+      }
+
+      let updateWebsiteRes = await websiteService.updateWebsite(updateWebsiteBuilderPayload);
+      res.status(200).send(updateWebsiteRes);
     } catch (err) {
       log("update website error: %O", err);
       return res.status(500).send();

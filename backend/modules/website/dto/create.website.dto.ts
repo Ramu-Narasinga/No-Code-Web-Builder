@@ -15,6 +15,5 @@ export interface UpdateWebsiteDto {
   description?: string;
   status?: Status;
   html?: string;
-  css?: string;
-  userId?: number;
+  css?: string;  
 }

@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditComponent implements OnInit {
   website: Entity = {} as Entity;
+  editorSaveEndpoint = '';
 
   constructor(
     private websiteService: WebsiteService,
@@ -18,6 +19,8 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.websiteService.setActiveWebsiteId(Number(this.route.snapshot.paramMap.get('id'))??-1);
+    this.websiteService.setEditorSaveEndpoint();
+    this.editorSaveEndpoint = this.websiteService.getEditorSaveEndpoint();
     this.loadWebsiteFromServiceData();
   }
 

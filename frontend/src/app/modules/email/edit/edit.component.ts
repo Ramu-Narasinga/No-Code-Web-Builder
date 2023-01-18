@@ -12,6 +12,7 @@ export class EditComponent implements OnInit {
   email: Entity = {} as Entity;
 
   isEditorMode = false;
+  editorSaveEndpoint = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +23,8 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.setEditorMode();
     this.emailService.setActiveEmailId(Number(this.route.snapshot.paramMap.get('id'))??-1);
+    this.emailService.setEditorSaveEndpoint();
+    this.editorSaveEndpoint = this.emailService.getEditorSaveEndpoint();
     this.loadEmailFromServiceData();
   }
 

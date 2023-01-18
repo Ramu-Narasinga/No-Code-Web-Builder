@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 import { SharedService } from '../shared/services/shared.service';
 import { CreateEntityModalData, CreateEntityPayload } from '../shared/components/entity-create-modal/entity-create.types';
 import { Entity } from '../shared/components/entity-list/entity-list.component';
-import { ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,10 +14,20 @@ export class WebsiteService {
   constructor(
     private http: HttpClient,
     private sharedService: SharedService,
-    private route: ActivatedRoute
   ) { }
 
   websiteUrl = `${environment.serverUrl}/website`;
+
+  editorSaveEndpoint = ``;
+
+  setEditorSaveEndpoint() {
+    this.editorSaveEndpoint = `${this.websiteUrl}/${this._getWebsiteId()}/builder`;
+  }
+
+  getEditorSaveEndpoint() {
+    return this.editorSaveEndpoint;
+  }
+
 
 
   activeWebsite: Entity | null = {} as Entity;

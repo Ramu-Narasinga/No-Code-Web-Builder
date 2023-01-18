@@ -33,7 +33,12 @@ class WebsiteService {
   }
 
   async updateWebsite(resource: UpdateWebsiteDto) {
-    return WebsiteDao.updateWebsite(resource);
+    try {
+      return await WebsiteDao.updateWebsite(resource);
+    } catch(err) {
+      console.log("Error in update website service", err);
+      throw new Error('Errro encountered in updating website');
+    }
   }
 
   async deleteWebsite(deleteWebsiteByIdPayload: DeleteWebsiteDto) {

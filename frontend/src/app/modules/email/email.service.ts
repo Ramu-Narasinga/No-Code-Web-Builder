@@ -6,19 +6,29 @@ import { environment } from 'src/environments/environment';
 import { SharedService } from '../shared/services/shared.service';
 import { CreateEntityModalData, CreateEntityPayload } from '../shared/components/entity-create-modal/entity-create.types';
 import { Entity } from '../shared/components/entity-list/entity-list.component';
-import { ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class EmailService {
 
+  // TODO: if possible break this file iinto specific HTTP service files for readability
+
   constructor(
     private http: HttpClient,
     private sharedService: SharedService,
-    private route: ActivatedRoute
   ) { }
 
   emailUrl = `${environment.serverUrl}/email`;
+
+  editorSaveEndpoint = ``;
+
+  setEditorSaveEndpoint() {
+    this.editorSaveEndpoint = `${this.emailUrl}/${this._getEmailId()}/builder`;
+  }
+
+  getEditorSaveEndpoint() {
+    return this.editorSaveEndpoint;
+  }
 
 
   activeEmail: Entity | null = {} as Entity;
