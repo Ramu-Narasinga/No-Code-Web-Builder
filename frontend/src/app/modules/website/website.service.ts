@@ -75,9 +75,21 @@ export class WebsiteService {
     this.websites.push(website);
   }
 
+  removeWebsiteById(id: number) {
+    let index = this.websites.findIndex(website => website.id == id);
+    this.websites.splice(index, 1);
+  }
+
   createWebsite(createWebsiteModalData: CreateEntityModalData): Observable<null> {
 
     return this.http.post<null>(this.websiteUrl, this._getCreateWebsitePayload(createWebsiteModalData))
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
+
+  deleteWebsite(deleteWebsite: {id: number}) {
+    return this.http.delete<null>(`${this.websiteUrl}/${deleteWebsite.id}`)
     .pipe(
       catchError(this.sharedService.handleError)
     );

@@ -83,4 +83,16 @@ export class EmailService {
       catchError(this.sharedService.handleError)
     );
   }
+
+  deleteEmail(deleteEmail: {id: number}) {
+    return this.http.delete<null>(`${this.emailUrl}/${deleteEmail.id}`)
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
+
+  removeEmailById(id: number) {
+    let index = this.emails.findIndex(website => website.id == id);
+    this.emails.splice(index, 1);
+  }
 }

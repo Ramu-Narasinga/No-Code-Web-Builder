@@ -64,8 +64,8 @@ class WebsiteController {
       let deleteWebsiteByIdPayload = {
         id: +req.params.id
       }
-      await websiteService.deleteWebsite(deleteWebsiteByIdPayload);
-      res.status(200).send();
+      let deleteWebsiteRes = await websiteService.deleteWebsite(deleteWebsiteByIdPayload);
+      res.status(200).send(deleteWebsiteRes);
     } catch (err) {
       log("update website error: %O", err);
       return res.status(500).send();

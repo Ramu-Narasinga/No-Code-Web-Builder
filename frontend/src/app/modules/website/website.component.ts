@@ -48,4 +48,14 @@ export class WebsiteComponent implements OnInit {
         this.websiteService.addNewWebsite(res.website);
     });
   }
+
+  deleteWebsite(deleteWebsite: {id: number}){
+    console.log("delete in website::", deleteWebsite);
+    this.websiteService.deleteWebsite(deleteWebsite)
+    .subscribe((res:  Entity | null) => {
+      console.log("res after deleting website", res);
+      if (res && res.id)
+        this.websiteService.removeWebsiteById(res.id);
+    });
+  }
 }

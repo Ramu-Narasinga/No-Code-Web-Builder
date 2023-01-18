@@ -65,8 +65,8 @@ class EmailController {
       let deleteWebsiteByIdPayload = {
         id: +req.params.id
       }
-      await emailService.deleteEmail(deleteWebsiteByIdPayload);
-      res.status(200).send();
+      let deleteEmailRes = await emailService.deleteEmail(deleteWebsiteByIdPayload);
+      res.status(200).send(deleteEmailRes);
     } catch (err) {
       log("update website error: %O", err);
       return res.status(500).send();

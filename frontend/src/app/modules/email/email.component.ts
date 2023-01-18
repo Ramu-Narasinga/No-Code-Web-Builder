@@ -49,4 +49,13 @@ export class EmailComponent implements OnInit {
       }
     });
   }
+
+  deleteEmail(deleteEmail: {id: number}){
+    this.emailService.deleteEmail(deleteEmail)
+    .subscribe((res: Entity | null) => {
+      console.log("res after deleting email", res);
+      if (res && res.id)
+        this.emailService.removeEmailById(res.id);
+    });
+  }
 }
