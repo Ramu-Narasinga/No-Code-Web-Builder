@@ -5,3 +5,7 @@ export interface GetEmailsDto {
 export interface GetEmailDto {
   id: number;
 }
+
+export interface DeleteEmailDto {
+  id: number;
+}

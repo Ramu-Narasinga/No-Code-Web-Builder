@@ -3,7 +3,7 @@ import debug from "debug";
 import { PrismaClient, Status } from "@prisma/client";
 import { CreateEmail } from "../dto/create.email.dto";
 import { UpdateEmail } from "../dto/update.email.dto";
-import { GetEmailDto, GetEmailsDto } from "../dto/get.emails.dto";
+import { DeleteEmailDto, GetEmailDto, GetEmailsDto } from "../dto/get.emails.dto";
 
 const log: debug.IDebugger = debug("app:in-memory-dao");
 
@@ -84,6 +84,14 @@ class EmailDao {
         ...email
       },
     })
+  }
+
+  async deleteEmail(deleteEmailByIdPayload: DeleteEmailDto) {
+    return await this.prisma.email.delete({
+      where: {
+        id: deleteEmailByIdPayload.id
+      }
+    });
   }
 }
 

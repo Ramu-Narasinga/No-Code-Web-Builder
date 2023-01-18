@@ -43,6 +43,11 @@ export class WebsiteRoutes extends CommonRoutesConfig {
       websiteController.updateWebsite,
     ]);
 
+    this.app.delete(`/website/:id`, [
+      jwtMiddleware.validJWTNeeded,
+      websiteController.deleteWebsite,
+    ])
+
     return this.app;
   }
 }

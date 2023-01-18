@@ -42,8 +42,8 @@ class EmailController {
         ...req.body,
         userId
       }
-      log(await emailService.createEmail(createEmailPayload));
-      res.status(200).send();
+      let createEmailRes = await emailService.createEmail(createEmailPayload);
+      res.status(200).send({email: createEmailRes});
     } catch (err) {
       log("create email error: %O", err);
       return res.status(500).send();
@@ -56,6 +56,19 @@ class EmailController {
       res.status(200).send();
     } catch (err) {
       log("update email error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
+  async deleteEmail(req: express.Request, res: express.Response) {
+    try {
+      let deleteWebsiteByIdPayload = {
+        id: +req.params.id
+      }
+      await emailService.deleteEmail(deleteWebsiteByIdPayload);
+      res.status(200).send();
+    } catch (err) {
+      log("update website error: %O", err);
       return res.status(500).send();
     }
   }

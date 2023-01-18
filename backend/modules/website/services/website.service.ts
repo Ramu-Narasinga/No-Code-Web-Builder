@@ -1,6 +1,6 @@
 import WebsiteDao from "../daos/website.dao";
 import { CreateWebsiteDto, UpdateWebsiteDto } from "../dto/create.website.dto";
-import { GetWebsitesDto, GetWebsiteDto } from "../dto/get.websites.dto";
+import { GetWebsitesDto, GetWebsiteDto, DeleteWebsiteDto } from "../dto/get.websites.dto";
 
 
 class WebsiteService {
@@ -34,6 +34,15 @@ class WebsiteService {
 
   async updateWebsite(resource: UpdateWebsiteDto) {
     return WebsiteDao.updateWebsite(resource);
+  }
+
+  async deleteWebsite(deleteWebsiteByIdPayload: DeleteWebsiteDto) {
+    try {
+      return await WebsiteDao.deleteWebsite(deleteWebsiteByIdPayload);
+    } catch(err) {
+      console.log("Error in deleting website service", err);
+      throw new Error('Errro encountered in deleting website');
+    }
   }
 }
 

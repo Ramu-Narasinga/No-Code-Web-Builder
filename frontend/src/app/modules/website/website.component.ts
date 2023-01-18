@@ -42,8 +42,10 @@ export class WebsiteComponent implements OnInit {
   createWebsite(createWebsiteModalData: CreateEntityModalData) {
     console.log("got create modal data", createWebsiteModalData);
     this.websiteService.createWebsite(createWebsiteModalData)
-    .subscribe((res) => {
+    .subscribe((res: {website: Entity} | null) => {
       console.log("res after creating website", res);
+      if (res && res.website)
+        this.websiteService.addNewWebsite(res.website);
     });
   }
 }

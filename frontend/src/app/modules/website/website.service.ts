@@ -71,6 +71,10 @@ export class WebsiteService {
     return createWebsitePayload;
   }
 
+  addNewWebsite(website: Entity) {
+    this.websites.push(website);
+  }
+
   createWebsite(createWebsiteModalData: CreateEntityModalData): Observable<null> {
 
     return this.http.post<null>(this.websiteUrl, this._getCreateWebsitePayload(createWebsiteModalData))

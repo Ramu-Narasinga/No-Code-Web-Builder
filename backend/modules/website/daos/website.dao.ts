@@ -2,7 +2,7 @@ import prismaService from "../../common/services/prisma.service";
 import debug from "debug";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { CreateWebsiteDto, UpdateWebsiteDto } from "../dto/create.website.dto";
-import { GetWebsiteDto, GetWebsitesDto } from "../dto/get.websites.dto";
+import { DeleteWebsiteDto, GetWebsiteDto, GetWebsitesDto } from "../dto/get.websites.dto";
 import { Status } from "../../email/dto/create.email.dto";
 import { config } from "dotenv";
 
@@ -83,6 +83,14 @@ class WebsiteDao {
         ...website
       },
     })
+  }
+
+  async deleteWebsite(deleteWebsiteByIdPayload: DeleteWebsiteDto) {
+    return await this.prisma.website.delete({
+      where: {
+        id: deleteWebsiteByIdPayload.id
+      }
+    });
   }
 }
 

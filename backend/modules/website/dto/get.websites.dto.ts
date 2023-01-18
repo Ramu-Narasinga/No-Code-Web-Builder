@@ -5,3 +5,7 @@ export interface GetWebsitesDto {
 export interface GetWebsiteDto {
   id: number;
 }
+
+export interface DeleteWebsiteDto {
+  id: number;
+}

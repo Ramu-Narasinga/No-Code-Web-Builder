@@ -43,6 +43,11 @@ export class EmailRoutes extends CommonRoutesConfig {
       emailController.updateEmail,
     ]);
 
+    this.app.delete(`/email/:id`, [
+      jwtMiddleware.validJWTNeeded,
+      emailController.deleteEmail,
+    ])
+
     return this.app;
   }
 }

@@ -36,14 +36,13 @@ class WebsiteController {
 
   async createWebsite(req: express.Request, res: express.Response) {
     try {
-      console.log("res.locals.jwt:", res.locals.jwt);
       let userId = res.locals.jwt.userId;
       let createWebsitePayload = {
         ...req.body,
         userId
       }
-      log(await websiteService.createWebsite(createWebsitePayload));
-      res.status(200).send();
+      let createWebsiteRes = await websiteService.createWebsite(createWebsitePayload);
+      res.status(200).send({website: createWebsiteRes});
     } catch (err) {
       log("create website error: %O", err);
       return res.status(500).send();
@@ -53,6 +52,19 @@ class WebsiteController {
   async updateWebsite(req: express.Request, res: express.Response) {
     try {
       log(await websiteService.updateWebsite(req.body));
+      res.status(200).send();
+    } catch (err) {
+      log("update website error: %O", err);
+      return res.status(500).send();
+    }
+  }
+
+  async deleteWebsite(req: express.Request, res: express.Response) {
+    try {
+      let deleteWebsiteByIdPayload = {
+        id: +req.params.id
+      }
+      await websiteService.deleteWebsite(deleteWebsiteByIdPayload);
       res.status(200).send();
     } catch (err) {
       log("update website error: %O", err);

@@ -72,6 +72,10 @@ export class EmailService {
     return createEmailPayload;
   }
 
+  addNewEmail(email: Entity) {
+    this.emails.push(email);
+  }
+
   createEmail(createEmailModalData: CreateEntityModalData): Observable<null> {
 
     return this.http.post<null>(this.emailUrl, this._getCreateEmailPayload(createEmailModalData))
