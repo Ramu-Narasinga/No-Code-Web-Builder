@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CreateEntityModalData } from '../shared/components/entity-create-modal/entity-create.types';
 import { Entity, Status } from '../shared/components/entity-list/entity-list.component';
+import { EntityService } from '../shared/services/entity.service';
 import { WebsiteService } from './website.service';
 
 @Component({
@@ -16,12 +18,30 @@ export class WebsiteComponent implements OnInit {
 
   entityTitle = 'Websites';
 
+  createModal: Observable<{title: string, description: string}> = {} as Observable<{title: string, description: string}>;
+
   constructor(
-    private websiteService: WebsiteService
+    private websiteService: WebsiteService,
+    private entityService: EntityService
   ) {}
 
   ngOnInit(): void {
     this.loadWebsitesList();
+    this.listenToCreateWebsite();
+  }
+
+  listenToCreateWebsite() {
+
+    console.log("this gets triggered", this.createModal);
+
+    this.entityService.createModal.subscribe({
+      next: (websiteData) => {
+        console.log(websiteData);
+        this.createWebsite(websiteData);
+      },
+      error: (err: Error) => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    });
   }
 
   loadWebsitesList() {

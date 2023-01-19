@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EntityService } from '../../services/entity.service';
 import { CreateEntityModalData } from './entity-create.types';
 
 @Component({
@@ -11,12 +13,15 @@ export class EntityCreateModalComponent implements OnInit {
   @Input() modalTitle: string = '';
 
   @Output() closeModal = new EventEmitter<boolean>();
-  @Output() createEntity = new EventEmitter<CreateEntityModalData>();
 
   title = '';
   description = '';
 
-  ngOnInit(): void {}
+  constructor(private entityService: EntityService) {}
+
+  ngOnInit(): void {
+
+  }
 
   onCloseModal() {
     this.closeModal.emit(true);
@@ -24,9 +29,9 @@ export class EntityCreateModalComponent implements OnInit {
 
   onCreate() {
     this.onCloseModal();
-    this.createEntity.emit({
+    this.entityService.setModalData({
       title: this.title,
-      description: this.description,
-    });
+      description: this.description
+    })
   }
 }
