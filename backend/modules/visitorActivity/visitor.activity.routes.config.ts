@@ -13,7 +13,6 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
   configureRoutes(): express.Application {
     
     this.app.post(`/feedback-activity`, [
-      jwtMiddleware.validJWTNeeded,
       body("activityType").isString(),
       body("userId").isInt(),
       body("websiteId").isInt(),
@@ -22,6 +21,16 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
       body("comment").isString(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       visitorActivityController.createFeedbackActivity,
+    ]);
+
+    this.app.get(`/visitor-activity`, [
+      jwtMiddleware.validJWTNeeded,
+      visitorActivityController.getVisitorActivity,
+    ]);
+
+    this.app.get('/visitor-activity/details', [
+      jwtMiddleware.validJWTNeeded,
+      visitorActivityController.getVisitorActivityDetails
     ]);
 
     return this.app;

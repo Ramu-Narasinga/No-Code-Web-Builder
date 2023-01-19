@@ -1,0 +1,22 @@
+
+
+.rating-container {
+  display: flex;
+  flex-direction: 'row';
+}
+
+.rating-img {
+  height: 35px; 
+  width: 35px;
+}
+
+.rating {
+  height: 35px;
+  width: 35px;
+}
+
+.active-rating {
+  fill: red;
+  height: 35px;
+  width: 35px;
+}

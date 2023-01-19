@@ -22,8 +22,8 @@ class VisitorActivityDao {
         city: feedbackActivity.city,
         region: feedbackActivity.region,
         country: feedbackActivity.country,
-        userId: feedbackActivity.userId,
-        websiteId: feedbackActivity.websiteId,
+        userId: +feedbackActivity.userId,
+        websiteId: +feedbackActivity.websiteId,
         activityEventsUrl: feedbackActivity.activityEventsUrl
       }
 
@@ -42,6 +42,30 @@ class VisitorActivityDao {
       console.log("error in creating feedback in dao", err);
       throw new Error("Create Feedback Activity Error");
     } 
+  }
+
+  async getVisitorActivity(data: {userId: number}) {
+    return await this.prisma.visitorActivity.findMany({
+      where: {
+        userId: data.userId
+      },
+      select: {        
+        website: {
+          select: {
+            title: true,
+            id: true
+          }
+        },
+        feedbackActivity: true,
+        errorActivity: true,
+        city: true,
+        id: true,
+        activityType: true,
+        region: true,
+        country: true,
+        activityEventsUrl: true
+      }
+    })
   }
 }
 

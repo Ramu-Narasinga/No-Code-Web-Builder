@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.252.0",
     "@prisma/client": "^4.8.0",
     "argon2": "^0.28.2",
     "aws-sdk": "^2.1289.0",
@@ -26,7 +27,7 @@
     "express-winston": "^4.1.0",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
-    "node-fetch": "^3.3.0",
+    "node-fetch": "^2.6.8",
     "nodemailer": "^6.8.0",
     "shortid": "^2.2.16",
     "winston": "^3.3.3"
@@ -38,6 +39,7 @@
     "@types/express": "^4.17.12",
     "@types/jsonwebtoken": "^8.5.2",
     "@types/mocha": "^8.2.2",
+    "@types/node-fetch": "^2.6.2",
     "@types/nodemailer": "^6.4.7",
     "@types/shortid": "0.0.29",
     "@types/supertest": "^2.0.11",
