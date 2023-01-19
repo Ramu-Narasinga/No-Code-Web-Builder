@@ -12,8 +12,9 @@ export class WebsiteComponent implements OnInit {
 
   baseEditUrl = '/dashboard/website/edit';
 
-  // TODO: to be fetched by api that only lists - status, title, description, pull whats needed
   websites: Entity[] = [];
+
+  entityTitle = 'Websites';
 
   constructor(
     private websiteService: WebsiteService
@@ -32,12 +33,7 @@ export class WebsiteComponent implements OnInit {
     })
   }
 
-  showCreateModal = false;
   modalTitle = 'Create Website';
-
-  toggleCreateModal(showModal) {
-    this.showCreateModal = showModal;
-  }
 
   createWebsite(createWebsiteModalData: CreateEntityModalData) {
     console.log("got create modal data", createWebsiteModalData);

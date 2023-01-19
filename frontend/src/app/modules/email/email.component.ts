@@ -15,6 +15,8 @@ export class EmailComponent implements OnInit {
 
   emails: Entity[] = [];
 
+  entityTitle = 'Emails';
+
   constructor(
     private emailService: EmailService
   ) {}
