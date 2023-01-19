@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { RequestInfo, RequestInit } from "node-fetch";
+import fetch from "node-fetch";
 
 import VisitorActivityDao from "../daos/visitor.activity.dao";
 import VisitorActivityS3Dao from "../daos/visitor.activity.s3.dao";
@@ -11,7 +11,22 @@ class VisitorActivityService {
     config();
   }
 
-  fetch = (url: RequestInfo, init?: RequestInit) =>  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
+  async getVisitorActivity(getVisitorActivityPayload: { userId: number }) {
+    try {
+      return await VisitorActivityDao.getVisitorActivity(getVisitorActivityPayload);
+    } catch(err) {
+      console.log("Error in visitor activity service", err);
+    }
+  }
+
+  async getVisitorActivityDetails(fileName: string) {
+    try {
+      console.log("calling dao", fileName);
+      return await VisitorActivityS3Dao.getActivityEvents(fileName);
+    } catch(err) {
+      console.log("Error in visitor activity service", err);
+    }
+  }
 
   async createFeedbackActivity(resource: CreateFeedbackVisitorActivity) {
     try {
@@ -39,7 +54,7 @@ class VisitorActivityService {
   }
 
   async _getUpdatedVisitorInfoResource(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
-    const request = await this.fetch(`${process.env.IPINFO}`);
+    const request = await fetch(`${process.env.IPINFO}`);
     const jsonResponse: any = await request.json();
 
     console.log(jsonResponse.ip, jsonResponse.country);

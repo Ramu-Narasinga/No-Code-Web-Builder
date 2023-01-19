@@ -34,6 +34,20 @@ class VisitorActivityS3Dao {
       throw new Error("Error in uploading events");
     }
   }
+
+  async getActivityEvents(filename: string) {
+    try {
+      console.log("inside getActivity event", filename);
+      
+      return this.s3.getObject({
+        Bucket: `${process.env.AWS_BUCKET_NAME}`,
+        Key: `${filename}`
+      }).promise();
+    } catch(err) {
+      console.log("Error in fetching activity events");
+      throw new Error("Error in fetching events");
+    }
+  }
 }
 
 export default new VisitorActivityS3Dao();
