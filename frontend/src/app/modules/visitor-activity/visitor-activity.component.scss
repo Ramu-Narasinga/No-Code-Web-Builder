@@ -81,3 +81,7 @@
     }
   }
 }
+
+:host ::ng-deep .rr-player {
+  height: 250px !important;
+}

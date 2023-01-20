@@ -1,9 +1,9 @@
 <div class="va-container">
   <div class="va-title">Website Visitor Activity</div>
   <div class="va-list">
-    <div class="va-item" *ngFor="let visitorActivity of visitorActivities">
-      <div class="va-event-player">
-        <button class="replay-btn">Replay</button>
+    <div class="va-item" *ngFor="let visitorActivity of visitorActivities; let index=index;">
+      <div class="va-event-player"  id="{{'va-ep-'+index}}">
+        <button class="replay-btn" (click)="handleReplayClick(index, visitorActivity.activityEventsUrl);" id="{{'va-ep-btn-'+index}}">Replay</button>
       </div>
       <div class="va-info">
         <div class="va-city va-info-lc">
