@@ -11,13 +11,17 @@
   cursor: pointer;
 }
 
+.rating-icon {
+  cursor: pointer;
+}
+
 .rating {
   height: 35px;
   width: 35px;
 }
 
 .active-rating {
-  fill: red;
+  fill: env('REACT_APP_ACTIVE_RATING_COLOR');
   height: 35px;
   width: 35px;
 }
