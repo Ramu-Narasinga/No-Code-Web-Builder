@@ -80,10 +80,9 @@ export class VisitorActivityComponent implements OnInit {
 
       rrwebPlayer.$set({
         width: '550',
-        height: '150',
+        height: '160',
       });
-      let el: any = document.getElementsByClassName('rr-player')[index];
-      el.style.height = '150px';
+
       rrwebPlayer.triggerResize();
     });
   }
