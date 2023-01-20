@@ -33,6 +33,13 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
       visitorActivityController.createFeedbackActivity,
     ]);
 
+    this.app.put('/feedback-activity', [
+      body("id").isNumeric(),
+      body("comment").isString(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      visitorActivityController.updateFeedbackActivityComment
+    ]);
+
     this.app.get(`/visitor-activity`, [
       jwtMiddleware.validJWTNeeded,
       visitorActivityController.getVisitorActivity,

@@ -13,33 +13,43 @@ function _getWebsiteId() {
   return _getNcwbEl().getAttribute('data-website-id');
 }
 
-function _postFetch(payload, url) {
+let visitorActivityId = null;
+function _setVisitorActivityId(id) {
+  visitorActivityId =id;
+}
+
+function _fetch(payload, url, method) {
   fetch(url, {
-    method: 'POST',
+    method,
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   }).then((res=> {
     flushEvents();
+    _setVisitorActivityId(res.id);
   }));
 }
 
-function _getSavePayload(rating, comment) {
+function _getSavePayload(rating) {
   const payload = {
     activityType: 'FEEDBACK',
     userId: _getUserId(),
     websiteId: _getWebsiteId(),
     activityEvents: getEvents(),
     rating: rating+1,
-    comment
+    comment: ''
   };
+
+  if (visitorActivityId) {
+    payload.visitorActivityId = visitorActivityId;
+  }
 
   return payload;
 }
 
-export function save(rating, comment) {
-    _postFetch(_getSavePayload(rating, comment), process.env.REACT_APP_SERVER_FEEDBACK_URL);
+export function save(rating) {
+    _fetch(_getSavePayload(rating), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'POST');
 }
 
 function _getErrorSavePayload() {
@@ -55,7 +65,7 @@ function _getErrorSavePayload() {
 }
 
 function _errorSave() {
-  _postFetch(_getErrorSavePayload(), process.env.REACT_APP_SERVER_ERROR_URL);
+  _fetch(_getErrorSavePayload(), process.env.REACT_APP_SERVER_ERROR_URL, 'POST');
 }
 
 export function listenToErrorsAndSave() {
@@ -66,6 +76,14 @@ export function listenToErrorsAndSave() {
   }
 }
 
-export function saveComment() {
+function _getSaveCommentPayload(comment) {
+  return {
+    id: visitorActivityId,
+    comment
+  }
+}
 
+
+export function saveComment(comment) {
+  _fetch(_getSaveCommentPayload(comment), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'PUT');
 }

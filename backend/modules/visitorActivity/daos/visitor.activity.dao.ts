@@ -53,6 +53,17 @@ class VisitorActivityDao {
     } 
   }
 
+  async updateFeedbackActivityComment(feedbackActivity: {id: number; comment: string;}) {
+    return await this.prisma.feedbackActivity.update({
+      where: {
+        id: feedbackActivity.id,
+      },
+      data: {
+        comment: feedbackActivity.comment,
+      },
+    })
+  }
+
   async getVisitorActivity(data: {userId: number}) {
     return await this.prisma.visitorActivity.findMany({
       where: {

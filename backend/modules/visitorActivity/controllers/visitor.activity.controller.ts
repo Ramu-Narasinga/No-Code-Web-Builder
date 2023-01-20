@@ -8,9 +8,18 @@ class VisitorActivityController {
  
   async createFeedbackActivity(req: express.Request, res: express.Response) {
     try {
+      let createFeedbackActivityRes = await visitorActivityService.createFeedbackActivity(req.body);
+      res.status(200).send({id: createFeedbackActivityRes.id});
+    } catch (err) {
+      log("Create Feedback Activity Error %0:", err);
+      return res.status(500).send();
+    }
+  }
 
-      log(await visitorActivityService.createFeedbackActivity(req.body));
-      res.status(200).send();
+  async updateFeedbackActivityComment(req: express.Request, res: express.Response) {
+    try {
+      let updateFeedbackActivityCommentRes = await visitorActivityService.updateFeedbackActivityComment(req.body);
+      res.status(200).send({id: updateFeedbackActivityCommentRes.id});
     } catch (err) {
       log("Create Feedback Activity Error %0:", err);
       return res.status(500).send();
