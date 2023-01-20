@@ -7,13 +7,17 @@ import { RouterModule } from '@angular/router';
 import { EnitityEditorComponent } from './components/enitity-editor/enitity-editor.component';
 import { EntityCreateModalComponent } from './components/entity-create-modal/entity-create-modal.component';
 import { FormsModule } from '@angular/forms';
+import { EntityComponent } from './components/entity/entity.component';
+import { VisitorActivityModalComponent } from './components/visitor-activity-modal/visitor-activity-modal.component';
 
 @NgModule({
   declarations: [
     EntityListComponent,
     SideBarComponent,
     EnitityEditorComponent,
-    EntityCreateModalComponent
+    EntityCreateModalComponent,
+    EntityComponent,
+    VisitorActivityModalComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +28,9 @@ import { FormsModule } from '@angular/forms';
     EntityListComponent,
     SideBarComponent,
     EnitityEditorComponent,
-    EntityCreateModalComponent
+    EntityCreateModalComponent,
+    EntityComponent,
+    VisitorActivityModalComponent
   ]
 })
 export class SharedModule { }
