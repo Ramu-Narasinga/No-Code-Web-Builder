@@ -10,7 +10,6 @@ const Record = () => {
   const [rating, setRating] = useState(-1);
 
   const toggleHover = (rating) => {
-    // console.log("rating:", rating);
     setRating(rating);
   }  
 
@@ -26,7 +25,7 @@ const Record = () => {
   const getRatingStyles = (index) => {
     return (
       rating >= index && 
-      rating != -1
+      rating !== -1
     ) ? {
       fill: process.env.REACT_APP_ACTIVE_RATING_COLOR
     } : {}
@@ -36,13 +35,9 @@ const Record = () => {
     <div className="rating-container">
       {
         Array(5).fill().map((item, index) => {
-          return <div className="rating-icon">
+          return <div className="rating-icon" key={index}>
             <Rating 
-              className={
-                (
-                  rating >= index && 
-                  rating != -1
-                )  ? 'active-rating' : 'rating'}
+              className="rating"  
               style={getRatingStyles(index)}
               onMouseEnter={() => toggleHover(index)}
               onMouseLeave={() => toggleHover(-1)}
