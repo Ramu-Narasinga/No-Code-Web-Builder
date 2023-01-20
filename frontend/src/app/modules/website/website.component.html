@@ -1,4 +1,4 @@
-<div class="website-container">
+<!-- <div class="website-container">
   <div class="website-title">
     <div>Websites</div>
     <div><button (click)="toggleCreateModal(true)">+ Create</button></div>
@@ -16,4 +16,12 @@
     (closeModal)="toggleCreateModal(false)"
     (createEntity)="createWebsite($event)"
   ></app-entity-create-modal>
-</div>
+</div> -->
+
+
+<app-entity
+  [entities]="websites"
+  [baseEditUrl]="baseEditUrl"
+  [modalTitle]="modalTitle"
+  [entityTitle]="entityTitle"
+></app-entity>
