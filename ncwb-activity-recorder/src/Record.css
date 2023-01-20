@@ -25,3 +25,28 @@
   height: 35px;
   width: 35px;
 }
+
+.tyf-container {
+  background: #005aad1c;
+  padding: 10%;
+  border-radius: 5px;
+  width: 250px;
+}
+
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+}
+
+.submit-btn {
+  width: 50%;
+  margin: 5% auto;
+  background: #005aad;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 3%;
+  font-size: 1rem;
+  cursor: pointer;
+}

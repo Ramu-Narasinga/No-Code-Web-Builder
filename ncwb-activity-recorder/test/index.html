@@ -10,5 +10,11 @@
     <div id="ncwb-recorder"></div>
     <script src="../dist/build/static/js/bundle.min.js"></script>
     <link rel="stylesheet" href="../build//static/css/main.c870e950.css">
+    <script>
+      setTimeout(() => {
+        console.log("about to throw error")
+        throw new Error("Deliberate error to trigger error save");
+      }, 3000);
+    </script>
   </body>
 </html>

@@ -17,8 +17,18 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
       body("userId").isInt(),
       body("websiteId").isInt(),
       body("activityEvents").isArray(),
-      body("rating").isNumeric(),
-      body("comment").isString(),
+      body("rating").exists().isNumeric(),
+      body("comment").exists().isString(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      visitorActivityController.createFeedbackActivity,
+    ]);
+
+    this.app.post(`/error-activity`, [
+      body("activityType").isString(),
+      body("userId").isInt(),
+      body("websiteId").isInt(),
+      body("activityEvents").isArray(),
+      body("endpoint").isString(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       visitorActivityController.createFeedbackActivity,
     ]);

@@ -17,7 +17,8 @@ export interface CreateVisitorActivity {
 
 export interface CreateFeedback {
   rating: number;
-  comment: string;
+  comment?: string;
+  endpoint?: string;
 }
 
 export interface CreateFeedbackVisitorActivity extends CreateVisitorActivity, CreateFeedback {}
