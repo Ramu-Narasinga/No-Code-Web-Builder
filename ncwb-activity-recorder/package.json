@@ -15,6 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-prod": "react-scripts build .env.production",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

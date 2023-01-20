@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import Record from './Record';
 
 import './App.css';
