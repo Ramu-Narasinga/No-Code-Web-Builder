@@ -26,3 +26,27 @@
     text-decoration: underline;
   }
 }
+
+.edit-website-tabs {
+  background: white;
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  padding: 1.5%;
+  justify-content: space-around;
+
+  .ee-tab {
+    width: inherit;
+    text-align: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+  .ee-tab:first-of-type {
+    border-right: 1px solid #918d8d;
+  }
+
+  .ee-tab-active {
+    color: #005AAD;
+    text-decoration: underline;
+  }
+}
