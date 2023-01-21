@@ -52,6 +52,18 @@ export class AuthService {
     localStorage.setItem("refreshToken", refreshToken);
   }
 
+  setUserIdToLocalStorage(userId) {
+    localStorage.setItem("userId", userId)
+  }
+
+  setFirstNameToLocalStorage(firstName) {
+    localStorage.setItem("firstName", firstName)
+  }
+
+  setLastNameToLocalStorage(lastName) {
+    localStorage.setItem("lastName", lastName)
+  }
+
   setUserId(userId) {
     localStorage.setItem('userId', userId);
   }

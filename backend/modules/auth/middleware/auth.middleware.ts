@@ -20,6 +20,10 @@ class AuthMiddleware {
           userId: user.id,
           email: user.email
         };
+
+        res.locals.firstName = user.firstName;
+        res.locals.lastName = user.lastName;
+        res.locals.id = user.id;
         return next();
       }
     }
