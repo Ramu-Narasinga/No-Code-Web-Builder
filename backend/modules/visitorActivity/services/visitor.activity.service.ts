@@ -40,6 +40,15 @@ class VisitorActivityService {
     }
   }
 
+  async updateFeedbackActivityComment(resource: {id: number, comment: string}) {
+    try {
+      return await VisitorActivityDao.updateFeedbackActivityComment(resource);
+    } catch(err) {
+      console.log("Error in visitor activity service", err);
+      throw new Error("Create Feedback Activity Error")
+    }
+  }
+
   async _getUpdatedActivityResource(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
     resource = await this.uploadEventsToS3AndReturnEventsUrl(resource);
     resource = await this._getUpdatedVisitorInfoResource(resource);

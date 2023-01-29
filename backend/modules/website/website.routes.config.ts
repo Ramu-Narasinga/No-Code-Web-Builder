@@ -17,6 +17,10 @@ export class WebsiteRoutes extends CommonRoutesConfig {
       websiteController.getWebsiteById,
     ]);
 
+    this.app.get('/website-renderer/:id', [
+      websiteController.getWebsiteById,
+    ]);
+
     this.app.get('/website', [
       jwtMiddleware.validJWTNeeded,
       websiteController.getWebsites,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Subject } from 'rxjs';
 import { CreateEntityModalData } from '../components/entity-create-modal/entity-create.types';
 
 @Injectable({
@@ -9,30 +9,29 @@ export class EntityService {
 
   constructor() { }
 
+
+  createModal = new Subject<CreateEntityModalData>();
+
   title = '';
   description = '';
   setModalData(modalData) {
     this.title = modalData.title;
     this.description = modalData.description;
+    this.createModal.next({ title: this.title, description: this.description });
+  }
+
+  onCreateModal() {
+    return this.createModal.asObservable();
   }
 
 
-  createModalSubscriber(observer: Observer<CreateEntityModalData>) {
+  deleteEntity = new Subject<{id: number}>();
 
-    console.log("inside subscriber", this.title, this.description);
-
-    if (this.title && this.description) {
-      observer.next({
-        title: this.title,
-        description: this.description
-      });
-    }
-
-    return () => {
-      this.title = '';
-      this.description = '';
-    }
+  trigerDeleteEntity(deleteEntityData) {
+    this.deleteEntity.next(deleteEntityData);
   }
 
-  createModal = new Observable(this.createModalSubscriber);
+  onDeleteEntity() {
+    return this.deleteEntity.asObservable();
+  }
 }

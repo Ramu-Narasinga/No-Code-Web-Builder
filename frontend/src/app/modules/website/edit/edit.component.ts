@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Entity } from '../../shared/components/entity-list/entity-list.component';
 import { WebsiteService } from '../website.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -11,13 +11,16 @@ import { ActivatedRoute } from '@angular/router';
 export class EditComponent implements OnInit {
   website: Entity = {} as Entity;
   editorSaveEndpoint = '';
+  isEditorMode = false;
 
   constructor(
     private websiteService: WebsiteService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.setEditorMode();
     this.websiteService.setActiveWebsiteId(Number(this.route.snapshot.paramMap.get('id'))??-1);
     this.websiteService.setEditorSaveEndpoint();
     this.editorSaveEndpoint = this.websiteService.getEditorSaveEndpoint();
@@ -43,4 +46,38 @@ export class EditComponent implements OnInit {
         this.website = this.websiteService.activeWebsite ?? {} as Entity;
       })
   }
+
+  setEditorMode() {
+    this.route.queryParams
+      .subscribe(params => {
+        console.log(params);
+        this.isEditorMode = JSON.parse(params['isEditorMode'].toLowerCase());
+      }
+    );
+  }
+
+  handleWebsiteEditBackNav() {
+
+    let websiteBackNavToEdit;
+    let websiteBackNavToList = '/dashboard/website/';
+
+    if (this.website) {
+      websiteBackNavToEdit = '/dashboard/website/edit/'+this.website.id;
+    } else {
+      websiteBackNavToEdit = '/dashboard/website/';
+    }
+
+    if (this.isEditorMode) {
+      this.router.navigate(
+        [websiteBackNavToEdit],
+        {
+          queryParams: {
+            'isEditorMode': false
+          }
+        }
+      )
+    } else {
+      this.router.navigate([websiteBackNavToList])
+    }
+   }
 }

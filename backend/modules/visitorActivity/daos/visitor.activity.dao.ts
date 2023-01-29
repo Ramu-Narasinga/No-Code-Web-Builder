@@ -16,7 +16,7 @@ class VisitorActivityDao {
   async createFeedbackActivity(feedbackActivity: CreateFeedbackVisitorActivity) {
     try {
 
-      let visitorActivityData = {
+      let visitorActivityData: any = {
         activityType: feedbackActivity.activityType,
         ip: feedbackActivity.ip,
         city: feedbackActivity.city,
@@ -27,21 +27,41 @@ class VisitorActivityDao {
         activityEventsUrl: feedbackActivity.activityEventsUrl
       }
 
+      if (feedbackActivity && feedbackActivity.rating) {
+        visitorActivityData["feedbackActivity"] = {
+          create: {
+            rating: feedbackActivity.rating,
+            comment: feedbackActivity.comment,
+          }
+        }
+      } else {
+        visitorActivityData["errorActivity"] = {
+          create: {
+            endpoint: feedbackActivity.endpoint
+          }
+        }
+      }
+
       return await this.prisma.visitorActivity.create({
         data: {
-          ...visitorActivityData,
-          feedbackActivity: {
-            create: {
-              rating: feedbackActivity.rating,
-              comment: feedbackActivity.comment,
-            }
-          }
+          ...visitorActivityData, 
         }
       })
     } catch(err) {
       console.log("error in creating feedback in dao", err);
       throw new Error("Create Feedback Activity Error");
     } 
+  }
+
+  async updateFeedbackActivityComment(feedbackActivity: {id: number; comment: string;}) {
+    return await this.prisma.feedbackActivity.update({
+      where: {
+        id: feedbackActivity.id,
+      },
+      data: {
+        comment: feedbackActivity.comment,
+      },
+    })
   }
 
   async getVisitorActivity(data: {userId: number}) {

@@ -40,7 +40,12 @@ class AuthController {
       const token = authService.generateAndGetJwtToken(req.body, jwtSecret);
       return res.status(201).send({ 
         accessToken: token, 
-        refreshToken: hash
+        refreshToken: hash,
+        user: {
+          firstName: res.locals.firstName,
+          lastName: res.locals.lastName,
+          id: res.locals.id
+        }
       });
     } catch (err) {
       log("createJWT error: %O", err);
