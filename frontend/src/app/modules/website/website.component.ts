@@ -29,6 +29,7 @@ export class WebsiteComponent implements OnInit {
     this.loadWebsitesList();
     this.listenToCreateWebsite();
     this.listenToDeleteWebsite();
+    this.listenToUpdateWebsite();
   }
 
   listenToCreateWebsite() {
@@ -51,6 +52,17 @@ export class WebsiteComponent implements OnInit {
       next: (websiteData) => {
         console.log(websiteData);
         this.deleteWebsite(websiteData);
+      },
+      error: (err: Error) => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    });
+  }
+
+  listenToUpdateWebsite() {
+    this.entityService.onUpdateEntity().subscribe({
+      next: (websiteData) => {
+        console.log(websiteData);
+        this.updateWebsite(websiteData);
       },
       error: (err: Error) => console.error('Observer got an error: ' + err),
       complete: () => console.log('Observer got a complete notification'),
@@ -85,6 +97,16 @@ export class WebsiteComponent implements OnInit {
       console.log("res after deleting website", res);
       if (res && res.id)
         this.websiteService.removeWebsiteById(res.id);
+    });
+  }
+
+  updateWebsite(updateWebsite: {id: number, title: string, description: string, status: string}) {
+    console.log("updateWebsite in website::", updateWebsite);
+    this.websiteService.updateWebsite(updateWebsite)
+    .subscribe((res:  Entity | null) => {
+      console.log("res after deleting website", res);
+      if (res && res.id)
+        this.websiteService.updateWebsiteById(res);
     });
   }
 }

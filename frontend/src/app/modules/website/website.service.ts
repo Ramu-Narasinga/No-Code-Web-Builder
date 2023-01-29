@@ -89,6 +89,11 @@ export class WebsiteService {
     this.websites.splice(index, 1);
   }
 
+  updateWebsiteById(updatedWebsite) {
+    let index = this.websites.findIndex(website => website.id == updatedWebsite.id);
+    this.websites.splice(index, 1, updatedWebsite);
+  }
+
   createWebsite(createWebsiteModalData: CreateEntityModalData): Observable<null> {
 
     return this.http.post<null>(this.websiteUrl, this._getCreateWebsitePayload(createWebsiteModalData))
@@ -99,6 +104,13 @@ export class WebsiteService {
 
   deleteWebsite(deleteWebsite: {id: number}) {
     return this.http.delete<null>(`${this.websiteUrl}/${deleteWebsite.id}`)
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
+
+  updateWebsite(updateWebsite: {id: number, title: string, description: string, status: string}) {
+    return this.http.put<null>(`${this.websiteUrl}`, updateWebsite)
     .pipe(
       catchError(this.sharedService.handleError)
     );
