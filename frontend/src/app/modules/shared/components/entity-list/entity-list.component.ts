@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router'
+import { EntityService } from '../../services/entity.service';
 
 export enum Status {
   PUBLISHED = "PUBLISHED",
@@ -34,7 +35,10 @@ export class EntityListComponent implements OnInit {
     return Status;
   }
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private entityService: EntityService
+  ) { }
 
   ngOnInit(): void {
     console.log("this.route in entity list", this.router.url);
@@ -56,6 +60,8 @@ export class EntityListComponent implements OnInit {
 
   handleEntityDelete(event: MouseEvent, entityId: number) {
     event.stopPropagation();
-    this.deleteEntity.emit({id: entityId});
+    this.entityService.trigerDeleteEntity({
+      id: entityId
+    });
   }
 }

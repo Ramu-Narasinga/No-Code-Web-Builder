@@ -28,16 +28,29 @@ export class WebsiteComponent implements OnInit {
   ngOnInit(): void {
     this.loadWebsitesList();
     this.listenToCreateWebsite();
+    this.listenToDeleteWebsite();
   }
 
   listenToCreateWebsite() {
 
     console.log("this gets triggered", this.createModal);
 
-    this.entityService.createModal.subscribe({
+    this.entityService.onCreateModal().subscribe({
       next: (websiteData) => {
         console.log(websiteData);
         this.createWebsite(websiteData);
+      },
+      error: (err: Error) => console.error('Observer got an error: ' + err),
+      complete: () => console.log('Observer got a complete notification'),
+    });
+  }
+
+
+  listenToDeleteWebsite() {
+    this.entityService.onDeleteEntity().subscribe({
+      next: (websiteData) => {
+        console.log(websiteData);
+        this.deleteWebsite(websiteData);
       },
       error: (err: Error) => console.error('Observer got an error: ' + err),
       complete: () => console.log('Observer got a complete notification'),
