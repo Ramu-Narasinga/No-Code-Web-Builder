@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { EntityService } from '../../services/entity.service';
 
 export enum Status {
-  PUBLISHED = "PUBLISHED",
+  ACTIVE = "ACTIVE",
   DRAFT = "DRAFT"
 }
 
@@ -54,7 +54,16 @@ export class EntityListComponent implements OnInit {
     }
   }
 
-  handleEntityStatus(event: MouseEvent) {
+  handleEntityStatusChange(status, entity: Entity) {
+    this.entityService.triggerUpdateEntity({
+      id: entity.id,
+      title: entity.title,
+      description: entity.description,
+      status: status
+    });
+  }
+
+  handleEntityStatusClick(event: MouseEvent) {
     event.stopPropagation();
   }
 

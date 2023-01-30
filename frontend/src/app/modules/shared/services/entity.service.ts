@@ -24,7 +24,6 @@ export class EntityService {
     return this.createModal.asObservable();
   }
 
-
   deleteEntity = new Subject<{id: number}>();
 
   trigerDeleteEntity(deleteEntityData) {
@@ -34,4 +33,15 @@ export class EntityService {
   onDeleteEntity() {
     return this.deleteEntity.asObservable();
   }
+
+  updateEntity = new Subject<{id: number, title: string, description: string, status: string}>();
+
+  triggerUpdateEntity(updateEntityData) {
+    this.updateEntity.next(updateEntityData);
+  }
+
+  onUpdateEntity() {
+    return this.updateEntity.asObservable();
+  }
+
 }

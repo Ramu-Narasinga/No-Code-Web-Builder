@@ -6,9 +6,12 @@
         <div class="eli-el-description">{{ enitity.description }}</div>
       </div>
       <div class="eli-el">
-        <select name="status" id="status" class="eli-el-status" (click)="handleEntityStatus($event)">
-          <option value="Status.PUBLISHED">{{Status.PUBLISHED}}</option>
-          <option value="Status.DRAFT">{{Status.DRAFT}}</option>
+        <select name="status" id="status" class="eli-el-status"
+        (click)="handleEntityStatusClick($event)"
+        (ngModelChange)="handleEntityStatusChange($event, enitity)"
+        [(ngModel)]="enitity.status">
+          <option [ngValue]="Status.ACTIVE">{{Status.ACTIVE}}</option>
+          <option [ngValue]="Status.DRAFT">{{Status.DRAFT}}</option>
         </select>
       </div>
       <div class="eli-el">
