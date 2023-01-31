@@ -5,10 +5,6 @@ import * as http from 'http';
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import cors from 'cors';
-// The Cloud Functions for Firebase SDK to create Cloud Functions and set up triggers.
-import * as functions from 'firebase-functions';
-// The Firebase Admin SDK to access Firestore.
-import * as admin from 'firebase-admin';
 
 import {CommonRoutesConfig} from './modules/common/common.routes.config';
 import { AuthRoutes } from './modules/auth/auth.routes.config';
@@ -28,7 +24,6 @@ const server: http.Server = http.createServer(app);
 const port = process.env.PORT || 8080;
 const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug('app');
-admin.initializeApp();
 
 app.use(helmet());
 
