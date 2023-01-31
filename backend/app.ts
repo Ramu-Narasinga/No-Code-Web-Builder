@@ -28,7 +28,6 @@ const debugLog: debug.IDebugger = debug('app');
 app.use(helmet());
 
 // here we are adding middleware to parse all incoming requests as JSON 
-
 app.use(express.json());
 
 // here we are adding middleware to allow cross-origin requests
