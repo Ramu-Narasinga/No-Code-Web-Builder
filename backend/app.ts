@@ -15,10 +15,10 @@ import { EmailMetaRoutes } from './modules/email/subModules/emailMeta/email.meta
 import { EmailMetaRecipientsRoutes } from './modules/email/subModules/recipient/recipients.routes.config';
 import { VisitorActivityRoutes } from './modules/visitorActivity/visitor.activity.routes.config';
 
-const dotenvResult = dotenv.config();
-if (dotenvResult.error) {
-    throw dotenvResult.error;
-}
+// const dotenvResult = dotenv.config();
+// if (dotenvResult.error) {
+//     throw dotenvResult.error;
+// }
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 const port = process.env.PORT || 8080;

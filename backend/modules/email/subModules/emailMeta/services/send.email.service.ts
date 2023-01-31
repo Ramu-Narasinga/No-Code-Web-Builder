@@ -10,7 +10,7 @@ class SendEmail {
   transporter: nodemailer.Transporter = {} as nodemailer.Transporter;
 
   constructor() {
-    dotenv.config();
+    // dotenv.config();
     this.createTransporter();
   }
   

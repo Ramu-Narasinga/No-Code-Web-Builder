@@ -16,7 +16,7 @@ const log: debug.IDebugger = debug("app:auth-controller");
 const jwtSecret: string = process.env.JWT_SECRET;
 class AuthController {
   constructor() {
-    dotenv.config();
+    // dotenv.config();
   }
 
   async registerUser(req: express.Request, res: express.Response) {
