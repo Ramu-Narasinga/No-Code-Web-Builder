@@ -1,19 +1,16 @@
 import debug from 'debug';
 import dotenv from 'dotenv';
-
-const dotenvResult = dotenv.config();
-if (dotenvResult.error) {
-    throw dotenvResult.error;
-}
-
 import express from 'express';
 import * as http from 'http';
-
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import cors from 'cors';
+// The Cloud Functions for Firebase SDK to create Cloud Functions and set up triggers.
+import * as functions from 'firebase-functions';
+// The Firebase Admin SDK to access Firestore.
+import * as admin from 'firebase-admin';
+
 import {CommonRoutesConfig} from './modules/common/common.routes.config';
-// import {UsersRoutes} from './users/users.routes.config';
 import { AuthRoutes } from './modules/auth/auth.routes.config';
 import helmet from 'helmet';
 import { WebsiteRoutes } from './modules/website/website.routes.config';
@@ -22,11 +19,16 @@ import { EmailMetaRoutes } from './modules/email/subModules/emailMeta/email.meta
 import { EmailMetaRecipientsRoutes } from './modules/email/subModules/recipient/recipients.routes.config';
 import { VisitorActivityRoutes } from './modules/visitorActivity/visitor.activity.routes.config';
 
+const dotenvResult = dotenv.config();
+if (dotenvResult.error) {
+    throw dotenvResult.error;
+}
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 const port = process.env.PORT || 8080;
 const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug('app');
+admin.initializeApp();
 
 app.use(helmet());
 
