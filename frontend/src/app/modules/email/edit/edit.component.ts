@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Entity } from '../../shared/components/entity-list/entity-list.component';
+import { Entity } from '../../shared/components/entity-list/entity-list.types';
 import { EmailService } from '../email.service';
 
 @Component({
@@ -42,7 +42,6 @@ export class EditComponent implements OnInit {
   loadEmailFromServer() {
     this.emailService.fetchWebsiteByActiveId()
       .subscribe(res => {
-        console.log("res in ngoninit", res);
         this.emailService.setActiveEmail(res);
         this.email = this.emailService.activeEmail ?? {} as Entity;
       })
@@ -51,7 +50,6 @@ export class EditComponent implements OnInit {
   setEditorMode() {
     this.route.queryParams
       .subscribe(params => {
-        console.log(params);
         this.isEditorMode = JSON.parse(params['isEditorMode'].toLowerCase());
       }
     );

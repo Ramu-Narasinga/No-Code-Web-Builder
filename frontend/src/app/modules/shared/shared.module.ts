@@ -8,8 +8,6 @@ import { EnitityEditorComponent } from './components/enitity-editor/enitity-edit
 import { EntityCreateModalComponent } from './components/entity-create-modal/entity-create-modal.component';
 import { FormsModule } from '@angular/forms';
 import { EntityComponent } from './components/entity/entity.component';
-import { VisitorActivityModalComponent } from './components/visitor-activity-modal/visitor-activity-modal.component';
-
 @NgModule({
   declarations: [
     EntityListComponent,
@@ -17,12 +15,11 @@ import { VisitorActivityModalComponent } from './components/visitor-activity-mod
     EnitityEditorComponent,
     EntityCreateModalComponent,
     EntityComponent,
-    VisitorActivityModalComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     EntityListComponent,
@@ -30,7 +27,6 @@ import { VisitorActivityModalComponent } from './components/visitor-activity-mod
     EnitityEditorComponent,
     EntityCreateModalComponent,
     EntityComponent,
-    VisitorActivityModalComponent
   ]
 })
 export class SharedModule { }

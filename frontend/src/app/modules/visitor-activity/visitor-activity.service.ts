@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { SharedService } from '../shared/services/shared.service';
-import { VisitorActivity } from './visitor-activity.component';
+import { VisitorActivity } from './visitor-activity.types';
 
 @Injectable({
   providedIn: 'root'

@@ -12,17 +12,8 @@ enum AuthType {
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  // authType: string = AuthType.LOGIN;
 
   constructor(private route: ActivatedRoute) {}
 
-  // public get AuthType(): typeof AuthType {
-  //   return AuthType
-  // }
-
-  ngOnInit() {
-    // console.log("what are you", this.route.snapshot.url[0].path);
-    // this.authType = this.route.snapshot.url[0].path.toUpperCase();
-    // console.log("this.authType:", this.authType);
-  }
+  ngOnInit() { }
 }

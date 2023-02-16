@@ -5,13 +5,11 @@ import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SharedService } from '../shared/services/shared.service';
 import { CreateEntityModalData, CreateEntityPayload } from '../shared/components/entity-create-modal/entity-create.types';
-import { Entity } from '../shared/components/entity-list/entity-list.component';
+import { Entity } from '../shared/components/entity-list/entity-list.types';
 @Injectable({
   providedIn: 'root'
 })
 export class EmailService {
-
-  // TODO: if possible break this file iinto specific HTTP service files for readability
 
   constructor(
     private http: HttpClient,

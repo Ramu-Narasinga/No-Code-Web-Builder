@@ -32,8 +32,6 @@ export class SignupComponent {
 
     this.authService
     .signup(signupPayload)
-    .subscribe(res => {
-      console.log("response after signup!!", res);
-    });
+    .subscribe(res => {});
   }
 }

@@ -1,32 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { VisitorActivityService } from './visitor-activity.service';
+import { VisitorActivity } from './visitor-activity.types';
 
 enum Activitytype {
   ERROR = 'ERROR',
   FEEDBACK = 'FEEDBACK'
-}
-
-export type VisitorActivity = {
-  "website": {
-    "title": string,
-    "id": number
-  },
-  "feedbackActivity": {
-      "id": number,
-      "rating": number,
-      "comment": string,
-      "visitorActivityId": number
-  } | null,
-  "errorActivity": {
-    endpoint: string;
-  } | null,
-  "city": string,
-  "id": number,
-  "activityType": string,
-  "region": string,
-  "country": string,
-  "activityEventsUrl": string;
-  "activityEvents"?: []
 }
 @Component({
   selector: 'app-visitor-activity',
@@ -50,7 +28,6 @@ export class VisitorActivityComponent implements OnInit {
   getVisitorActivities() {
     this.visitorActivityService.getVisitorActivities()
       .subscribe(res => {
-        console.log("res in ngoninit", res);
         this.visitorActivityService.setVisitorActivities(res);
         this.visitorActivities = this.visitorActivityService.visitorActivities;
     })

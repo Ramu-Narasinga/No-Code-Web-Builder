@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CreateEntityModalData } from '../components/entity-create-modal/entity-create.types';
-
+import { UpdateEntity, DeleteEntity } from './entity.service.types';
 @Injectable({
   providedIn: 'root'
 })
 export class EntityService {
 
   constructor() { }
-
 
   createModal = new Subject<CreateEntityModalData>();
 
@@ -24,7 +23,7 @@ export class EntityService {
     return this.createModal.asObservable();
   }
 
-  deleteEntity = new Subject<{id: number}>();
+  deleteEntity = new Subject<DeleteEntity>();
 
   trigerDeleteEntity(deleteEntityData) {
     this.deleteEntity.next(deleteEntityData);
@@ -34,7 +33,7 @@ export class EntityService {
     return this.deleteEntity.asObservable();
   }
 
-  updateEntity = new Subject<{id: number, title: string, description: string, status: string}>();
+  updateEntity = new Subject<UpdateEntity>();
 
   triggerUpdateEntity(updateEntityData) {
     this.updateEntity.next(updateEntityData);

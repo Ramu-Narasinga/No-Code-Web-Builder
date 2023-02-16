@@ -1,24 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router'
 import { EntityService } from '../../services/entity.service';
-
-export enum Status {
-  ACTIVE = "ACTIVE",
-  DRAFT = "DRAFT"
-}
-
-export type Entity = {
-  id: number;
-  title: string;
-  description: string;
-  status: Status
-  createdAt: string;
-  css: string;
-  html: string;
-  updatedAt: string;
-  userId: number;
-}
-
+import { Status, Entity } from '../entity-list/entity-list.types';
 @Component({
   selector: 'app-entity-list',
   templateUrl: './entity-list.component.html',
@@ -40,9 +23,7 @@ export class EntityListComponent implements OnInit {
     private entityService: EntityService
   ) { }
 
-  ngOnInit(): void {
-    console.log("this.route in entity list", this.router.url);
-  }
+  ngOnInit(): void { }
 
   getQueryParams() {
     if (this.router.url.includes('email')) {

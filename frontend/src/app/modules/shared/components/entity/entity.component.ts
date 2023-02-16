@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Entity } from '../entity-list/entity-list.component';
+import { Entity } from '../entity-list/entity-list.types';
 
 @Component({
   selector: 'app-entity',
