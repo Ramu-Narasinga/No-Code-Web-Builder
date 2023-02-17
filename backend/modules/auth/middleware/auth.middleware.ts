@@ -39,6 +39,9 @@ class AuthMiddleware {
   ) {
     try {
       req.body.password = await argon2.hash(req.body.password);
+
+      res.locals.firstName = req.body.firstName;
+      res.locals.lastName = req.body.lastName;
       return next();
     } catch(err) {
       res.status(400).send({ errors: "Issue in password encryption" });

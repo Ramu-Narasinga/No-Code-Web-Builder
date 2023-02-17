@@ -5,13 +5,13 @@
     <p class="em-mt">{{modalTitle}}</p>
     <div class="em-fields">
       <div class="em-ft">
-        <span>Title:</span>
-        <input type="text" [(ngModel)]="title" />
+        <span class="entity-title-label" >Title:</span>
+        <input type="text" [(ngModel)]="title" class="entity-title-val" />
       </div>
 
       <div class="em-fd">
-        <span>Description:</span>
-        <textarea [(ngModel)]="description"></textarea>
+        <span class="entity-description-label" >Description:</span>
+        <textarea [(ngModel)]="description"  class="entity-description-val" ></textarea>
       </div>
     </div>
 

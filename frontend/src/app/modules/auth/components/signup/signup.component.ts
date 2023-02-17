@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth.service';
+import { LoginResponse } from '../../auth.types';
 
 @Component({
   selector: 'app-signup',
@@ -32,8 +33,8 @@ export class SignupComponent {
 
     this.authService
     .signup(signupPayload)
-    .subscribe(res => {
-      console.log("response after signup!!", res);
+    .subscribe((res: LoginResponse) => {
+      this.authService.handleAuthResponse(res)
     });
   }
 }

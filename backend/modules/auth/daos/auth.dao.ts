@@ -14,6 +14,17 @@ class AuthDao {
         log('Created new instance of UsersDao');
     }
 
+    async deleteUser(userEmail: string) {
+      try {
+        return await this.prisma.user.delete({
+          where: {
+            email: userEmail,
+          },
+        });
+      } catch(error) {
+        console.error("Error in deleting in user in dao", error);
+      }
+    }
 }
 
 export default new AuthDao();

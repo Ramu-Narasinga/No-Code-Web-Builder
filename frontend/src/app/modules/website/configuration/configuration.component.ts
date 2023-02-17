@@ -40,7 +40,7 @@ export class ConfigurationComponent implements OnInit {
       <!-- To record visitor activity -->
       <div id="ncwb-recorder"></div>
       <script src='${this.ncwbRecorderScript}'></script>
-      <link rel='stylesheet' href='${this.ncwbRecorderScript}'>
+      <link rel='stylesheet' href='${this.ncwbRecorderCss}'>
     `
   }
 

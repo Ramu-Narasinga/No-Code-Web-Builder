@@ -27,11 +27,11 @@ export class AuthService {
 
   authSignupUrl = `${environment.serverUrl}/auth/register`;
 
-  signup(signupPayload: SignupPayload): Observable<SignupPayload> {
-    return this.http.post<SignupPayload>(this.authSignupUrl, signupPayload)
-    .pipe(
-      catchError(this.sharedService.handleError)
-    );
+  signup(signupPayload: SignupPayload): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.authSignupUrl, signupPayload)
+      .pipe(
+        catchError(this.sharedService.handleError)
+      );
   }
 
 
@@ -39,9 +39,9 @@ export class AuthService {
 
   login(loginPayload: LoginPayload): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.authLoginUrl, loginPayload)
-    .pipe(
-      catchError(this.sharedService.handleError)
-    );
+      .pipe(
+        catchError(this.sharedService.handleError)
+      );
   }
 
   setAuthTokenToLocalStorage(authToken) {
@@ -85,4 +85,17 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
+  handleAuthResponse(res) {
+    this.setAuthTokenToLocalStorage(res.accessToken);
+    this.setRefreshTokenToLocalStorage(res.refreshToken);
+    this.setUserIdToLocalStorage(res.user.id);
+    this.setFirstNameToLocalStorage(res.user.firstName);
+    this.setLastNameToLocalStorage(res.user.lastName);
+    this.redirectToDashboard();
+  }
+
+  logOut() {
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
+  }
 }

@@ -105,4 +105,16 @@ export class EmailService {
     let index = this.emails.findIndex(website => website.id == id);
     this.emails.splice(index, 1);
   }
+
+  updateEmailById(updatedWebsite) {
+    let index = this.emails.findIndex(website => website.id == updatedWebsite.id);
+    this.emails.splice(index, 1, updatedWebsite);
+  }
+
+  updateEmail(updateEmail: {id: number, title: string, description: string, status: string}) {
+    return this.http.put<null>(`${this.emailUrl}`, updateEmail)
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
 }

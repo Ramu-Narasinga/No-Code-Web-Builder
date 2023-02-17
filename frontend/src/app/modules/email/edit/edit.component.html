@@ -13,7 +13,7 @@
   <div class="email-edit-body">
     <div class="edit-email-tabs" *ngIf="!isEditorMode">
       <div
-        class="ee-tab"
+        class="ee-tab send-email-label"
         [ngClass]="{ 'ee-tab-active': !isEditorMode }"
         [routerLink]="['/dashboard/email/edit/', email.id]"
         [queryParams]="{ isEditorMode: false }"
@@ -22,7 +22,7 @@
       </div>
 
       <div
-        class="ee-tab"
+        class="ee-tab edit-email-label"
         [ngClass]="{ 'ee-tab-active': isEditorMode }"
         [routerLink]="['/dashboard/email/edit/', email.id]"
         [queryParams]="{ isEditorMode: true }"

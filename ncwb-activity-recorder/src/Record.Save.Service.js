@@ -13,22 +13,20 @@ function _getWebsiteId() {
   return _getNcwbEl().getAttribute('data-website-id');
 }
 
-let visitorActivityId = null;
+var visitorActivityId = null;
 function _setVisitorActivityId(id) {
-  visitorActivityId =id;
+  console.log("setting id", id);
+  visitorActivityId = id;
 }
 
 function _fetch(payload, url, method) {
-  fetch(url, {
+  return fetch(url, {
     method,
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
-  }).then((res=> {
-    flushEvents();
-    _setVisitorActivityId(res.id);
-  }));
+  })
 }
 
 function _getSavePayload(rating) {
@@ -49,7 +47,20 @@ function _getSavePayload(rating) {
 }
 
 export function save(rating) {
-    _fetch(_getSavePayload(rating), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'POST');
+    return new Promise((resolve, reject) => {
+      _fetch(_getSavePayload(rating), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'POST')
+      .then(res => res.json())
+      .then((res=> {
+        console.log("res in save", res);
+        flushEvents();
+        _setVisitorActivityId(res.id);
+        resolve(true)
+      }))
+      .catch(err => {
+        console.error("Error in saving rating", err);
+        reject(err)
+      });
+    });
 }
 
 function _getErrorSavePayload() {
@@ -65,7 +76,16 @@ function _getErrorSavePayload() {
 }
 
 function _errorSave() {
-  _fetch(_getErrorSavePayload(), process.env.REACT_APP_SERVER_ERROR_URL, 'POST');
+  _fetch(_getErrorSavePayload(), process.env.REACT_APP_SERVER_ERROR_URL, 'POST')
+  .then(res => res.json())
+  .then((res=> {
+    console.log("res in errorsave", res);
+    flushEvents();
+    _setVisitorActivityId(res.id);
+  }))
+  .catch(err => {
+    console.error("Err:", err);
+  });
 }
 
 export function listenToErrorsAndSave() {
@@ -85,5 +105,14 @@ function _getSaveCommentPayload(comment) {
 
 
 export function saveComment(comment) {
-  _fetch(_getSaveCommentPayload(comment), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'PUT');
+  console.log("_getSaveCommentPayload(comment):", _getSaveCommentPayload(comment));
+  _fetch(_getSaveCommentPayload(comment), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'PUT')
+  .then(res => res.json())
+  .then((res=> {
+    flushEvents();
+    _setVisitorActivityId(res.id);
+  }))
+  .catch(err => {
+    console.error("err", err);
+  });
 }
