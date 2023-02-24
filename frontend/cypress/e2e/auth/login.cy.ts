@@ -1,12 +1,9 @@
+import { constants } from "cypress/constants";
+
 describe('Should login', () => {
   it('Login', () => {
     // test setup
-    const userEmail = `tu@gmail.com`;
-    const userPassword = 'test1234';
-    cy.visit('http://localhost:4200/auth/login');
-    cy.get('.email').type(userEmail);
-    cy.get('.password').type(userPassword);
-    cy.get('.register-btn').click();
+    cy.login();
 
     // test assert
     cy.url().should('include', '/dashboard/website');

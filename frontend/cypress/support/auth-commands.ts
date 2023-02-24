@@ -1,12 +1,13 @@
 // https://github.com/cypress-io/cypress-realworld-app/blob/develop/cypress/global.d.ts
 
-const feServerUrl = 'http://localhost:4200'
+import { constants } from "cypress/constants";
+
 
 Cypress.Commands.add('login', () => {
   // setup
-  const userEmail = `tu@gmail.com`;
-  const userPassword = 'test1234';
-  cy.visit(`${feServerUrl}/auth/login`);
+  const userEmail = constants.adminTestUser;
+  const userPassword = constants.testPassword;
+  cy.visit(`${constants.frontendServer}/auth/login`);
   cy.get('.email').type(userEmail);
   cy.get('.password').type(userPassword);
   cy.get('.register-btn').click();
@@ -19,5 +20,5 @@ Cypress.Commands.add('login', () => {
 
 
 Cypress.Commands.add('logout', () => {
-  cy.visit(`${feServerUrl}/auth/logout`);
+  cy.visit(`${constants.frontendServer}/auth/logout`);
 });

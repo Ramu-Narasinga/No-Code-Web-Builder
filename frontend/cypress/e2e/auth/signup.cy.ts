@@ -1,3 +1,5 @@
+import { constants } from "cypress/constants";
+
 describe('Should signup', () => {
   it('Signup', () => {
     // test setup
@@ -5,7 +7,7 @@ describe('Should signup', () => {
     const id = uuid();
     const userEmail = `tu.${id}@gmail.com`;
     const userPassword = 'randompwd';
-    cy.visit('http://localhost:4200/auth/signup');
+    cy.visit(`${constants.frontendServer}/auth/signup`)
     cy.get('.first-name').type('Test');
     cy.get('.last-name').type(`User ${id}`);
     cy.get('.email').type(userEmail);
@@ -19,7 +21,7 @@ describe('Should signup', () => {
     cy.get('.entity-creaate-btn').should('contain', '+ Create');
 
     // test cleanup
-    cy.request('DELETE', 'http://localhost:8080/auth/delete', {
+    cy.request('DELETE', `${constants.backendServer}/auth/delete`, {
       email: 'ramu.narasinga@gmail.com',
       password: 'test1234',
       userEmail
@@ -28,5 +30,7 @@ describe('Should signup', () => {
       // response.body is automatically serialized into JSON
       // expect(response.body).to.have.property('name', 'Jane'); // true
     });
+    cy.logout();
+
   });
 });

@@ -1,7 +1,9 @@
+import { constants } from "cypress/constants";
+
 describe('Should create visitor activity', () => {
   it('Create Visitor Activity', () => {
     // test setup
-    cy.visit('https://79t3rc.csb.app/')
+    cy.visit(constants.exampleAppBuilt)
     cy.get('#ncwb-recorder').scrollIntoView()
     cy.get('#headline').scrollIntoView()
     cy.get('#ncwb-recorder').scrollIntoView()
