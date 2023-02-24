@@ -14,7 +14,7 @@
   <div class="website-edit-body">
     <div class="edit-website-tabs" *ngIf="!isEditorMode">
       <div
-        class="ee-tab"
+        class="ee-tab configuration"
         [ngClass]="{ 'ee-tab-active': !isEditorMode }"
         [routerLink]="['/dashboard/website/edit/', website.id]"
         [queryParams]="{ isEditorMode: false }"
@@ -23,7 +23,7 @@
       </div>
 
       <div
-        class="ee-tab"
+        class="ee-tab edit-website"
         [ngClass]="{ 'ee-tab-active': isEditorMode }"
         [routerLink]="['/dashboard/website/edit/', website.id]"
         [queryParams]="{ isEditorMode: true }"

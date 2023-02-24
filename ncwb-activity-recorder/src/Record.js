@@ -18,11 +18,16 @@ const Record = () => {
   }
 
   const handleRating = () => {
-    save(rating);
-    console.log(getRatingStyles(rating))
-    setShowComment(true);
-    setShowRating(false);
-    setShowTY(false);
+    save(rating)
+    .then(res => {
+      console.log(getRatingStyles(rating), "res in save", res);
+      setShowComment(true);
+      setShowRating(false);
+      setShowTY(false);
+    })
+    .catch(err => {
+      console.error("err:", err);
+    });
   }
 
   useEffect(() => {
@@ -42,7 +47,7 @@ const Record = () => {
 
   const handleCommenChange = (event) => {
     setComment(event.target.value);
-    saveComment(comment);
+    saveComment(event.target.value);
   }
 
   const handleSubmit = (event) => {
@@ -71,8 +76,11 @@ const Record = () => {
       {
         showComment &&
         <div className='comment-container'>
-          <textarea onChange={handleCommenChange}
-          rows="8"></textarea>
+          <textarea 
+            onChange={handleCommenChange}
+            rows="8"
+            className="ncwb-comment"
+          ></textarea>
           <button onClick={handleSubmit} className="submit-btn">Submit</button>
         </div>
       }

@@ -14,7 +14,6 @@ export class AuthRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
 
         this.app.post(`/auth/register`, [
-            // TODO: move this to a middleware handler, if possible 
             body('email').isEmail(),
             body('password').isString(),
             body('firstName').isString(),
@@ -38,6 +37,15 @@ export class AuthRoutes extends CommonRoutesConfig {
             jwtMiddleware.validRefreshNeeded,
             authController.createJWT,
         ]);
+
+        this.app.delete('/auth/delete', [
+          body('email').isEmail(),
+          body('password').isString(),
+          body('userEmail').isString(),
+          BodyValidationMiddleware.verifyBodyFieldsErrors,
+          authMiddleware.verifyUserPassword,
+          authController.deleteUser,
+      ])
 
         return this.app;
     }

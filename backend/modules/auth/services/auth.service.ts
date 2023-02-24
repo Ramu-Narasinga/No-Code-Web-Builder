@@ -1,8 +1,11 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import authDao from "../daos/auth.dao";
 import { LoginUserDto } from "../dto/login.user.dto";
 
 const tokenExpirationInSeconds = 36000;
+// @ts-expect-error
+const jwtSecret: string = process.env.JWT_SECRET;
 class AuthService {
   salt: crypto.KeyObject = {} as crypto.KeyObject;
 
@@ -28,6 +31,30 @@ class AuthService {
     return jwt.sign(requestBody, jwtSecret, {
       expiresIn: tokenExpirationInSeconds,
     });
+  }
+
+  generateLoginResponse(reqBody: any, resLocals: any) {
+    const refreshId = reqBody.userId + jwtSecret;
+    const hash = this.generateAndGetHash(refreshId);
+    reqBody.refreshKey = this.generateAndGetRefreshKey();
+    const token = this.generateAndGetJwtToken(reqBody, jwtSecret);
+    return { 
+      accessToken: token, 
+      refreshToken: hash,
+      user: {
+        firstName: resLocals.firstName,
+        lastName: resLocals.lastName,
+        id: resLocals.id
+      }
+    }
+  }
+
+  async deleteUser(reqBody: any) {
+    try {
+      return await authDao.deleteUser(reqBody.userEmail)
+    } catch(error) {
+      console.error("Error in deleting user", error);
+    }
   }
 }
 

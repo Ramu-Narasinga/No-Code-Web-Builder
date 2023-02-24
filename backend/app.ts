@@ -14,6 +14,7 @@ import { EmailRoutes } from './modules/email/email.routes.config';
 import { EmailMetaRoutes } from './modules/email/subModules/emailMeta/email.meta.routes.config';
 import { EmailMetaRecipientsRoutes } from './modules/email/subModules/recipient/recipients.routes.config';
 import { VisitorActivityRoutes } from './modules/visitorActivity/visitor.activity.routes.config';
+import bodyParser from 'body-parser';
 
 // const dotenvResult = dotenv.config();
 // if (dotenvResult.error) {
@@ -28,7 +29,12 @@ const debugLog: debug.IDebugger = debug('app');
 app.use(helmet());
 
 // here we are adding middleware to parse all incoming requests as JSON 
-app.use(express.json());
+// app.use(express.json());
+app.use(express.json({limit: '500mb'}));
+app.use(express.urlencoded({limit: '500mb', extended: true}));
+
+app.use(bodyParser.json({limit: '500mb'}));
+app.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
 
 // here we are adding middleware to allow cross-origin requests
 const corsConfig = {
@@ -36,7 +42,8 @@ const corsConfig = {
   origin: true,
 };
 
-app.use(cors(corsConfig));
+// app.use(cors(corsConfig));
+app.use(cors());
 
 // here we are preparing the expressWinston logging middleware configuration,
 // which will automatically log all HTTP requests handled by Express.js

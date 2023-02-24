@@ -8,12 +8,14 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { LogoutComponent } from './components/logout/logout.component';
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
     SignupComponent,
-    LayoutComponent
+    LayoutComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,

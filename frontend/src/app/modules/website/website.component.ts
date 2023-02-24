@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateEntityModalData } from '../shared/components/entity-create-modal/entity-create.types';
 import { Entity, Status } from '../shared/components/entity-list/entity-list.component';
@@ -10,7 +10,7 @@ import { WebsiteService } from './website.service';
   templateUrl: './website.component.html',
   styleUrls: ['./website.component.scss']
 })
-export class WebsiteComponent implements OnInit {
+export class WebsiteComponent implements OnInit, OnDestroy {
 
   baseEditUrl = '/dashboard/website/edit';
 
@@ -32,11 +32,18 @@ export class WebsiteComponent implements OnInit {
     this.listenToUpdateWebsite();
   }
 
+  ngOnDestroy(): void {
+    this.createWebsiteListener.unsubscribe();
+    this.deleteWebsiteListener.unsubscribe();
+    this.updateWebsiteListener.unsubscribe();
+  }
+
+  createWebsiteListener;
   listenToCreateWebsite() {
 
-    console.log("this gets triggered", this.createModal);
+    console.log("this gets triggered", this.createModal, "INSIDE WEBSITE COMPONENT");
 
-    this.entityService.onCreateModal().subscribe({
+    this.createWebsiteListener = this.entityService.onCreateModal().subscribe({
       next: (websiteData) => {
         console.log(websiteData);
         this.createWebsite(websiteData);
@@ -46,9 +53,9 @@ export class WebsiteComponent implements OnInit {
     });
   }
 
-
+  deleteWebsiteListener;
   listenToDeleteWebsite() {
-    this.entityService.onDeleteEntity().subscribe({
+    this.deleteWebsiteListener = this.entityService.onDeleteEntity().subscribe({
       next: (websiteData) => {
         console.log(websiteData);
         this.deleteWebsite(websiteData);
@@ -58,8 +65,9 @@ export class WebsiteComponent implements OnInit {
     });
   }
 
+  updateWebsiteListener;
   listenToUpdateWebsite() {
-    this.entityService.onUpdateEntity().subscribe({
+    this.updateWebsiteListener = this.entityService.onUpdateEntity().subscribe({
       next: (websiteData) => {
         console.log(websiteData);
         this.updateWebsite(websiteData);

@@ -6,14 +6,6 @@ import authService from "../services/auth.service";
 
 const log: debug.IDebugger = debug("app:auth-controller");
 
-/**
- * This value is automatically populated from .env, a file which you will have
- * to create for yourself at the root of the project.
- *
- * See .env.example in the repo for the required format.
- */
-// @ts-expect-error
-const jwtSecret: string = process.env.JWT_SECRET;
 class AuthController {
   constructor() {
     // dotenv.config();
@@ -22,8 +14,11 @@ class AuthController {
   async registerUser(req: express.Request, res: express.Response) {
     try {
       console.log("inside auth controller");
-      log(await usersService.createUser(req.body));
-      res.status(200).send();
+      let createdUser = await usersService.createUser(req.body);
+      console.log("createdUser:", createdUser);
+      res.locals.id = createdUser.id;
+      let loginRes = authService.generateLoginResponse(req.body, res.locals)
+      res.status(200).send(loginRes);
     } catch (err) {
       log("createJWT error: %O", err);
       console.log("inside controller error", err);
@@ -33,23 +28,31 @@ class AuthController {
 
   async createJWT(req: express.Request, res: express.Response) {
     try {
-      log("jwtSecret:", jwtSecret);
-      const refreshId = req.body.userId + jwtSecret;
-      const hash = authService.generateAndGetHash(refreshId);
-      req.body.refreshKey = authService.generateAndGetRefreshKey();
-      const token = authService.generateAndGetJwtToken(req.body, jwtSecret);
-      return res.status(201).send({ 
-        accessToken: token, 
-        refreshToken: hash,
-        user: {
-          firstName: res.locals.firstName,
-          lastName: res.locals.lastName,
-          id: res.locals.id
-        }
-      });
+      let loginRes = authService.generateLoginResponse(req.body, res.locals)
+      return res.status(201).send(
+      //   { 
+      //   accessToken: token, 
+      //   refreshToken: hash,
+      //   user: {
+      //     firstName: res.locals.firstName,
+      //     lastName: res.locals.lastName,
+      //     id: res.locals.id
+      //   }
+      // }
+      loginRes
+      );
     } catch (err) {
       log("createJWT error: %O", err);
       return res.status(500).send();
+    }
+  }
+
+  async deleteUser(req: express.Request, res: express.Response) {
+    try {
+      let deleteUserRes = authService.deleteUser(req.body);
+      return res.status(201).send(deleteUserRes)
+    } catch (err) {
+
     }
   }
 }
