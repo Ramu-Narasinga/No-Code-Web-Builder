@@ -63,7 +63,7 @@ class VisitorActivityService {
   }
 
   async _getUpdatedVisitorInfoResource(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
-    const request = await fetch(`${process.env.IPINFO}`);
+    const request = await fetch(new URL(`${process.env.IPINFO}`));
     const jsonResponse: any = await request.json();
 
     console.log(jsonResponse.ip, jsonResponse.country);
