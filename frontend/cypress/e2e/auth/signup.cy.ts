@@ -27,8 +27,6 @@ describe('Should signup', () => {
       userEmail
     }).then((response) => {
       console.log("response afyer deleting user:", response);
-      // response.body is automatically serialized into JSON
-      // expect(response.body).to.have.property('name', 'Jane'); // true
     });
     cy.logout();
 
