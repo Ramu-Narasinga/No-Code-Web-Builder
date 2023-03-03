@@ -60,14 +60,17 @@ const Record = () => {
     <div className="rating-container">
       {
         Array(5).fill().map((item, index) => {
-          return <div className="rating-icon" key={index}>
+          return <div 
+            className="rating-icon" 
+            key={index}
+            onClick={() => handleRating()}
+          >
             {
               showRating && <Rating
                 className="rating"
                 style={getRatingStyles(index)}
                 onMouseEnter={() => toggleHover(index)}
                 onMouseLeave={() => toggleHover(-1)}
-                onClick={() => handleRating()}
               />
             }
           </div>
