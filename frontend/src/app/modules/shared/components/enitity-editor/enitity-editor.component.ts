@@ -63,7 +63,7 @@ export class EnitityEditorComponent implements OnInit {
         // Default storage options
         options: {
           remote: {
-            urlStore: this.editorSaveEndpoint,
+            // urlStore: this.editorSaveEndpoint,
             onStore: data => {
               let html = this.editor.getHtml();
               let css = this.editor.getCss();
@@ -76,6 +76,26 @@ export class EnitityEditorComponent implements OnInit {
           }
         }
       }
+    });
+
+    this.editor.Storage.add('remote', {
+      load: async () => {
+        return await fetch(this.editorSaveEndpoint);
+      },
+    
+      store: async (data) => {
+        console.log("data inside store function", data);
+        return await fetch(
+          this.editorSaveEndpoint, 
+          {
+            method: "POST", // or 'PUT'
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+      },
     });
 
     // TODO: clean up
