@@ -42,8 +42,8 @@ const corsConfig = {
   origin: false,
 };
 
-// app.use(cors(corsConfig));
-app.use(cors());
+app.use(cors(corsConfig));
+// app.use(cors());
 
 // here we are preparing the expressWinston logging middleware configuration,
 // which will automatically log all HTTP requests handled by Express.js
