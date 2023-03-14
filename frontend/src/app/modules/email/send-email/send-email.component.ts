@@ -26,7 +26,7 @@ export class SendEmailComponent {
 
   constructor(private sendEmailService: SendEmailService) { }
 
-  sendEmail() {
+  saveEmailSubject() {
     this.sendEmailService.saveEmailSubject(this.emailSubject, this.id, this.emailId);
     // this.sendEmailService.saveEmailRecipients(this.recipients);
     // this.sendEmailService.sendEmail()
