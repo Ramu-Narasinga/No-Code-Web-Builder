@@ -19,7 +19,8 @@
       <tag-input
         [(ngModel)]='recipients'
         [placeholder]="'Enter recipients'"
-        (onTagEdited)="onTagEdited($event)"
+        (onAdd)="onTagAdded($event)"
+        (onRemove)="onTagRemoved($event)"
       ></tag-input></div>
   </div>
 

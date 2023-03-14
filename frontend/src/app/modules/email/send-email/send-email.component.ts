@@ -39,7 +39,11 @@ export class SendEmailComponent {
     // this.sendEmailService.sendEmail()
   }
 
-  onTagEdited(tag) {
-    console.log("tag event", tag);
+  onTagAdded(tag) {
+    console.log("tag added", tag);
+  }
+
+  onTagRemoved(tag) {
+    console.log("tag removed", tag);
   }
 }
