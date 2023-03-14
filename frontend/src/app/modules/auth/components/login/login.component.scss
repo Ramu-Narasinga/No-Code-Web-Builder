@@ -1,0 +1,45 @@
+.login-form-container {
+  margin-top: 25%;
+
+  .login-title-container {
+    text-align: center;
+
+    .login-title {
+      font-size: 2rem;
+      color: #1e5ba8;
+    }
+  }
+
+  .form-input-container {
+    text-align: center;
+
+    input {
+      background: #f3f3f3;
+      border: none;
+      padding: 2%;
+      width: 50%;
+      border-radius: 5px;
+      margin: 2% 0;
+    }
+  }
+
+  .button-container {
+    text-align: center;
+
+    .register-btn {
+      background: #005aad;
+      color: white;
+      padding: 2%;
+      border-radius: 5px;
+      border: none;
+      width: 30%;
+      margin: 2% 0;
+      cursor: pointer;
+    }
+  }
+
+  .login-caption-container {
+    text-align: center;
+    margin: 2% 0;
+  }
+}

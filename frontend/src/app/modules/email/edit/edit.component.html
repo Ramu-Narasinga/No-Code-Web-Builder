@@ -1,0 +1,45 @@
+<div class="email-edit-container">
+  <div class="email-edit-header">
+    <div class="ee-back-btn-container">
+      <button class="ee-back-btn" (click)="handleEmailEditBackNav()">
+        <img src="assets/entity-edit/back-arrow.png" />
+        <span></span>Back
+      </button>
+    </div>
+    <div class="email-edit-title">{{ email.title }}</div>
+    <div></div>
+  </div>
+
+  <div class="email-edit-body">
+    <div class="edit-email-tabs" *ngIf="!isEditorMode">
+      <div
+        class="ee-tab send-email-label"
+        [ngClass]="{ 'ee-tab-active': !isEditorMode }"
+        [routerLink]="['/dashboard/email/edit/', email.id]"
+        [queryParams]="{ isEditorMode: false }"
+      >
+        Send Email
+      </div>
+
+      <div
+        class="ee-tab edit-email-label"
+        [ngClass]="{ 'ee-tab-active': isEditorMode }"
+        [routerLink]="['/dashboard/email/edit/', email.id]"
+        [queryParams]="{ isEditorMode: true }"
+      >
+        Edit Email
+      </div>
+    </div>
+
+    <div class="edit-email" *ngIf="isEditorMode">
+      <app-enitity-editor
+        [html]="email.html"
+        [css]="email.css"
+        [editorSaveEndpoint]="editorSaveEndpoint"
+      ></app-enitity-editor>
+    </div>
+    <div class="send-email-container" *ngIf="!isEditorMode">
+      <app-send-email></app-send-email>
+    </div>
+  </div>
+</div>

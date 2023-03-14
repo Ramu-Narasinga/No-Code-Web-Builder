@@ -1,0 +1,17 @@
+<div class="entity-container">
+  <div class="entity-title">
+    <div class="entity-title-label">{{entityTitle}}</div>
+    <div><button (click)="toggleCreateModal(true)" class="entity-creaate-btn">+ Create</button></div>
+  </div>
+
+  <app-entity-list
+    [entities]="entities"
+    [baseEditUrl]="baseEditUrl"
+  ></app-entity-list>
+
+  <app-entity-create-modal
+    [showCreateModal]="showCreateModal"
+    [modalTitle]="modalTitle"
+    (closeModal)="toggleCreateModal(false)"
+  ></app-entity-create-modal>
+</div>

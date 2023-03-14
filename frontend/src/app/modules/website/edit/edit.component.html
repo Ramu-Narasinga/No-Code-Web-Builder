@@ -1,0 +1,48 @@
+<div class="website-edit-container">
+
+  <div class="website-edit-header">
+    <div class="we-back-btn-container">
+      <button class="we-back-btn" (click)="handleWebsiteEditBackNav()">
+        <img src="assets/entity-edit/back-arrow.png" />
+        <span></span>Back
+      </button>
+    </div>
+    <div class="website-edit-title">{{website.title}}</div>
+    <div></div>
+  </div>
+
+  <div class="website-edit-body">
+    <div class="edit-website-tabs" *ngIf="!isEditorMode">
+      <div
+        class="ee-tab configuration"
+        [ngClass]="{ 'ee-tab-active': !isEditorMode }"
+        [routerLink]="['/dashboard/website/edit/', website.id]"
+        [queryParams]="{ isEditorMode: false }"
+      >
+        Configuration
+      </div>
+
+      <div
+        class="ee-tab edit-website"
+        [ngClass]="{ 'ee-tab-active': isEditorMode }"
+        [routerLink]="['/dashboard/website/edit/', website.id]"
+        [queryParams]="{ isEditorMode: true }"
+      >
+        Edit Website
+      </div>
+    </div>
+
+    <div class="edit-website" *ngIf="isEditorMode">
+      <app-enitity-editor
+        [html]="website.html"
+        [css]="website.css"
+        [editorSaveEndpoint]="editorSaveEndpoint"
+      ></app-enitity-editor>
+    </div>
+    <div class="send-website-container" *ngIf="!isEditorMode">
+      <app-website-configuration></app-website-configuration>
+    </div>
+  </div>
+
+
+</div>

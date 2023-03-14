@@ -1,0 +1,52 @@
+.email-edit-header {
+  // background: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
+  align-items: center;
+
+  .ee-back-btn {
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6%;
+    cursor: pointer;
+
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  .email-edit-title {
+    font-size: 1.5rem;
+    color: #005AAD;
+    text-decoration: underline;
+  }
+}
+
+.edit-email-tabs {
+  background: white;
+  width: 50%;
+  margin: 0 auto;
+  display: flex;
+  padding: 1.5%;
+  justify-content: space-around;
+
+  .ee-tab {
+    width: inherit;
+    text-align: center;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+  .ee-tab:first-of-type {
+    border-right: 1px solid #918d8d;
+  }
+
+  .ee-tab-active {
+    color: #005AAD;
+    text-decoration: underline;
+  }
+}

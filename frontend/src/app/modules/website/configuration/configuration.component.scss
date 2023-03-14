@@ -1,0 +1,24 @@
+.script-container {
+  background: white;
+  padding: 2%;
+  width: 75%;
+  margin: 2% auto;
+}
+
+.ctcbtn-container {
+
+  text-align: center;
+
+  .copy-to-clipboard-btn {
+    width: 20%;
+    height: 2.5rem;
+    background: #1e5ba8;
+    border: 1px solid;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.15rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

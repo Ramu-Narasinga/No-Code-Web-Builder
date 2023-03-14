@@ -42,10 +42,26 @@ model Email {
   css             String     @db.LongText
   user            User?      @relation(fields: [userId], references: [id])
   userId          Int?
+  emailMeta       EmailMeta?
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 }
 
+model EmailMeta {
+  id              Int         @id @default(autoincrement())
+  subject         String      @db.LongText
+  fromName        String      @db.Text
+  recipients      Recipient[]
+  email           Email       @relation(fields: [emailId], references: [id])
+  emailId         Int         @unique
+}
+
+model Recipient {
+  id                 Int           @id @default(autoincrement())
+  emailMeta          EmailMeta?    @relation(fields: [emailMetaId], references: [id])
+  emailMetaId        Int?
+  recipientEmail     String        @unique
+}
 model Website {
   id                 Int        @id @default(autoincrement())
   title              String     @db.VarChar(255)
@@ -62,15 +78,33 @@ model Website {
 
 model VisitorActivity {
   id                Int             @id @default(autoincrement())
-  activityType      ActivityType    @default(FEEDBACK)
-  recordedOn        DateTime        
-  status            Status          @default(ACTIVE)
-  html              String          @db.LongText
-  css               String          @db.LongText
+  activityType      ActivityType    
+  errorActivity     ErrorActivity?
+  feedbackActivity  FeedbackActivity?
+  ip                String
+  city              String
+  region            String
+  country           String
   user              User?           @relation(fields: [userId], references: [id])
   userId            Int?
   website           Website?        @relation(fields: [websiteId], references: [id])
   websiteId         Int?
+  activityEventsUrl    String
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
+}
+
+model ErrorActivity {
+  id                    Int               @id @default(autoincrement())
+  endpoint              String
+  visitorActivity       VisitorActivity   @relation(fields: [visitorActivityId], references: [id])
+  visitorActivityId     Int               @unique
+}
+
+model FeedbackActivity {
+  id                    Int               @id @default(autoincrement())
+  rating                Int
+  comment               String
+  visitorActivity       VisitorActivity   @relation(fields: [visitorActivityId], references: [id])
+  visitorActivityId     Int               @unique
 }

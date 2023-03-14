@@ -1,0 +1,32 @@
+.sidebar-container {
+  width: 80%;
+  margin: 0 auto;
+  cursor: pointer;
+
+  .sidebar-icon-container {
+    padding: 5%;
+
+    .sb-ic-wrapper {
+      border-bottom: 1px solid;
+      display: flex;
+      align-items: center;
+      margin-top: 8%;
+      padding: 2%;
+    }
+
+    .sb-icon {
+      height: 40px;
+      width: 40px;
+    }
+
+    .sb-icon-title {
+      margin-left: 5px;
+    }
+
+    .sbim-active {
+      border-bottom: 2px solid #005AAD;
+      background: rgba(217, 217, 217, 0.27);
+      color: #005AAD;
+    }
+  }
+}

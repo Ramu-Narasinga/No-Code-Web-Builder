@@ -1,0 +1,41 @@
+<div class="signup-form-container">
+
+  <div class="signup-title-container">
+    <div class="signup-title">Sign up</div>
+  </div>
+
+  <div class="form-input-container">
+    <input type="text" [(ngModel)]="firstName" placeholder="First Name" class="first-name" />
+  </div>
+
+  <div class="form-input-container">
+    <input type="text" [(ngModel)]="lastName" placeholder="Last Name" class="last-name" />
+  </div>
+
+  <div class="form-input-container">
+    <input type="email" [(ngModel)]="email" placeholder="Email" class="email" />
+  </div>
+
+  <div class="form-input-container">
+    <input type="password" [(ngModel)]="password" placeholder="Password" class="password" />
+  </div>
+
+  <div class="form-input-container">
+    <input
+      type="password"
+      [(ngModel)]="confirmPassword"
+      placeholder="Confirm Password"
+      class="confirm-password"
+    />
+  </div>
+
+  <div class="button-container">
+    <button class="register-btn" (click)="signup()">Register</button>
+  </div>
+
+  <div class="signup-caption-container">
+    <div class="signup-caption">
+      Already have an account? <a href="/auth/login">Login</a>
+    </div>
+  </div>
+</div>
