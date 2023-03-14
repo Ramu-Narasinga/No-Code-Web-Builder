@@ -28,7 +28,8 @@ export class SendEmailComponent {
 
   constructor(private sendEmailService: SendEmailService) { }
 
-  saveEmailSubject() {
+  saveEmailSubject(subject) {
+    this.emailSubject = subject;
     console.log("about to call saveEmailSubject", this.emailSubject, this.id, this.emailId);
     this.sendEmailService.saveEmailSubject(this.emailSubject, this.id, this.emailId)
     .subscribe(res => {
