@@ -42,9 +42,17 @@ export class SendEmailComponent {
 
   onTagAdded(tag) {
     console.log("tag added", tag);
+    this.sendEmailService.saveEmailRecipient(tag.value, this.id)
+    .subscribe((res) => {
+      console.log("successfully added email recipient", res);
+    });
   }
 
   onTagRemoved(tag) {
     console.log("tag removed", tag);
+    this.sendEmailService.deleteEmailRecipient(tag.value, this.recipients)
+    .subscribe((res) => {
+      console.log("successfully added email recipient");
+    });
   }
 }

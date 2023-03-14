@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class SendEmailService {
 
   emailMetaUrl = `${environment.serverUrl}/email/meta`;
+  emailMetaRecipient = `${environment.serverUrl}/email/meta/recipients`;
 
   constructor(
     private http: HttpClient,
@@ -23,6 +24,29 @@ export class SendEmailService {
       emailId
     }
     return this.http.put<null>(`${this.emailMetaUrl}`, saveEmailSubjectPayload)
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
+
+  saveEmailRecipient(recipientEmail, emailMetaId) {
+    let saveEmailRecipientPayload = {
+      emailMetaId,
+      recipientEmail
+    }
+    return this.http.put<null>(`${this.emailMetaRecipient}`, saveEmailRecipientPayload)
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
+
+  deleteEmailRecipient(recipientEmail, recipients) {
+    let foundRecipientIndex = recipients.findIndex(recp => recp.recipientEmail == recipientEmail);
+    let deletedRecipientId;
+    if (foundRecipientIndex != -1) {
+      deletedRecipientId = recipients[foundRecipientIndex];
+    }
+    return this.http.delete<null>(`${this.emailMetaRecipient}/${deletedRecipientId}`)
     .pipe(
       catchError(this.sharedService.handleError)
     );
