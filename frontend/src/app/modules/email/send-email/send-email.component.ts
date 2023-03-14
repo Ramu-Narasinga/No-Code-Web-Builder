@@ -17,16 +17,19 @@ export class SendEmailComponent {
   get emailMeta(): any { return this._emailMeta; }
   set emailMeta(emailMeta: any) {
     this._emailMeta = emailMeta;
-    this.emailSubject = this._emailMeta.subject;
-    this.recipients = this._emailMeta.recipients;
-    this.id = this._emailMeta.id;
-    this.emailId = this._emailMeta.emailId
+    if (this._emailMeta) {
+      this.emailSubject = this._emailMeta.subject;
+      this.recipients = this._emailMeta.recipients;
+      this.id = this._emailMeta.id;
+      this.emailId = this._emailMeta.emailId;
+    }
   }
   private _emailMeta: any;
 
   constructor(private sendEmailService: SendEmailService) { }
 
   saveEmailSubject() {
+    console.log("about to call saveEmailSubject", this.emailSubject, this.id, this.emailId);
     this.sendEmailService.saveEmailSubject(this.emailSubject, this.id, this.emailId);
     // this.sendEmailService.saveEmailRecipients(this.recipients);
     // this.sendEmailService.sendEmail()
