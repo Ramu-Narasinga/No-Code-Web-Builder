@@ -39,7 +39,9 @@
       ></app-enitity-editor>
     </div>
     <div class="send-email-container" *ngIf="!isEditorMode">
-      <app-send-email></app-send-email>
+      <app-send-email
+        [emailMeta]="emailMeta"
+      ></app-send-email>
     </div>
   </div>
 </div>

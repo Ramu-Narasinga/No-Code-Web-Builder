@@ -9,10 +9,11 @@ import { EmailService } from '../email.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  email: Entity = {} as Entity;
+  email: Entity = {} as Entity ;
 
   isEditorMode = false;
   editorSaveEndpoint = '';
+  emailMeta: any | null;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,10 +42,11 @@ export class EditComponent implements OnInit {
 
   loadEmailFromServer() {
     this.emailService.fetchWebsiteByActiveId()
-      .subscribe(res => {
+      .subscribe((res: any) => {
         console.log("res in ngoninit", res);
         this.emailService.setActiveEmail(res);
         this.email = this.emailService.activeEmail ?? {} as Entity;
+        this.emailMeta = res?.emailMeta
       })
   }
 
