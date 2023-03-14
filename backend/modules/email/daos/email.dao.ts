@@ -26,6 +26,9 @@ class EmailDao {
       return await this.prisma.email.findUnique({
         where: {
           id
+        },
+        include: {
+          emailMeta: true
         }
       })
     } catch(err) {
