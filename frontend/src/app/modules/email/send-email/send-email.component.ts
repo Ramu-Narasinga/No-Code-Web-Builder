@@ -30,8 +30,16 @@ export class SendEmailComponent {
 
   saveEmailSubject() {
     console.log("about to call saveEmailSubject", this.emailSubject, this.id, this.emailId);
-    this.sendEmailService.saveEmailSubject(this.emailSubject, this.id, this.emailId);
+    this.sendEmailService.saveEmailSubject(this.emailSubject, this.id, this.emailId)
+    .subscribe(res => {
+      console.log("successfully saved email subject");
+    });
+
     // this.sendEmailService.saveEmailRecipients(this.recipients);
     // this.sendEmailService.sendEmail()
+  }
+
+  onTagEdited(tag) {
+    console.log("tag event", tag);
   }
 }

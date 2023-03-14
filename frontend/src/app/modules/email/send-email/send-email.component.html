@@ -15,9 +15,11 @@
 
   <div class="se-fel add-recipients-el">
     <div class="se-fel-label">Add Recipients:</div>
-    <div class="se-fel-value"><tag-input
+    <div class="se-fel-value">
+      <tag-input
         [(ngModel)]='recipients'
         [placeholder]="'Enter recipients'"
+        (onTagEdited)="onTagEdited($event)"
       ></tag-input></div>
   </div>
 
