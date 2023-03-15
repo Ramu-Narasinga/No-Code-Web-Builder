@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SendEmailService {
 
+  emailSendUrl = `${environment.serverUrl}/email/send`;
   emailMetaUrl = `${environment.serverUrl}/email/meta`;
   emailMetaRecipient = `${environment.serverUrl}/email/meta/recipients`;
 
@@ -55,7 +56,7 @@ export class SendEmailService {
   }
 
   sendEmail(emailMetaId) {
-    return this.http.post<null>(`${this.emailMetaUrl}/email/send`, { emailMetaId })
+    return this.http.post<null>(`${this.emailSendUrl}`, { emailMetaId })
     .pipe(
       catchError(this.sharedService.handleError)
     );
