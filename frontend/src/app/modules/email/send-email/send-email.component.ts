@@ -50,7 +50,7 @@ export class SendEmailComponent {
 
   onTagRemoved(tag) {
     console.log("tag removed", tag);
-    this.sendEmailService.deleteEmailRecipient(tag.value, this._emailMeta.recipients)
+    this.sendEmailService.deleteEmailRecipient(tag, this._emailMeta.recipients)
     .subscribe((res) => {
       console.log("successfully added email recipient");
     });
