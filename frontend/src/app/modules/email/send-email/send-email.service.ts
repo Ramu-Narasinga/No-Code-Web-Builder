@@ -41,7 +41,7 @@ export class SendEmailService {
   }
 
   deleteEmailRecipient(recipientEmail, recipients) {
-    console.log("recipients:", recipients, "in deleteEmailRecipient");
+    console.log("recipients:", recipients, "in deleteEmailRecipient", recipientEmail);
     let foundRecipientIndex = recipients.findIndex(recp => recp.recipientEmail == recipientEmail);
     let deletedRecipientId;
     console.log("foundRecipientIndex:", foundRecipientIndex);
