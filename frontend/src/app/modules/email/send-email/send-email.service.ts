@@ -53,4 +53,11 @@ export class SendEmailService {
       catchError(this.sharedService.handleError)
     );
   }
+
+  sendEmail(emailMetaId) {
+    return this.http.post<null>(`${this.emailMetaUrl}/email/send`, { emailMetaId })
+    .pipe(
+      catchError(this.sharedService.handleError)
+    );
+  }
 }

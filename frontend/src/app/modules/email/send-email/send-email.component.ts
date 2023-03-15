@@ -55,4 +55,11 @@ export class SendEmailComponent {
       console.log("successfully added email recipient");
     });
   }
+
+  sendEmail() {
+    this.sendEmailService.sendEmail(this.id)
+    .subscribe((res) => {
+      console.log("successfully added email recipient");
+    });
+  }
 }
