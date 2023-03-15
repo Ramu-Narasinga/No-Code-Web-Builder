@@ -19,7 +19,7 @@ export class SendEmailComponent {
     this._emailMeta = emailMeta;
     if (this._emailMeta) {
       this.emailSubject = this._emailMeta.subject;
-      this.recipients = this._emailMeta.recipients;
+      this.recipients = this._emailMeta.recipients ? this._emailMeta.recipients.map(r => r.recipientEmail) : [];
       this.id = this._emailMeta.id;
       this.emailId = this._emailMeta.emailId;
     }
