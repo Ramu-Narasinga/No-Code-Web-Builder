@@ -35,9 +35,9 @@ export class EditComponent implements OnInit {
 
   loadEmailFromServiceData() {
     this.email = this.emailService.getEmailByActiveId() ?? {} as Entity;
-    if (this.isEmailEmpty()) {
+    // if (this.isEmailEmpty()) {
       this.loadEmailFromServer();
-    }
+    // }
   }
 
   loadEmailFromServer() {

@@ -90,7 +90,7 @@ const Record = () => {
 
       {
         showTY && 
-        <div className='tyf-container'>Thank your feedback!</div>
+        <div className='tyf-container'>Thanks for your feedback!</div>
       }
     </div>
   </>
