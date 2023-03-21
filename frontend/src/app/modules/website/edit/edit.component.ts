@@ -33,9 +33,9 @@ export class EditComponent implements OnInit {
 
   loadWebsiteFromServiceData() {
     this.website = this.websiteService.getWebsiteByActiveId() ?? {} as Entity;
-    if (this.isWebsiteEmpty()) {
+    // if (this.isWebsiteEmpty()) {
       this.loadWebsiteFromServer();
-    }
+    // }
   }
 
   loadWebsiteFromServer() {
