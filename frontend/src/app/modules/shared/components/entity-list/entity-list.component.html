@@ -5,7 +5,7 @@
         <div class="eli-el-title">{{ enitity.title }}</div>
         <div class="eli-el-description">{{ enitity.description }}</div>
       </div>
-      <div class="eli-el">
+      <!-- <div class="eli-el">
         <select name="status" id="status" class="eli-el-status"
         (click)="handleEntityStatusClick($event)"
         (ngModelChange)="handleEntityStatusChange($event, enitity)"
@@ -13,7 +13,7 @@
           <option [ngValue]="Status.ACTIVE">{{Status.ACTIVE}}</option>
           <option [ngValue]="Status.DRAFT">{{Status.DRAFT}}</option>
         </select>
-      </div>
+      </div> -->
       <div class="eli-el">
         <button class="eli-el-delete-btn" (click)="handleEntityDelete($event, enitity.id)">Delete</button>
       </div>
