@@ -33,7 +33,15 @@ const Record = () => {
   useEffect(() => {
     startRecordingEvents();
     console.log("inside useEffecct, calling listentoerrorandsave");
-    listenToErrorsAndSave();
+    setTimeout(() => {
+      save(5)
+      .then(res => {
+        console.log("saved res", res);
+      })
+      .catch(err => {
+        console.error("err:", err);
+      });
+    }, 3000);
   }, []);
 
   const getRatingStyles = (index) => {
@@ -57,7 +65,7 @@ const Record = () => {
   }
 
   return <>
-    <div className="rating-container">
+    {/* <div className="rating-container">
       {
         Array(5).fill().map((item, index) => {
           return <div 
@@ -92,7 +100,7 @@ const Record = () => {
         showTY && 
         <div className='tyf-container'>Thanks for your feedback!</div>
       }
-    </div>
+    </div> */}
   </>
 
 }

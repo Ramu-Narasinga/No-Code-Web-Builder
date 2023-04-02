@@ -29,14 +29,15 @@ function _fetch(payload, url, method) {
   })
 }
 
-function _getSavePayload(rating) {
+function _getSavePayload(rating, userInfo) {
   const payload = {
     activityType: 'FEEDBACK',
     userId: _getUserId(),
     websiteId: _getWebsiteId(),
     activityEvents: getEvents(),
     rating: rating+1,
-    comment: ''
+    comment: '',
+    ...userInfo
   };
 
   if (visitorActivityId) {
@@ -47,8 +48,20 @@ function _getSavePayload(rating) {
 }
 
 export function save(rating) {
-    return new Promise((resolve, reject) => {
-      _fetch(_getSavePayload(rating), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'POST')
+    return new Promise(async (resolve, reject) => {
+      const request = await fetch(new URL(`${process.env.REACT_APP_IP_INFO_URL}`, `${process.env.REACT_APP_IP_INFO_BASE}`));
+      const jsonResponse = await request.json();
+
+      console.log("jsonResponse in client side", jsonResponse);
+      let userInfo = {};
+      userInfo['ip'] = jsonResponse.ip;
+      userInfo['city'] = jsonResponse.city;
+      userInfo['region'] = jsonResponse.region;
+      userInfo['country'] = jsonResponse.country;
+
+      console.log("About to send the payload with this::", _getSavePayload(rating, userInfo));
+
+      _fetch(_getSavePayload(rating, userInfo), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'POST')
       .then(res => res.json())
       .then((res=> {
         console.log("res in save", res);
