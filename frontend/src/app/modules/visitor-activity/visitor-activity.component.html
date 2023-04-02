@@ -26,6 +26,10 @@
           <span class="va-info-label">Comment</span>
           <span class="va-info-lv">{{visitorActivity.feedbackActivity?.comment}}</span>
         </div>
+        <div *ngIf="visitorActivity.activityType == Activitytype.FEEDBACK" class=" va-info-lc">
+          <span class="va-info-label">Created At</span>
+          <span class="va-info-lv">{{visitorActivity.createdAt}}</span>
+        </div>
         <div *ngIf="visitorActivity.activityType == Activitytype.ERROR" class=" va-info-lc">
           <span class="va-info-label">Error found at</span>
           <span class="va-info-lv">{{visitorActivity.errorActivity?.endpoint}}</span>
