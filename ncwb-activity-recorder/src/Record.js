@@ -41,7 +41,7 @@ const Record = () => {
       .catch(err => {
         console.error("err:", err);
       });
-    }, 3000);
+    }, 9000);
   }, []);
 
   const getRatingStyles = (index) => {

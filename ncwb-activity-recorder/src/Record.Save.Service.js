@@ -49,7 +49,8 @@ function _getSavePayload(rating, userInfo) {
 
 export function save(rating) {
     return new Promise(async (resolve, reject) => {
-      const request = await fetch(new URL(`${process.env.REACT_APP_IP_INFO_URL}`, `${process.env.REACT_APP_IP_INFO_BASE}`));
+      console.log("process.env.REACT_APP_IP_INFO_URL:", process.env.REACT_APP_IP_INFO_URL, "process.env.REACT_APP_IP_INFO_BASE:", process.env.REACT_APP_IP_INFO_BASE);
+      const request = await fetch(`${process.env.REACT_APP_IP_INFO_URL}/${process.env.REACT_APP_IP_INFO_BASE}`);
       const jsonResponse = await request.json();
 
       console.log("jsonResponse in client side", jsonResponse);
