@@ -26,7 +26,8 @@ export type VisitorActivity = {
   "region": string,
   "country": string,
   "activityEventsUrl": string;
-  "activityEvents"?: []
+  "activityEvents"?: [],
+  "createdAt": string
 }
 @Component({
   selector: 'app-visitor-activity',

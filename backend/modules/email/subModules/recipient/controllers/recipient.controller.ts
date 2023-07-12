@@ -6,10 +6,10 @@ const log: debug.IDebugger = debug("app:recipient-controller");
 
 class RecipientController {
 
-  async createRecipients(req: express.Request, res: express.Response) {
+  async createRecipient(req: express.Request, res: express.Response) {
     try {
       console.log("inside createREcipients APi contoller", req.body);
-      log(await recipientService.createRecipients(req.body));
+      log(await recipientService.createRecipient(req.body));
       res.status(200).send();
     } catch (err) {
       log("create recipient error: %O", err);
@@ -17,12 +17,12 @@ class RecipientController {
     }
   }
 
-  async updateRecipients(req: express.Request, res: express.Response) {
+  async deleteRecipient(req: express.Request, res: express.Response) {
     try {
-      log(await recipientService.updateRecipients(req.body));
+      log(await recipientService.deleteRecipient({id: +req.params.id}));
       res.status(200).send();
     } catch (err) {
-      log("create recipient error: %O", err);
+      log("delete recipient error: %O", err);
       return res.status(500).send();
     }
   }

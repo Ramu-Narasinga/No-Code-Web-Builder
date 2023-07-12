@@ -2,7 +2,7 @@ import prismaService from "../../../../common/services/prisma.service";
 import debug from "debug";
 import { PrismaClient } from "@prisma/client";
 import { CreateRecipient } from "../dto/create.recipient.dto";
-import { UpdateRecipient } from "../dto/update.recipient.dto";
+import { DeleteRecipient } from "../dto/delete.recipient.dto";
 import { GetRecipients } from "../dto/get.recipients.dto";
 
 const log: debug.IDebugger = debug("app:email-meta-dao");
@@ -15,33 +15,32 @@ class RecipientDao {
     this.prisma = prismaService.getPrismaClient();
   }
 
-  _prepareData(recipient: CreateRecipient | UpdateRecipient) {
-    return recipient.recipientEmail.map(re => {
-      return {
-        emailMetaId: recipient.emailMetaId,
-        recipientEmail: re
-      }
-    })
+  _prepareData(recipient: CreateRecipient) {
+    return {
+      emailMetaId: recipient.emailMetaId,
+      recipientEmail: recipient.recipientEmail
+    }
   }
 
-  async createRecipients(recipient: CreateRecipient) {
+  async createRecipient(recipient: CreateRecipient) {
 
     try {
-      return await this.prisma.recipient.createMany({
-        data: this._prepareData(recipient)
+      return await this.prisma.recipient.create({
+        data: {
+          ...this._prepareData(recipient)
+        }
       });
     } catch(err) {
       console.log("Error in createRecipients", err);
     } 
   }
 
-  async updateRecipients(recipient: UpdateRecipient) {
+  async deleteRecipient(recipient: DeleteRecipient) {
     
-    return await this.prisma.recipient.updateMany({
+    return await this.prisma.recipient.delete({
       where: {
-        emailMetaId: recipient.emailMetaId
+        id: recipient.id
       },
-      data: this._prepareData(recipient)
     });
   }
 

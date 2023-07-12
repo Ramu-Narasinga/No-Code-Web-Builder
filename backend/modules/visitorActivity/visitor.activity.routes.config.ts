@@ -19,6 +19,10 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
       body("activityEvents").isArray(),
       body("rating").exists().isNumeric(),
       body("comment").exists().isString(),
+      body("ip").isString(),
+      body("city").isString(),
+      body("region").isString(),
+      body("country").isString(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
       visitorActivityController.createFeedbackActivity,
     ]);

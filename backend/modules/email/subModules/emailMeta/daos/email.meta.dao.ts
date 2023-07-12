@@ -31,7 +31,8 @@ class EmailMetaDao {
         id: payload.emailMetaId
       },
       include: {
-        email: true
+        email: true,
+        recipients: true
       }
     })
   }

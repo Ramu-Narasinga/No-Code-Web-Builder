@@ -50,15 +50,14 @@ model Email {
 model EmailMeta {
   id              Int         @id @default(autoincrement())
   subject         String      @db.LongText
-  fromName        String      @db.Text
   recipients      Recipient[]
-  email           Email       @relation(fields: [emailId], references: [id])
+  email           Email       @relation(fields: [emailId], references: [id], onDelete: Cascade)
   emailId         Int         @unique
 }
 
 model Recipient {
   id                 Int           @id @default(autoincrement())
-  emailMeta          EmailMeta?    @relation(fields: [emailMetaId], references: [id])
+  emailMeta          EmailMeta?    @relation(fields: [emailMetaId], references: [id], onDelete: Cascade)
   emailMetaId        Int?
   recipientEmail     String        @unique
 }

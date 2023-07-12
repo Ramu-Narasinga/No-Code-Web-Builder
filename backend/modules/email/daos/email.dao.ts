@@ -28,7 +28,11 @@ class EmailDao {
           id
         },
         include: {
-          emailMeta: true
+          emailMeta: {
+            include: {
+              recipients: true
+            }
+          }
         }
       })
     } catch(err) {
@@ -49,6 +53,13 @@ class EmailDao {
         where: {
           userId:  {
             equals: userId
+          },
+        },
+        include: {
+          emailMeta: {
+            include: {
+              recipients: true
+            }
           }
         }
       })
@@ -70,7 +81,15 @@ class EmailDao {
       console.log("data before create command");
 
       return await this.prisma.email.create({
-        data
+        data: {
+          ...data,
+          emailMeta: {
+            create:
+              {
+                subject: ''
+              }
+          }
+        } 
       });
     } catch(err) {
       console.error("Error in creating email %0", err);

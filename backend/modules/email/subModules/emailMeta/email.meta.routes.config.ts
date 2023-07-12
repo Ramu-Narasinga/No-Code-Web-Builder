@@ -15,7 +15,6 @@ export class EmailMetaRoutes extends CommonRoutesConfig {
     this.app.put(`/email/meta`, [
       jwtMiddleware.validJWTNeeded,
       body("id").isNumeric(),
-      body("fromName").exists().isString(),
       body("subject").exists().isString(),
       body("emailId").isNumeric(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,

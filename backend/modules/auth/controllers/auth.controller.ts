@@ -17,6 +17,7 @@ class AuthController {
       let createdUser = await usersService.createUser(req.body);
       console.log("createdUser:", createdUser);
       res.locals.id = createdUser.id;
+      req.body.userId = createdUser.id;
       let loginRes = authService.generateLoginResponse(req.body, res.locals)
       res.status(200).send(loginRes);
     } catch (err) {

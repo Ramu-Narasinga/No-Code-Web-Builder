@@ -83,7 +83,8 @@ class VisitorActivityDao {
         activityType: true,
         region: true,
         country: true,
-        activityEventsUrl: true
+        activityEventsUrl: true,
+        createdAt: true
       }
     })
   }

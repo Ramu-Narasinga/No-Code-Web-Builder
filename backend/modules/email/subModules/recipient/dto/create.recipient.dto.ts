@@ -1,4 +1,4 @@
 export interface CreateRecipient {
   emailMetaId: number;
-  recipientEmail: string[];
+  recipientEmail: string;
 }

@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
 // here we are adding middleware to allow cross-origin requests
 const corsConfig = {
   credentials: true,
-  origin: true,
+  origin: false,
 };
 
 // app.use(cors(corsConfig));

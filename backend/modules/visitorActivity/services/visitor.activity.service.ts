@@ -63,15 +63,20 @@ class VisitorActivityService {
   }
 
   async _getUpdatedVisitorInfoResource(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
-    const request = await fetch(new URL(`${process.env.IPINFOURL}`, `${process.env.IPINFOBASE}`));
-    const jsonResponse: any = await request.json();
+    // const request = await fetch(new URL(`${process.env.IPINFOURL}`, `${process.env.IPINFOBASE}`));
+    // const jsonResponse: any = await request.json();
 
-    console.log(jsonResponse.ip, jsonResponse.country);
+    // console.log(jsonResponse.ip, jsonResponse.country);
 
-    resource['ip'] = jsonResponse.ip;
-    resource['city'] = jsonResponse.city;
-    resource['region'] = jsonResponse.region;
-    resource['country'] = jsonResponse.country;
+    // resource['ip'] = jsonResponse.ip;
+    // resource['city'] = jsonResponse.city;
+    // resource['region'] = jsonResponse.region;
+    // resource['country'] = jsonResponse.country;
+
+    resource['ip'] = resource.ip;
+    resource['city'] = resource.city;
+    resource['region'] = resource.region;
+    resource['country'] = resource.country;
 
     return resource;
   }

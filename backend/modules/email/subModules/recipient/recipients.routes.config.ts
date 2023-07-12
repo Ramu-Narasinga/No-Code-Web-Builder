@@ -12,20 +12,17 @@ export class EmailMetaRecipientsRoutes extends CommonRoutesConfig {
 
   configureRoutes(): express.Application {    
 
-    this.app.post(`/email/meta/recipients`, [
-      jwtMiddleware.validJWTNeeded,
-      body("emailMetaId").isNumeric(),
-      body("recipientEmail").isArray(),
-      BodyValidationMiddleware.verifyBodyFieldsErrors,
-      recipientController.createRecipients,
-    ]);
-
     this.app.put(`/email/meta/recipients`, [
       jwtMiddleware.validJWTNeeded,
       body("emailMetaId").isNumeric(),
-      body("recipientEmail").isArray(),
+      body("recipientEmail").isString(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
-      recipientController.updateRecipients,
+      recipientController.createRecipient,
+    ]);
+
+    this.app.delete(`/email/meta/recipients/:id`, [
+      jwtMiddleware.validJWTNeeded,
+      recipientController.deleteRecipient,
     ]);
 
     return this.app;

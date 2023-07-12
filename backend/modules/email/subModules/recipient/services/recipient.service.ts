@@ -1,16 +1,16 @@
 import RecipientDao from "../daos/recipient.dao";
 import { CreateRecipient } from "../dto/create.recipient.dto";
 import { GetRecipients } from "../dto/get.recipients.dto";
-import { UpdateRecipient } from "../dto/update.recipient.dto";
+import { DeleteRecipient } from "../dto/delete.recipient.dto";
 
 class RecipientService {
   
-  async createRecipients(resource: CreateRecipient) {
-    return await RecipientDao.createRecipients(resource);
+  async createRecipient(resource: CreateRecipient) {
+    return await RecipientDao.createRecipient(resource);
   }
 
-  async updateRecipients(resource: UpdateRecipient) {
-    return await RecipientDao.updateRecipients(resource);
+  async deleteRecipient(resource: DeleteRecipient) {
+    return await RecipientDao.deleteRecipient(resource);
   }
 
   async getRecipients(resource: GetRecipients) {
