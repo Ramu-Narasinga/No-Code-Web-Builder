@@ -38,8 +38,8 @@ model Email {
   title           String     @db.VarChar(255)
   description     String     @db.VarChar(255)
   status          Status     @default(ACTIVE)
-  html            String     @db.LongText
-  css             String     @db.LongText
+  html            String     @db.Text
+  css             String     @db.Text
   user            User?      @relation(fields: [userId], references: [id])
   userId          Int?
   emailMeta       EmailMeta?
@@ -49,7 +49,7 @@ model Email {
 
 model EmailMeta {
   id              Int         @id @default(autoincrement())
-  subject         String      @db.LongText
+  subject         String      @db.Text
   recipients      Recipient[]
   email           Email       @relation(fields: [emailId], references: [id], onDelete: Cascade)
   emailId         Int         @unique
@@ -66,8 +66,8 @@ model Website {
   title              String     @db.VarChar(255)
   description        String     @db.VarChar(255)
   status             Status     @default(ACTIVE)
-  html               String     @db.LongText
-  css                String     @db.LongText
+  html               String     @db.Text
+  css                String     @db.Text
   user               User?      @relation(fields: [userId], references: [id])
   userId             Int?
   visitorActivities  VisitorActivity[]
