@@ -1,15 +1,12 @@
 import express from "express";
 import debug from "debug";
-import dotenv from "dotenv";
 import RmrService from "../service/rmr.service";
 import fileUpload from "express-fileupload";
 
 const log: debug.IDebugger = debug("app:rmr-controller");
 
 class RmRController {
-  constructor() {
-    dotenv.config();
-  }
+  constructor() {}
 
   async roastResume(req: express.Request, res: express.Response) {
     try {

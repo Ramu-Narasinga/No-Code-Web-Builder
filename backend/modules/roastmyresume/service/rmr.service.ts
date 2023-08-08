@@ -1,5 +1,4 @@
 import axios from "axios";
-import dotenv, { config } from "dotenv";
 import { SummarizerManager } from "node-summarizer";
 import ParseDocx from "./parse-docx";
 import fileUpload from "express-fileupload";
@@ -7,19 +6,12 @@ import { CreateUserDto } from "../dto/create.user.dto";
 import s3HelperService from "../../common/services/s3.helper.service";
 import RmrDao from "../daos/rmr.dao";
 
-const dotenvResult = dotenv.config();
-if (dotenvResult.error) {
-  throw dotenvResult.error;
-}
-
 const apiKey = process.env.apiKey;
 const apiUrl = process.env.apiUrl ?? "";
 
 class RmrService {
 
-  constructor() {
-    config();
-  }
+  constructor() { }
 
   private async getSummary(userPrompt: String, systemPrompt: String) {
     try {
