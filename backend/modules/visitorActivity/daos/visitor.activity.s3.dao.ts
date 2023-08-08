@@ -16,24 +16,24 @@ class VisitorActivityS3Dao {
     config();
   }
 
-  async uploadActivityEvents(events: any[]) {
-    try {
-      const filename = Date.now();
-      console.log("process.env.AWS_BUCKET_NAME", process.env.AWS_BUCKET_NAME);
-      const params = {
-        Bucket: `${process.env.AWS_BUCKET_NAME}`,
-        Key: `${filename}`,
-        Body: JSON.stringify(events)
-      }
+  // async uploadActivityEvents(events: any[]) {
+  //   try {
+  //     const filename = Date.now();
+  //     console.log("process.env.AWS_BUCKET_NAME", process.env.AWS_BUCKET_NAME);
+  //     const params = {
+  //       Bucket: `${process.env.AWS_BUCKET_NAME}`,
+  //       Key: `${filename}`,
+  //       Body: JSON.stringify(events)
+  //     }
 
-      await this.s3.putObject(params).promise();
+  //     await this.s3.putObject(params).promise();
 
-      return `${process.env.AWS_BUCKET_NAME}/${filename}`;
-    } catch(err) {
-      console.log("Error in uploading events to s3", err);
-      throw new Error("Error in uploading events");
-    }
-  }
+  //     return `${process.env.AWS_BUCKET_NAME}/${filename}`;
+  //   } catch(err) {
+  //     console.log("Error in uploading events to s3", err);
+  //     throw new Error("Error in uploading events");
+  //   }
+  // }
 
   async getActivityEvents(filename: string) {
     try {

@@ -107,3 +107,12 @@ model FeedbackActivity {
   visitorActivity       VisitorActivity   @relation(fields: [visitorActivityId], references: [id])
   visitorActivityId     Int               @unique
 }
+
+model Rmr_User {
+  id                    Int        @id @default(autoincrement())
+  email                 String     @db.VarChar(255)
+  resumePath            String
+  newsletterSubsribed    Boolean    @default(false)
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+}

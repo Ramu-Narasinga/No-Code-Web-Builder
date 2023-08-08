@@ -14,22 +14,19 @@ class EmailMetaRecipientsRoutes extends common_routes_config_1.CommonRoutesConfi
         super(app, "EmailMetaRecipientsRoutes");
     }
     configureRoutes() {
-        this.app.post(`/email/meta/recipients`, [
-            jwt_middleware_1.default.validJWTNeeded,
-            (0, express_validator_1.body)("emailMetaId").isNumeric(),
-            (0, express_validator_1.body)("recipientEmail").isArray(),
-            body_validation_middleware_1.default.verifyBodyFieldsErrors,
-            recipient_controller_1.default.createRecipients,
-        ]);
         this.app.put(`/email/meta/recipients`, [
             jwt_middleware_1.default.validJWTNeeded,
             (0, express_validator_1.body)("emailMetaId").isNumeric(),
-            (0, express_validator_1.body)("recipientEmail").isArray(),
+            (0, express_validator_1.body)("recipientEmail").isString(),
             body_validation_middleware_1.default.verifyBodyFieldsErrors,
-            recipient_controller_1.default.updateRecipients,
+            recipient_controller_1.default.createRecipient,
+        ]);
+        this.app.delete(`/email/meta/recipients/:id`, [
+            jwt_middleware_1.default.validJWTNeeded,
+            recipient_controller_1.default.deleteRecipient,
         ]);
         return this.app;
     }
 }
 exports.EmailMetaRecipientsRoutes = EmailMetaRecipientsRoutes;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVjaXBpZW50cy5yb3V0ZXMuY29uZmlnLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vbW9kdWxlcy9lbWFpbC9zdWJNb2R1bGVzL3JlY2lwaWVudC9yZWNpcGllbnRzLnJvdXRlcy5jb25maWcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsK0VBQTBFO0FBRTFFLHVIQUE2RjtBQUM3Rix5REFBeUM7QUFDekMsNkZBQW9FO0FBQ3BFLDhGQUFxRTtBQUVyRSxNQUFhLHlCQUEwQixTQUFRLHlDQUFrQjtJQUMvRCxZQUFZLEdBQXdCO1FBQ2xDLEtBQUssQ0FBQyxHQUFHLEVBQUUsMkJBQTJCLENBQUMsQ0FBQztJQUMxQyxDQUFDO0lBRUQsZUFBZTtRQUViLElBQUksQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLHdCQUF3QixFQUFFO1lBQ3RDLHdCQUFhLENBQUMsY0FBYztZQUM1QixJQUFBLHdCQUFJLEVBQUMsYUFBYSxDQUFDLENBQUMsU0FBUyxFQUFFO1lBQy9CLElBQUEsd0JBQUksRUFBQyxnQkFBZ0IsQ0FBQyxDQUFDLE9BQU8sRUFBRTtZQUNoQyxvQ0FBd0IsQ0FBQyxzQkFBc0I7WUFDL0MsOEJBQW1CLENBQUMsZ0JBQWdCO1NBQ3JDLENBQUMsQ0FBQztRQUVILElBQUksQ0FBQyxHQUFHLENBQUMsR0FBRyxDQUFDLHdCQUF3QixFQUFFO1lBQ3JDLHdCQUFhLENBQUMsY0FBYztZQUM1QixJQUFBLHdCQUFJLEVBQUMsYUFBYSxDQUFDLENBQUMsU0FBUyxFQUFFO1lBQy9CLElBQUEsd0JBQUksRUFBQyxnQkFBZ0IsQ0FBQyxDQUFDLE9BQU8sRUFBRTtZQUNoQyxvQ0FBd0IsQ0FBQyxzQkFBc0I7WUFDL0MsOEJBQW1CLENBQUMsZ0JBQWdCO1NBQ3JDLENBQUMsQ0FBQztRQUVILE9BQU8sSUFBSSxDQUFDLEdBQUcsQ0FBQztJQUNsQixDQUFDO0NBQ0Y7QUF6QkQsOERBeUJDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVjaXBpZW50cy5yb3V0ZXMuY29uZmlnLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vbW9kdWxlcy9lbWFpbC9zdWJNb2R1bGVzL3JlY2lwaWVudC9yZWNpcGllbnRzLnJvdXRlcy5jb25maWcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsK0VBQTBFO0FBRTFFLHVIQUE2RjtBQUM3Rix5REFBeUM7QUFDekMsNkZBQW9FO0FBQ3BFLDhGQUFxRTtBQUVyRSxNQUFhLHlCQUEwQixTQUFRLHlDQUFrQjtJQUMvRCxZQUFZLEdBQXdCO1FBQ2xDLEtBQUssQ0FBQyxHQUFHLEVBQUUsMkJBQTJCLENBQUMsQ0FBQztJQUMxQyxDQUFDO0lBRUQsZUFBZTtRQUViLElBQUksQ0FBQyxHQUFHLENBQUMsR0FBRyxDQUFDLHdCQUF3QixFQUFFO1lBQ3JDLHdCQUFhLENBQUMsY0FBYztZQUM1QixJQUFBLHdCQUFJLEVBQUMsYUFBYSxDQUFDLENBQUMsU0FBUyxFQUFFO1lBQy9CLElBQUEsd0JBQUksRUFBQyxnQkFBZ0IsQ0FBQyxDQUFDLFFBQVEsRUFBRTtZQUNqQyxvQ0FBd0IsQ0FBQyxzQkFBc0I7WUFDL0MsOEJBQW1CLENBQUMsZUFBZTtTQUNwQyxDQUFDLENBQUM7UUFFSCxJQUFJLENBQUMsR0FBRyxDQUFDLE1BQU0sQ0FBQyw0QkFBNEIsRUFBRTtZQUM1Qyx3QkFBYSxDQUFDLGNBQWM7WUFDNUIsOEJBQW1CLENBQUMsZUFBZTtTQUNwQyxDQUFDLENBQUM7UUFFSCxPQUFPLElBQUksQ0FBQyxHQUFHLENBQUM7SUFDbEIsQ0FBQztDQUNGO0FBdEJELDhEQXNCQyJ9

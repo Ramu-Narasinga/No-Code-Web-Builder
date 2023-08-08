@@ -20,7 +20,6 @@ const Record = () => {
   const handleRating = () => {
     save(rating)
     .then(res => {
-      console.log(getRatingStyles(rating), "res in save", res);
       setShowComment(true);
       setShowRating(false);
       setShowTY(false);
@@ -32,11 +31,9 @@ const Record = () => {
 
   useEffect(() => {
     startRecordingEvents();
-    console.log("inside useEffecct, calling listentoerrorandsave");
     setTimeout(() => {
       save(5)
       .then(res => {
-        console.log("saved res", res);
       })
       .catch(err => {
         console.error("err:", err);

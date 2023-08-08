@@ -14,7 +14,9 @@ import { EmailRoutes } from './modules/email/email.routes.config';
 import { EmailMetaRoutes } from './modules/email/subModules/emailMeta/email.meta.routes.config';
 import { EmailMetaRecipientsRoutes } from './modules/email/subModules/recipient/recipients.routes.config';
 import { VisitorActivityRoutes } from './modules/visitorActivity/visitor.activity.routes.config';
+import { RoastMyResumeRoutes } from './modules/roastmyresume/rmr.routes.config';
 import bodyParser from 'body-parser';
+import fileUpload from 'express-fileupload';
 
 // const dotenvResult = dotenv.config();
 // if (dotenvResult.error) {
@@ -25,6 +27,8 @@ const server: http.Server = http.createServer(app);
 const port = process.env.PORT || 8080;
 const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug('app');
+
+app.use(fileUpload());
 
 app.use(helmet());
 
@@ -75,9 +79,10 @@ routes.push(new EmailRoutes(app));
 routes.push(new EmailMetaRoutes(app));
 routes.push(new EmailMetaRecipientsRoutes(app));
 routes.push(new VisitorActivityRoutes(app));
+routes.push(new RoastMyResumeRoutes(app));
 
 // this is a simple route to make sure everything is working properly
-const runningMessage = `Server running at http://localhost:${port}`;
+const runningMessage = `Server running`;
 app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage)
 });

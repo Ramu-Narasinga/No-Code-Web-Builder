@@ -28,7 +28,7 @@
         </div>
         <div *ngIf="visitorActivity.activityType == Activitytype.FEEDBACK" class=" va-info-lc">
           <span class="va-info-label">Created At</span>
-          <span class="va-info-lv">{{visitorActivity.createdAt}}</span>
+          <span class="va-info-lv">{{getTimeStamp(visitorActivity.createdAt)}}</span>
         </div>
         <div *ngIf="visitorActivity.activityType == Activitytype.ERROR" class=" va-info-lc">
           <span class="va-info-label">Error found at</span>

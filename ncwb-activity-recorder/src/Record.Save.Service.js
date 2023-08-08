@@ -15,7 +15,6 @@ function _getWebsiteId() {
 
 var visitorActivityId = null;
 function _setVisitorActivityId(id) {
-  console.log("setting id", id);
   visitorActivityId = id;
 }
 
@@ -49,23 +48,18 @@ function _getSavePayload(rating, userInfo) {
 
 export function save(rating) {
     return new Promise(async (resolve, reject) => {
-      console.log("process.env.REACT_APP_IP_INFO_URL:", process.env.REACT_APP_IP_INFO_URL, "process.env.REACT_APP_IP_INFO_BASE:", process.env.REACT_APP_IP_INFO_BASE);
       const request = await fetch(`${process.env.REACT_APP_IP_INFO_URL}/${process.env.REACT_APP_IP_INFO_BASE}`);
       const jsonResponse = await request.json();
 
-      console.log("jsonResponse in client side", jsonResponse);
       let userInfo = {};
       userInfo['ip'] = jsonResponse.ip;
       userInfo['city'] = jsonResponse.city;
       userInfo['region'] = jsonResponse.region;
       userInfo['country'] = jsonResponse.country;
 
-      console.log("About to send the payload with this::", _getSavePayload(rating, userInfo));
-
       _fetch(_getSavePayload(rating, userInfo), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'POST')
       .then(res => res.json())
       .then((res=> {
-        console.log("res in save", res);
         flushEvents();
         _setVisitorActivityId(res.id);
         resolve(true)
@@ -93,7 +87,6 @@ function _errorSave() {
   _fetch(_getErrorSavePayload(), process.env.REACT_APP_SERVER_ERROR_URL, 'POST')
   .then(res => res.json())
   .then((res=> {
-    console.log("res in errorsave", res);
     flushEvents();
     _setVisitorActivityId(res.id);
   }))
@@ -103,9 +96,7 @@ function _errorSave() {
 }
 
 export function listenToErrorsAndSave() {
-  console.log("registered error listener")
   window.onerror = () => {
-    console.log("about to trigger save API");
     _errorSave();
   }
 }
@@ -119,7 +110,6 @@ function _getSaveCommentPayload(comment) {
 
 
 export function saveComment(comment) {
-  console.log("_getSaveCommentPayload(comment):", _getSaveCommentPayload(comment));
   _fetch(_getSaveCommentPayload(comment), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'PUT')
   .then(res => res.json())
   .then((res=> {

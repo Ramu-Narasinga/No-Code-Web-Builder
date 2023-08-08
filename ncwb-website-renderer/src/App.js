@@ -14,7 +14,6 @@ function App() {
       return data.json();
     })
     .then(website => {
-      console.log("fetched website data", website);
       setHtml(website.html);
       setCss(website.css);
     });

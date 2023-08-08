@@ -87,4 +87,11 @@ export class VisitorActivityComponent implements OnInit {
       rrwebPlayer.triggerResize();
     });
   }
+
+  getTimeStamp(timeStamp) {
+    const date = new Date(timeStamp);
+    const options = { timeZone: "Europe/London" };
+    const britishTime = date.toLocaleString("en-GB", options);
+    return britishTime;
+  }
 }

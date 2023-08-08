@@ -1,9 +1,9 @@
 import { config } from "dotenv";
-import fetch from "node-fetch";
 
 import VisitorActivityDao from "../daos/visitor.activity.dao";
 import VisitorActivityS3Dao from "../daos/visitor.activity.s3.dao";
 import { CreateFeedbackVisitorActivity, CreateVisitorActivity } from "../dto/create.activity.dto";
+import S3HelperService from "../../common/services/s3.helper.service";
 
 class VisitorActivityService {
 
@@ -56,7 +56,8 @@ class VisitorActivityService {
   }
 
   async uploadEventsToS3AndReturnEventsUrl(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
-    let activityEventsUrl = await VisitorActivityS3Dao.uploadActivityEvents(resource.activityEvents ?? []);
+    // let activityEventsUrl = await VisitorActivityS3Dao.uploadActivityEvents(resource.activityEvents ?? []);
+    let activityEventsUrl = await S3HelperService.upload(`${Date.now()}`, JSON.stringify(resource.activityEvents?? []));
     resource.activityEventsUrl = activityEventsUrl;
     delete resource.activityEvents;
     return resource;
