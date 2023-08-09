@@ -60,10 +60,15 @@ class RmrService {
 
   async getFeedback(resume: fileUpload.UploadedFile) {
     let docxExtraction = await ParseDocx.getContent(resume);
+    console.log(`[RMR]::[DocxExtraction]::${docxExtraction}`);
     const docxText = docxExtraction?.value ?? "";
+    console.log(`[RMR]::[docxText]::${docxText}`);
     const userPrompt = this.summarize(docxText);
+    console.log(`[RMR]::[userPrompt]::${userPrompt}`);
     const systemPrompt = process.env.systemPrompt ?? "";
+    console.log(`[RMR]::[systemPrompt]::${systemPrompt}`);
     let summary = await this.getSummary(userPrompt, systemPrompt);
+    console.log(`[RMR]::[summary]::${summary}`);
     return summary;
   }
 

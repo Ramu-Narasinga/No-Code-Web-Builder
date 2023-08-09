@@ -16,16 +16,23 @@ class RmRController {
       }
 
       let resumePath = await RmrService.saveResumeToS3(req.files.resume as fileUpload.UploadedFile);
+      console.info("[RMR]::[S3-Upload-Success]");
+
+      let createRmrUserRes;
 
       if (resumePath != null) {
-        await RmrService.createRmrUser({
+        createRmrUserRes = await RmrService.createRmrUser({
           resumePath,
           email: '',
           newsletterSubsribed: false
         });
+        console.info("[RMR]::[User-Create-Success]");
       }
 
-      return res.status(200).json({ summary: RmrService.getFeedback(req.files.resume as fileUpload.UploadedFile) })
+      return res.status(200).json({ 
+        summary: RmrService.getFeedback(req.files.resume as fileUpload.UploadedFile), 
+        ...(createRmrUserRes && { id: createRmrUserRes.id })
+      });
     } catch (error) {
       console.error("Error:", error);
       return res.status(500).json({ error: "Internal server error." });
