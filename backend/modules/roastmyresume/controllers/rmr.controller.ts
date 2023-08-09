@@ -16,7 +16,7 @@ class RmRController {
       }
 
       let resumePath = await RmrService.saveResumeToS3(req.files.resume as fileUpload.UploadedFile);
-      console.info("[RMR]::[S3-Upload-Success]");
+      console.info(`[RMR]::[S3-Upload-Success]::${resumePath}`);
 
       let createRmrUserRes;
 
@@ -30,7 +30,7 @@ class RmRController {
       }
 
       return res.status(200).json({ 
-        summary: RmrService.getFeedback(req.files.resume as fileUpload.UploadedFile), 
+        summary: await RmrService.getFeedback(req.files.resume as fileUpload.UploadedFile), 
         ...(createRmrUserRes && { id: createRmrUserRes.id })
       });
     } catch (error) {
