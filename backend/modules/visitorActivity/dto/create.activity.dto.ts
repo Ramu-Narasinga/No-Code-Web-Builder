@@ -4,6 +4,7 @@ enum ActivityType {
 }
 
 export interface CreateVisitorActivity {
+  id?: number;
   activityType: ActivityType;
   ip: string;
   city: string;

@@ -9,7 +9,17 @@ class VisitorActivityController {
   async createFeedbackActivity(req: express.Request, res: express.Response) {
     try {
       let createFeedbackActivityRes = await visitorActivityService.createFeedbackActivity(req.body);
-      res.status(200).send({id: createFeedbackActivityRes.id});
+      res.status(200).send({id: createFeedbackActivityRes.id, activityEventsUrl: createFeedbackActivityRes.activityEventsUrl});
+    } catch (err) {
+      log("Create Feedback Activity Error %0:", err);
+      return res.status(500).send();
+    }
+  }
+
+  async updateActivity(req: express.Request, res: express.Response) {
+    try {
+      await visitorActivityService.updateActivity(req.body);
+      res.status(200).send({status: "ok"});
     } catch (err) {
       log("Create Feedback Activity Error %0:", err);
       return res.status(500).send();

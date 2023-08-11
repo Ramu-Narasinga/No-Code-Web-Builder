@@ -16,6 +16,15 @@ export class RoastMyResumeRoutes extends CommonRoutesConfig {
       RmRController.roastResume,
     ]);
 
+    this.app.put(`/rmr-upload`, [
+      body("id").isNumeric(),
+      body("email").isEmail(),
+      body("name").isString(),
+      body("newsletterSubscribed").isBoolean(),
+      BodyValidationMiddleware.verifyBodyFieldsErrors,
+      RmRController.updateUserRecord,
+    ]);
+
     return this.app;
   }
 }

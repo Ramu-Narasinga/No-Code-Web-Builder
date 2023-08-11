@@ -37,11 +37,18 @@ export class VisitorActivityRoutes extends CommonRoutesConfig {
       visitorActivityController.createFeedbackActivity,
     ]);
 
+    // this.app.put('/feedback-activity', [
+    //   body("id").isNumeric(),
+    //   body("comment").isString(),
+    //   BodyValidationMiddleware.verifyBodyFieldsErrors,
+    //   visitorActivityController.updateFeedbackActivityComment
+    // ]);
+
     this.app.put('/feedback-activity', [
-      body("id").isNumeric(),
-      body("comment").isString(),
+      body("activityEvents").isArray(),
+      body("activityEventsUrl").isString(),
       BodyValidationMiddleware.verifyBodyFieldsErrors,
-      visitorActivityController.updateFeedbackActivityComment
+      visitorActivityController.updateActivity
     ]);
 
     this.app.get(`/visitor-activity`, [

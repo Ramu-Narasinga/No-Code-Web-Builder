@@ -41,12 +41,23 @@ class VisitorActivityDao {
           }
         }
       }
-
-      return await this.prisma.visitorActivity.create({
-        data: {
-          ...visitorActivityData, 
-        }
-      })
+      
+      if (feedbackActivity.id) {
+        return await this.prisma.visitorActivity.update({
+          where: {
+            id: feedbackActivity.id,
+          },
+          data: {
+            ...visitorActivityData
+          },
+        });
+      } else {
+        return await this.prisma.visitorActivity.create({
+          data: {
+            ...visitorActivityData, 
+          }
+        });
+      }
     } catch(err) {
       console.log("error in creating feedback in dao", err);
       throw new Error("Create Feedback Activity Error");

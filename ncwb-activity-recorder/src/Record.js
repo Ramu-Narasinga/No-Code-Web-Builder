@@ -1,6 +1,6 @@
 import { ReactComponent as Rating } from './assets/rating.svg';
 import { useEffect, useState } from 'react';
-import { listenToErrorsAndSave, save, saveComment } from './Record.Save.Service';
+import { listenToErrorsAndSave, save, saveComment, update } from './Record.Save.Service';
 import { startRecordingEvents } from './Record.RRweb-Record.Service';
 
 import './Record.css';
@@ -25,21 +25,64 @@ const Record = () => {
       setShowTY(false);
     })
     .catch(err => {
-      console.error("err:", err);
     });
   }
 
   useEffect(() => {
     startRecordingEvents();
-    setTimeout(() => {
-      save(5)
+    let intervalFn;
+    let timeoutFn = setTimeout(() => {
+      save(4)
       .then(res => {
+        setInterval(() => {
+          intervalFn = update(res.activityEventsUrl)
+          .then(res => {
+          })
+          .catch(err => {
+          });
+        }, 3000);
       })
       .catch(err => {
-        console.error("err:", err);
       });
-    }, 9000);
+    }, 2000);
+
+    return () => {
+      timeoutFn.clearTimeout();
+
+    }
   }, []);
+
+  useEffect(() => {
+    startRecordingEvents();
+    let intervalFn;
+    let timeoutFn = setTimeout(() => {
+      save(4)
+      .then(res => {
+        if (res.status === "ok") {
+          intervalFn = setInterval(() => {
+            update(res.activityEventsUrl)
+            .then(res => {
+              // Check if the status is not 200 and clear the interval
+              if (res.status === "ok") {
+                clearInterval(intervalFn);
+              }
+            })
+            .catch(err => {
+              clearInterval(intervalFn); // Clear interval on error
+            });
+          }, 2000);
+        }
+      })
+      .catch(err => {
+      });
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutFn);
+      clearInterval(intervalFn);
+    }
+}, []);
+
 
   const getRatingStyles = (index) => {
     return (

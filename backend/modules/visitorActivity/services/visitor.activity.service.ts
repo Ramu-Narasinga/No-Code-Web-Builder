@@ -40,6 +40,16 @@ class VisitorActivityService {
     }
   }
 
+  async updateActivity(resource: CreateFeedbackVisitorActivity) {
+    try {
+
+      await this.uploadEventsToS3AndReturnEventsUrl(resource)
+    } catch(err) {
+      console.log("Error in visitor activity service", err);
+      throw new Error("Create Feedback Activity Error")
+    }
+  }
+
   async updateFeedbackActivityComment(resource: {id: number, comment: string}) {
     try {
       return await VisitorActivityDao.updateFeedbackActivityComment(resource);
@@ -56,8 +66,13 @@ class VisitorActivityService {
   }
 
   async uploadEventsToS3AndReturnEventsUrl(resource: CreateFeedbackVisitorActivity): Promise<CreateFeedbackVisitorActivity> {
-    // let activityEventsUrl = await VisitorActivityS3Dao.uploadActivityEvents(resource.activityEvents ?? []);
-    let activityEventsUrl = await S3HelperService.upload(`${Date.now()}`, JSON.stringify(resource.activityEvents?? []));
+    let fileName = Date.now();
+    if (resource.activityEventsUrl) {
+      const url = resource.activityEventsUrl;
+      const parts = url.split('/');
+      fileName = +parts[parts.length - 1];
+    }
+    let activityEventsUrl = await S3HelperService.upload(`${fileName}`, JSON.stringify(resource.activityEvents?? []));
     resource.activityEventsUrl = activityEventsUrl;
     delete resource.activityEvents;
     return resource;

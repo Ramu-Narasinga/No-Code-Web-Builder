@@ -13,13 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug_1 = __importDefault(require("debug"));
-const dotenv_1 = __importDefault(require("dotenv"));
 const rmr_service_1 = __importDefault(require("../service/rmr.service"));
 const log = (0, debug_1.default)("app:rmr-controller");
 class RmRController {
-    constructor() {
-        dotenv_1.default.config();
-    }
+    constructor() { }
     roastResume(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -27,14 +24,31 @@ class RmRController {
                     return res.status(400).json({ error: "No docx file uploaded." });
                 }
                 let resumePath = yield rmr_service_1.default.saveResumeToS3(req.files.resume);
+                console.info(`[RMR]::[S3-Upload-Success]::${resumePath}`);
+                let createRmrUserRes;
                 if (resumePath != null) {
-                    yield rmr_service_1.default.createRmrUser({
+                    createRmrUserRes = yield rmr_service_1.default.createRmrUser({
                         resumePath,
-                        email: '',
-                        newsletterSubsribed: false
+                        email: "",
+                        newsletterSubscribed: false,
                     });
+                    console.info("[RMR]::[User-Create-Success]");
                 }
-                return res.status(200).json({ summary: rmr_service_1.default.getFeedback(req.files.resume) });
+                let feedback = rmr_service_1.default.getFeedback();
+                return res.status(200).json(Object.assign({ summary: feedback.content, title: feedback.title }, (createRmrUserRes && { id: createRmrUserRes.id })));
+            }
+            catch (error) {
+                console.error("Error:", error);
+                return res.status(500).json({ error: "Internal server error." });
+            }
+        });
+    }
+    updateUserRecord(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield rmr_service_1.default.updateRmrUser(Object.assign({}, req.body));
+                console.info("[RMR]::[User-Update-Success]");
+                return res.status(200).json({ statuus: "ok" });
             }
             catch (error) {
                 console.error("Error:", error);
@@ -44,4 +58,4 @@ class RmRController {
     }
 }
 exports.default = new RmRController();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm1yLmNvbnRyb2xsZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9tb2R1bGVzL3JvYXN0bXlyZXN1bWUvY29udHJvbGxlcnMvcm1yLmNvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFDQSxrREFBMEI7QUFDMUIsb0RBQTRCO0FBQzVCLHlFQUFnRDtBQUdoRCxNQUFNLEdBQUcsR0FBb0IsSUFBQSxlQUFLLEVBQUMsb0JBQW9CLENBQUMsQ0FBQztBQUV6RCxNQUFNLGFBQWE7SUFDakI7UUFDRSxnQkFBTSxDQUFDLE1BQU0sRUFBRSxDQUFDO0lBQ2xCLENBQUM7SUFFSyxXQUFXLENBQUMsR0FBb0IsRUFBRSxHQUFxQjs7WUFDM0QsSUFBSTtnQkFFRixJQUFJLENBQUMsR0FBRyxDQUFDLEtBQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxLQUFLLENBQUMsTUFBTSxFQUFFO29CQUNuQyxPQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLHdCQUF3QixFQUFFLENBQUMsQ0FBQztpQkFDbEU7Z0JBRUQsSUFBSSxVQUFVLEdBQUcsTUFBTSxxQkFBVSxDQUFDLGNBQWMsQ0FBQyxHQUFHLENBQUMsS0FBSyxDQUFDLE1BQWlDLENBQUMsQ0FBQztnQkFFOUYsSUFBSSxVQUFVLElBQUksSUFBSSxFQUFFO29CQUN0QixNQUFNLHFCQUFVLENBQUMsYUFBYSxDQUFDO3dCQUM3QixVQUFVO3dCQUNWLEtBQUssRUFBRSxFQUFFO3dCQUNULG1CQUFtQixFQUFFLEtBQUs7cUJBQzNCLENBQUMsQ0FBQztpQkFDSjtnQkFFRCxPQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsT0FBTyxFQUFFLHFCQUFVLENBQUMsV0FBVyxDQUFDLEdBQUcsQ0FBQyxLQUFLLENBQUMsTUFBaUMsQ0FBQyxFQUFFLENBQUMsQ0FBQTthQUM5RztZQUFDLE9BQU8sS0FBSyxFQUFFO2dCQUNkLE9BQU8sQ0FBQyxLQUFLLENBQUMsUUFBUSxFQUFFLEtBQUssQ0FBQyxDQUFDO2dCQUMvQixPQUFPLEdBQUcsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsSUFBSSxDQUFDLEVBQUUsS0FBSyxFQUFFLHdCQUF3QixFQUFFLENBQUMsQ0FBQzthQUNsRTtRQUNILENBQUM7S0FBQTtDQUNGO0FBRUQsa0JBQWUsSUFBSSxhQUFhLEVBQUUsQ0FBQyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicm1yLmNvbnRyb2xsZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi9tb2R1bGVzL3JvYXN0bXlyZXN1bWUvY29udHJvbGxlcnMvcm1yLmNvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7QUFDQSxrREFBMEI7QUFDMUIseUVBQWdEO0FBR2hELE1BQU0sR0FBRyxHQUFvQixJQUFBLGVBQUssRUFBQyxvQkFBb0IsQ0FBQyxDQUFDO0FBRXpELE1BQU0sYUFBYTtJQUNqQixnQkFBZSxDQUFDO0lBRVYsV0FBVyxDQUFDLEdBQW9CLEVBQUUsR0FBcUI7O1lBQzNELElBQUk7Z0JBQ0YsSUFBSSxDQUFDLEdBQUcsQ0FBQyxLQUFLLElBQUksQ0FBQyxHQUFHLENBQUMsS0FBSyxDQUFDLE1BQU0sRUFBRTtvQkFDbkMsT0FBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFFLEtBQUssRUFBRSx3QkFBd0IsRUFBRSxDQUFDLENBQUM7aUJBQ2xFO2dCQUVELElBQUksVUFBVSxHQUFHLE1BQU0scUJBQVUsQ0FBQyxjQUFjLENBQzlDLEdBQUcsQ0FBQyxLQUFLLENBQUMsTUFBaUMsQ0FDNUMsQ0FBQztnQkFDRixPQUFPLENBQUMsSUFBSSxDQUFDLCtCQUErQixVQUFVLEVBQUUsQ0FBQyxDQUFDO2dCQUUxRCxJQUFJLGdCQUFnQixDQUFDO2dCQUVyQixJQUFJLFVBQVUsSUFBSSxJQUFJLEVBQUU7b0JBQ3RCLGdCQUFnQixHQUFHLE1BQU0scUJBQVUsQ0FBQyxhQUFhLENBQUM7d0JBQ2hELFVBQVU7d0JBQ1YsS0FBSyxFQUFFLEVBQUU7d0JBQ1Qsb0JBQW9CLEVBQUUsS0FBSztxQkFDNUIsQ0FBQyxDQUFDO29CQUNILE9BQU8sQ0FBQyxJQUFJLENBQUMsOEJBQThCLENBQUMsQ0FBQztpQkFDOUM7Z0JBRUQsSUFBSSxRQUFRLEdBQXFDLHFCQUFVLENBQUMsV0FBVyxFQUFFLENBQUM7Z0JBRTFFLE9BQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLGlCQUN6QixPQUFPLEVBQUcsUUFBUSxDQUFDLE9BQU8sRUFDMUIsS0FBSyxFQUFFLFFBQVEsQ0FBQyxLQUFLLElBQ2xCLENBQUMsZ0JBQWdCLElBQUksRUFBRSxFQUFFLEVBQUUsZ0JBQWdCLENBQUMsRUFBRSxFQUFFLENBQUMsRUFDcEQsQ0FBQzthQUNKO1lBQUMsT0FBTyxLQUFLLEVBQUU7Z0JBQ2QsT0FBTyxDQUFDLEtBQUssQ0FBQyxRQUFRLEVBQUUsS0FBSyxDQUFDLENBQUM7Z0JBQy9CLE9BQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxLQUFLLEVBQUUsd0JBQXdCLEVBQUUsQ0FBQyxDQUFDO2FBQ2xFO1FBQ0gsQ0FBQztLQUFBO0lBRUssZ0JBQWdCLENBQUMsR0FBb0IsRUFBRSxHQUFxQjs7WUFDaEUsSUFBSTtnQkFFRixNQUFNLHFCQUFVLENBQUMsYUFBYSxtQkFDekIsR0FBRyxDQUFDLElBQUksRUFDWCxDQUFDO2dCQUVILE9BQU8sQ0FBQyxJQUFJLENBQUMsOEJBQThCLENBQUMsQ0FBQztnQkFFN0MsT0FBTyxHQUFHLENBQUMsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLElBQUksQ0FBQyxFQUFDLE9BQU8sRUFBRSxJQUFJLEVBQUMsQ0FBQyxDQUFDO2FBQzlDO1lBQUMsT0FBTyxLQUFLLEVBQUU7Z0JBQ2QsT0FBTyxDQUFDLEtBQUssQ0FBQyxRQUFRLEVBQUUsS0FBSyxDQUFDLENBQUM7Z0JBQy9CLE9BQU8sR0FBRyxDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxLQUFLLEVBQUUsd0JBQXdCLEVBQUUsQ0FBQyxDQUFDO2FBQ2xFO1FBQ0gsQ0FBQztLQUFBO0NBQ0Y7QUFFRCxrQkFBZSxJQUFJLGFBQWEsRUFBRSxDQUFDIn0=

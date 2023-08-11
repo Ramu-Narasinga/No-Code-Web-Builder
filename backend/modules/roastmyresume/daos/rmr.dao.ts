@@ -1,6 +1,7 @@
 import { CreateUserDto } from '../dto/create.user.dto';
 import prismaService from '../../common/services/prisma.service';
 import debug from 'debug';
+import { UpdateUserDto } from '../dto/update.user.dto';
 
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
@@ -18,6 +19,16 @@ class RmrDao {
         data: {
           ...userFields
         },
+      });
+    }
+
+    async updateUser(userFields: UpdateUserDto) {
+
+      return await this.prisma.rmr_User.update({
+        where: {
+          id: userFields.id,
+        },
+        data: userFields,
       });
     }
 }

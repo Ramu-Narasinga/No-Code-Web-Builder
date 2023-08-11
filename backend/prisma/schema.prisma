@@ -110,9 +110,10 @@ model FeedbackActivity {
 
 model Rmr_User {
   id                    Int        @id @default(autoincrement())
+  name                  String     @default("user")
   email                 String     @db.VarChar(255)
   resumePath            String
-  newsletterSubsribed    Boolean    @default(false)
+  newsletterSubscribed   Boolean    @default(false)
   createdAt             DateTime   @default(now())
   updatedAt             DateTime   @updatedAt
 }

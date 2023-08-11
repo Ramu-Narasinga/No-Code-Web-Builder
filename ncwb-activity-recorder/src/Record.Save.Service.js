@@ -46,6 +46,20 @@ function _getSavePayload(rating, userInfo) {
   return payload;
 }
 
+function _getUpdatePayload(userInfo) {
+  const payload = {
+    activityEvents: getEvents(),
+    ...userInfo
+  };
+
+  if (visitorActivityId) {
+    payload.visitorActivityId = visitorActivityId;
+  }
+
+  return payload;
+}
+
+
 export function save(rating) {
     return new Promise(async (resolve, reject) => {
       const request = await fetch(`${process.env.REACT_APP_IP_INFO_URL}/${process.env.REACT_APP_IP_INFO_BASE}`);
@@ -56,19 +70,43 @@ export function save(rating) {
       userInfo['city'] = jsonResponse.city;
       userInfo['region'] = jsonResponse.region;
       userInfo['country'] = jsonResponse.country;
-
+      
       _fetch(_getSavePayload(rating, userInfo), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'POST')
       .then(res => res.json())
       .then((res=> {
-        flushEvents();
+        // flushEvents();
         _setVisitorActivityId(res.id);
-        resolve(true)
+        resolve({
+          ...res,
+          status: "ok"
+        })
       }))
       .catch(err => {
-        console.error("Error in saving rating", err);
         reject(err)
       });
     });
+}
+
+export function update(activityEventsUrl) {
+  return new Promise(async (resolve, reject) => {
+    
+    let userInfo = {};
+    userInfo['activityEventsUrl'] = activityEventsUrl;
+
+    _fetch(_getUpdatePayload(userInfo), process.env.REACT_APP_SERVER_FEEDBACK_URL, 'PUT')
+    .then(res => res.json())
+    .then((res=> {
+      // flushEvents();
+      // _setVisitorActivityId(res.id);
+      resolve({
+        ...res,
+        status: "ok"
+      })
+    }))
+    .catch(err => {
+      reject(err)
+    });
+  });
 }
 
 function _getErrorSavePayload() {
@@ -91,7 +129,6 @@ function _errorSave() {
     _setVisitorActivityId(res.id);
   }))
   .catch(err => {
-    console.error("Err:", err);
   });
 }
 
@@ -117,6 +154,5 @@ export function saveComment(comment) {
     _setVisitorActivityId(res.id);
   }))
   .catch(err => {
-    console.error("err", err);
   });
 }
