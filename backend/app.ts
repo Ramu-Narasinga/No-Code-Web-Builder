@@ -17,6 +17,7 @@ import { VisitorActivityRoutes } from './modules/visitorActivity/visitor.activit
 import { RoastMyResumeRoutes } from './modules/roastmyresume/rmr.routes.config';
 import bodyParser from 'body-parser';
 import fileUpload from 'express-fileupload';
+import { ViewsRoutes } from './modules/views/views.routes.config';
 
 // const dotenvResult = dotenv.config();
 // if (dotenvResult.error) {
@@ -80,6 +81,7 @@ routes.push(new EmailMetaRoutes(app));
 routes.push(new EmailMetaRecipientsRoutes(app));
 routes.push(new VisitorActivityRoutes(app));
 routes.push(new RoastMyResumeRoutes(app));
+routes.push(new ViewsRoutes(app));
 
 // this is a simple route to make sure everything is working properly
 const runningMessage = `Server running`;
